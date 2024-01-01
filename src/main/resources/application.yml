@@ -1,0 +1,37 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3310/board?serverTimezone=UTC
+    username: root
+    password: root123
+
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect # ??? ??? ??? ????.
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  data:
+    redis:
+      host: localhost
+      port: 6380
+
+  sql:
+    init:
+      data-locations: classpath*:db/mysql/data.sql
+
+logging:
+  level:
+    org:
+      springframework:
+        orm:
+          jpa: DEBUG
+
+server:
+  servlet:
+    encoding:
+      force-response: true

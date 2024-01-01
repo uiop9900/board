@@ -1,0 +1,30 @@
+version: "3"
+services:
+  mysql_container:
+    image: mysql:latest
+    container_name: mysql-local
+    ports:
+      - "3310:3306"
+    environment:
+      MYSQL_DATABASE: board
+      MYSQL_ROOT_PASSWORD: root123
+    command: # 명령어 실행
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - /var/folders/mysql # 다렉토리 마운트 설정
+    restart: always
+
+  redis_container:
+    image: redis:latest
+    container_name: redis_local
+    ports:
+      - 6380:6379
+    volumes:
+      - /var/folders/redis
+    labels:
+      - "name=redis"
+      - "mode=standalone"
+    # 컨테이너 종료시 재시작 여부 설정
+    restart: always
+    command: redis-server /var/folders/redis # volume 과 파일경로를 동일하게 해야한다.
