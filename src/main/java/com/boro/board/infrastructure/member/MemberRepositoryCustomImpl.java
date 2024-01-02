@@ -2,7 +2,6 @@ package com.boro.board.infrastructure.member;
 
 import static com.boro.board.domain.entity.QMember.member;
 
-import com.boro.board.domain.entity.Member;
 import com.boro.board.domain.entity.RowStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.Optional;

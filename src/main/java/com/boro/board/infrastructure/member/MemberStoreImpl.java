@@ -1,6 +1,5 @@
 package com.boro.board.infrastructure.member;
 
-import com.boro.board.domain.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -6,10 +6,10 @@ import com.boro.board.domain.member.MemberInfo;
 import com.boro.board.interfaces.dtos.CheckPasswordRequest;
 import com.boro.board.interfaces.dtos.CheckUserIdRequest;
 import com.boro.board.interfaces.dtos.CommonResponse;
+import com.boro.board.interfaces.dtos.SignInRequest;
 import com.boro.board.interfaces.dtos.SignUpRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,8 +25,8 @@ public class MemberController {
 
 	private final PasswordValidator passwordValidator;
 
-	@GetMapping("/test")
-	public String hello() {
+		@GetMapping("/test")
+		public String hello() {
 		return "hello world";
 	}
 

@@ -4,13 +4,12 @@ import static com.boro.board.domain.common.ErrorMessage.NOT_CORRECT_PASSWORD;
 import static com.boro.board.domain.common.ErrorMessage.NOT_FOUND_MEMBER;
 
 import com.boro.board.domain.common.PasswordEncrypt;
-import com.boro.board.domain.entity.Member;
+import com.boro.board.infrastructure.member.Member;
 import com.boro.board.domain.exception.MemberException;
 import com.boro.board.domain.member.MemberCommand.SignUp;
 import com.boro.board.domain.member.MemberInfo.Main;
 import com.boro.board.infrastructure.member.MemberReader;
 import com.boro.board.infrastructure.member.MemberStore;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

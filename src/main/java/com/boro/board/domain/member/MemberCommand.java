@@ -1,7 +1,6 @@
 package com.boro.board.domain.member;
 
-import com.boro.board.domain.entity.Member;
-import java.awt.print.PrinterJob;
+import com.boro.board.infrastructure.member.Member;
 import lombok.Builder;
 import lombok.Getter;
 

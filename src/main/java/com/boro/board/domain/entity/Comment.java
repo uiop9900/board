@@ -1,5 +1,6 @@
 package com.boro.board.domain.entity;
 
+import com.boro.board.infrastructure.member.Member;
 import jakarta.persistence.*;
 import java.util.List;
 import lombok.AllArgsConstructor;

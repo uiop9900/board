@@ -1,6 +1,5 @@
 package com.boro.board.infrastructure.member;
 
-import com.boro.board.domain.entity.Member;
 import com.boro.board.domain.entity.RowStatus;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
