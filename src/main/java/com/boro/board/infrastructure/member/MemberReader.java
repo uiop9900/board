@@ -5,6 +5,8 @@ import java.util.Optional;
 
 public interface MemberReader {
 
-	Integer getMember(String nickName);
+	Integer isDuplicatedByNickName(String nickName);
+
+	Optional<Member> findByPhoneNumber(String phoneNumber);
 
 }

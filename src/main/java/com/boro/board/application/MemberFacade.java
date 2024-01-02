@@ -14,4 +14,8 @@ public class MemberFacade {
 		return memberService.isDuplicatedNickName(nickName);
 	}
 
+	public boolean isDuplicatedUserPhoneNumber(String phoneNumber) {
+		memberService.isDuplicatedPhoneNumber(phoneNumber);
+	}
+
 }

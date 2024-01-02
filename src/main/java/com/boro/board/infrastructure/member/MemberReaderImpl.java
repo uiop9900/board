@@ -12,7 +12,11 @@ public class MemberReaderImpl implements MemberReader {
 
 	private final MemberRepository memberRepository;
 
-	@Override public Integer getMember(final String nickName) {
+	@Override public Integer isDuplicatedByNickName(final String nickName) {
 		return memberRepository.findByNickNameAndRowStatus(nickName, RowStatus.U);
+	}
+
+	@Override public Optional<Member> findByPhoneNumber(final String phoneNumber) {
+		return memberRepository.findMemberByPhoneNumber(phoneNumber);
 	}
 }

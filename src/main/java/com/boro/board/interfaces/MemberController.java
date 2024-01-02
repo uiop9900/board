@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberController {
 
 	private final MemberFacade memberFacade;
+
     /**
      * 회원가입
      */
@@ -24,7 +25,7 @@ public class MemberController {
      * 회원의 nickName 중복 체크
      */
 		@GetMapping("/nickname/{}")
-		public CommonResponse checkNickName(@PathVariable("nickname") String nickName) {
+		public CommonResponse<Boolean> checkNickName(@PathVariable("nickname") String nickName) {
 			return CommonResponse.success(memberFacade.isDuplicatedNickName(nickName));
 		}
 
@@ -32,6 +33,9 @@ public class MemberController {
     /**
      * 회원의 id(phoneNumber) 중복체크
      */
+		public CommonResponse<Boolean> checkUserId(@PathVariable("userId") String userId) {
+			return CommonResponse.success(memberFacade.isDuplicatedUserPhoneNumber(userId));
+		}
 
 
     /**
