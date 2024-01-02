@@ -30,6 +30,6 @@ public abstract class BaseEntity {
     @LastModifiedDate
     protected LocalDateTime updatedAt; // 수정일
 
-    protected RowStatus rowStatus; // 상태 (예: 사용, 미사용, 식제 등)
+    protected RowStatus rowStatus = RowStatus.U; // 상태 (예: 사용, 미사용, 식제 등)
 
 }

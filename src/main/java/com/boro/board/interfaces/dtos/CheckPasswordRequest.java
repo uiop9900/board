@@ -1,4 +1,4 @@
-package com.boro.board.interfaces;
+package com.boro.board.interfaces.dtos;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;

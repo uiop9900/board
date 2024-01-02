@@ -1,8 +1,10 @@
 package com.boro.board.domain.member;
 
+import com.boro.board.domain.common.PasswordEncrypt;
 import com.boro.board.domain.entity.Member;
+import com.boro.board.domain.member.MemberCommand.SignUp;
 import com.boro.board.infrastructure.member.MemberReader;
-import java.util.Optional;
+import com.boro.board.infrastructure.member.MemberStore;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,9 @@ import org.springframework.stereotype.Service;
 public class MemberServiceImpl implements MemberService {
 
 	private final MemberReader memberReader;
+
+	private final MemberStore memberStore;
+	private final PasswordEncrypt passwordEncrypt;
 
 	@Override
 	public boolean isDuplicatedNickName(final String nickName) {
@@ -26,5 +31,10 @@ public class MemberServiceImpl implements MemberService {
 		return memberReader.findByPhoneNumber(phoneNumber).orElseThrow(IllegalAccessError::new);
 	}
 
+	@Override public void signUpMember(final SignUp signUp) {
+		final String encrypt = passwordEncrypt.encrypt(signUp.getPassword());
+		final Member member = signUp.toEntity(encrypt);
+		memberStore.save(member);
+	}
 
 }
