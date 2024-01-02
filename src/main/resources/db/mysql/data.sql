@@ -15,11 +15,12 @@ create table comment (
                          row_status tinyint check (row_status between 0 and 2),
                          comment_idx bigint not null auto_increment,
                          created_at datetime(6),
-                         parent_comment_idx bigint,
+                         parrnet_comment_idx bigint,
                          post_idx bigint,
                          tag_member_idx bigint,
                          updated_at datetime(6),
                          write_member_idx bigint,
+                         content varchar(255),
                          primary key (comment_idx)
 ) engine=InnoDB
 
@@ -95,8 +96,8 @@ alter table post_like
     add constraint UK_acoex7vdwkbvteimy813jpywf unique (post_idx)
     
 alter table comment
-    add constraint FK373sxcu41j3ol9f7oet2f4yv
-        foreign key (parent_comment_idx)
+    add constraint FK94t66w7y34jd4s9nbjq03ep4k
+        foreign key (parrnet_comment_idx)
             references comment (comment_idx)
     
 alter table comment
