@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MemberRepository extends JpaRepository<Member, Long>, MemberRepositoryCustom {
 
-	Integer findByNickNameAndRowStatus(String nickName, RowStatus rowStatus);
+	Integer countMemberByNickName(String nickName);
 
 	Optional<Member> findMemberByPhoneNumber(String phoneNumber);
 

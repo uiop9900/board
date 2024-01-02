@@ -12,7 +12,7 @@ public class MemberReaderImpl implements MemberReader {
 	private final MemberRepository memberRepository;
 
 	@Override public Integer isDuplicatedByNickName(final String nickName) {
-		return memberRepository.findByNickNameAndRowStatus(nickName, RowStatus.U);
+		return memberRepository.countMemberByNickName(nickName);
 	}
 
 	@Override public Optional<Member> findByPhoneNumber(final String phoneNumber) {
