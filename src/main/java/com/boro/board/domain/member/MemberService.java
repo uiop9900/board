@@ -14,4 +14,6 @@ public interface MemberService {
 
 	void signUpMember(SignUp signUp);
 
+	MemberInfo.Main signInMember(String phoneNumber, String password);
+
 }

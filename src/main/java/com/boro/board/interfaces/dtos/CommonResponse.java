@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 public class CommonResponse<T> {
 
 	private Integer status;
+	private String message;
 	private T data;
 
 	public static <T>CommonResponse<T> success(T data) {
@@ -18,10 +19,11 @@ public class CommonResponse<T> {
 				.build();
 	}
 
-	public  static CommonResponse fail() {
+	public  static CommonResponse fail(String message) {
 		return CommonResponse.builder()
 				.status(HttpStatus.INTERNAL_SERVER_ERROR.value())
 				.data(null)
+				.message(message)
 				.build();
 	}
 

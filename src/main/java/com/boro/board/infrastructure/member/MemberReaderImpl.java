@@ -19,4 +19,5 @@ public class MemberReaderImpl implements MemberReader {
 	@Override public Optional<Member> findByPhoneNumber(final String phoneNumber) {
 		return memberRepository.findMemberByPhoneNumber(phoneNumber);
 	}
+
 }

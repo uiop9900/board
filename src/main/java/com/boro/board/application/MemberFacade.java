@@ -1,6 +1,7 @@
 package com.boro.board.application;
 
 import com.boro.board.domain.member.MemberCommand.SignUp;
+import com.boro.board.domain.member.MemberInfo;
 import com.boro.board.domain.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -21,6 +22,10 @@ public class MemberFacade {
 
 	public void signUp(SignUp signUp) {
 		memberService.signUpMember(signUp);
+	}
+
+	public MemberInfo.Main signIn(String phoneNumber, String password) {
+		return memberService.signInMember(phoneNumber, password);
 	}
 
 }
