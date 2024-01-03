@@ -24,7 +24,7 @@ public class MemberFacade {
 		memberService.signUpMember(signUp);
 	}
 
-	public MemberInfo.Main login(String phoneNumber, String password) {
+	public String login(String phoneNumber, String password) {
 		return memberService.logInMember(phoneNumber, password);
 	}
 

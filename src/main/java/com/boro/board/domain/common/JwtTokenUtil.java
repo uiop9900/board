@@ -1,26 +1,33 @@
 package com.boro.board.domain.common;
 
 
+import com.boro.board.domain.config.SecretKeyConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
+@ComponentScan("com.boro.board")
+@RequiredArgsConstructor
 public class JwtTokenUtil {
 
 	private final static Long EXPIRE_TIME_MS = 3600L;
 
-	@Value("${jwt.secret-key}")
-	public static String secretKey;
 
-	public static String createToken(String phoneNumber, String password) {
+	public static String createToken(String secretKey, String phoneNumber, String password) {
 		// Claim = Jwt Token에 들어갈 정보
 		Claims claims = Jwts.claims();
 		claims.put("phoneNumber", phoneNumber);
 
+		log.error(secretKey);
 		return Jwts.builder()
 				.setClaims(claims)
 				.setIssuedAt(new Date(System.currentTimeMillis()))

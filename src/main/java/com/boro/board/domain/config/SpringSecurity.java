@@ -1,6 +1,5 @@
 package com.boro.board.domain.config;
 
-import static com.boro.board.domain.common.JwtTokenUtil.secretKey;
 
 import com.boro.board.domain.common.JwtTokenFilter;
 import com.boro.board.domain.common.JwtTokenUtil;
@@ -24,7 +23,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @RequiredArgsConstructor
 public class SpringSecurity {
 
-	private final MemberService memberService;
 	private final JwtTokenFilter jwtTokenFilter;
 
 	// password 암호화
@@ -72,7 +70,7 @@ public class SpringSecurity {
 	private String[] getPermitAllPaths() {
 		return new String[]{
 				"/member/test",
-				"/member/sign-in",
+				"/member/log-in",
 				"/member/sign-up",
 				"/member/nickname/**",
 				"/member/phoneNumber",

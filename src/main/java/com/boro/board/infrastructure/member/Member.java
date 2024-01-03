@@ -22,7 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "MEMBER")
-public class Member extends BaseEntity implements UserDetails {
+public class Member extends BaseEntity {
 
     @Id
     @Column(name = "member_idx")
@@ -34,33 +34,4 @@ public class Member extends BaseEntity implements UserDetails {
     private String phoneNumber; // 핸드폰 번호 (ID로 사용)
     private String password; // 비밀번호
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @Builder.Default
-    private List<String> roles = new ArrayList<>();
-
-    @Override public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles.stream()
-            .map(SimpleGrantedAuthority::new)
-            .collect(Collectors.toList());
-    }
-
-    @Override public String getUsername() {
-        return null;
-    }
-
-    @Override public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override public boolean isEnabled() {
-        return false;
-    }
 }

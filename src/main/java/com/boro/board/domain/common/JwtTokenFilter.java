@@ -1,30 +1,24 @@
 package com.boro.board.domain.common;
 
-import static com.boro.board.domain.common.ErrorMessage.NOT_CORRECT_TOKEN;
-import static com.boro.board.domain.common.ErrorMessage.NOT_FOUND_TOKEN;
-import static com.boro.board.domain.common.JwtTokenUtil.secretKey;
-
-import com.boro.board.domain.exception.MemberException;
+import com.boro.board.domain.config.SecretKeyConfig;
 import com.boro.board.domain.member.MemberService;
 import com.boro.board.infrastructure.member.Member;
-import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.IOException;
+import java.util.List;
+
+
 
 @Component
 @RequiredArgsConstructor
@@ -32,6 +26,7 @@ public class JwtTokenFilter extends OncePerRequestFilter { // 매 요청마다 �
 
 	private final MemberService memberService;
 
+	private final SecretKeyConfig secretKeyConfig;
 
 	@Override protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response, final FilterChain filterChain)
 			throws ServletException, IOException {
@@ -54,13 +49,13 @@ public class JwtTokenFilter extends OncePerRequestFilter { // 매 요청마다 �
 			String token = authorizationHeader.split(" ")[1];
 
 			// 전송받은 Jwt Token이 만료되었으면 => 다음 필터 진행(인증 X)
-			if (JwtTokenUtil.isExpired(token, secretKey)) {
+			if (JwtTokenUtil.isExpired(token, secretKeyConfig.getSecretKey())) {
 				filterChain.doFilter(request, response);
 				return;
 			}
 
 			// Jwt Token에서 loginId 추출
-			String loginId = JwtTokenUtil.getLoginId(token, secretKey);
+			String loginId = JwtTokenUtil.getLoginId(token, secretKeyConfig.getSecretKey());
 
 			// 추출한 loginId로 User 찾아오기
 			Member loginUser = memberService.getMemberByPhoneNumber(loginId);

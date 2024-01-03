@@ -37,4 +37,4 @@ server:
       force-response: true
 
 jwt:
-  secret-key: wkbvkejagvikjsdbvmjkagwikebjv;
+  secret-key: "YourSecretKeyHere"

@@ -14,6 +14,6 @@ public interface MemberService {
 
 	@Transactional void signUpMember(SignUp signUp);
 
-	MemberInfo.Main logInMember(String phoneNumber, String password);
+	String logInMember(String phoneNumber, String password);
 
 }

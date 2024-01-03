@@ -65,10 +65,9 @@ public class MemberController {
     /**
      * 로그인
      */
-	@PostMapping("/sign-in")
+	@PostMapping("/log-in")
 	public CommonResponse<TokenInfo> signIn(@RequestBody @Valid SignInRequest request) {
-		return null;
-		return CommonResponse.success(memberFacade.login(request.getPhoneNumber(), request.getPassword()));
+		return CommonResponse.success(TokenInfo.of(memberFacade.login(request.getPhoneNumber(), request.getPassword())));
 	}
 
 }
