@@ -2,11 +2,18 @@ package com.boro.board.infrastructure.member;
 
 import com.boro.board.domain.entity.BaseEntity;
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.management.relation.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Getter
@@ -15,7 +22,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "MEMBER")
-public class Member extends BaseEntity {
+public class Member extends BaseEntity implements UserDetails {
 
     @Id
     @Column(name = "member_idx")
@@ -27,4 +34,33 @@ public class Member extends BaseEntity {
     private String phoneNumber; // 핸드폰 번호 (ID로 사용)
     private String password; // 비밀번호
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<String> roles = new ArrayList<>();
+
+    @Override public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles.stream()
+            .map(SimpleGrantedAuthority::new)
+            .collect(Collectors.toList());
+    }
+
+    @Override public String getUsername() {
+        return null;
+    }
+
+    @Override public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override public boolean isEnabled() {
+        return false;
+    }
 }

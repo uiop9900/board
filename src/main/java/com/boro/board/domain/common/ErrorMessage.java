@@ -7,4 +7,9 @@ public class ErrorMessage {
 
 	public final static String NOT_CORRECT_PASSWORD = "비밀번호가 일치하지 않습니다.";
 
+	// token
+	public final static String NOT_CORRECT_TOKEN = "잘못된 토큰입니다.";
+
+	public final static String NOT_FOUND_TOKEN = "로그인을 진행해주세요.";
+
 }

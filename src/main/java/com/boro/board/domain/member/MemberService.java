@@ -2,6 +2,7 @@ package com.boro.board.domain.member;
 
 import com.boro.board.infrastructure.member.Member;
 import com.boro.board.domain.member.MemberCommand.SignUp;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface MemberService {
 
@@ -11,8 +12,8 @@ public interface MemberService {
 
 	Member getMemberByPhoneNumber(String phoneNumber);
 
-	void signUpMember(SignUp signUp);
+	@Transactional void signUpMember(SignUp signUp);
 
-	MemberInfo.Main signInMember(String phoneNumber, String password);
+	MemberInfo.Main logInMember(String phoneNumber, String password);
 
 }

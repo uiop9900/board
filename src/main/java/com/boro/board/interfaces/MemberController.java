@@ -2,12 +2,12 @@ package com.boro.board.interfaces;
 
 import com.boro.board.application.MemberFacade;
 import com.boro.board.domain.common.PasswordValidator;
-import com.boro.board.domain.member.MemberInfo;
 import com.boro.board.interfaces.dtos.CheckPasswordRequest;
 import com.boro.board.interfaces.dtos.CheckUserIdRequest;
 import com.boro.board.interfaces.dtos.CommonResponse;
 import com.boro.board.interfaces.dtos.SignInRequest;
 import com.boro.board.interfaces.dtos.SignUpRequest;
+import com.boro.board.interfaces.dtos.TokenInfo;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -66,8 +66,9 @@ public class MemberController {
      * 로그인
      */
 	@PostMapping("/sign-in")
-	public CommonResponse<MemberInfo.Main> signIn(@RequestBody @Valid SignInRequest request) {
-		return CommonResponse.success(memberFacade.signIn(request.getPhoneNumber(), request.getPassword()));
+	public CommonResponse<TokenInfo> signIn(@RequestBody @Valid SignInRequest request) {
+		return null;
+		return CommonResponse.success(memberFacade.login(request.getPhoneNumber(), request.getPassword()));
 	}
 
 }
