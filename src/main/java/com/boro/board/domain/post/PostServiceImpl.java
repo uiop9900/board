@@ -46,6 +46,13 @@ public class PostServiceImpl implements PostService {
 		postStore.updateHashTags(post, hashTags);
 	}
 
+	@Override
+	@Transactional public void deletePost(final Long postIdx) {
+		final Post post = postReader.findPostByIdx(postIdx);
+		post.delete();
+		postStore.deleteHashTags(postIdx);
+	}
+
 	public Optional<Member> findMemberForMention(Create create) {
 		Optional<Member> member = Optional.empty();
 		if (create.getMemberIdx() != null) {

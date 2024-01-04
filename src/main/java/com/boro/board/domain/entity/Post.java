@@ -43,4 +43,8 @@ public class Post extends BaseEntity {
         this.member = member.isPresent() ? member.get() : null;
         this.hashTags = hashTags;
     }
+
+    public void delete() {
+        this.rowStatus = RowStatus.D;
+    }
 }

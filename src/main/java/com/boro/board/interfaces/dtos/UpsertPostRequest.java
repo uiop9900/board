@@ -1,4 +1,4 @@
-package com.boro.board.interfaces;
+package com.boro.board.interfaces.dtos;
 
 import com.boro.board.domain.post.PostCommand.Create;
 import jakarta.annotation.Nullable;

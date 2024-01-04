@@ -19,6 +19,13 @@ public class CommonResponse<T> {
 				.build();
 	}
 
+	public static CommonResponse success() {
+		return CommonResponse.builder()
+				.status(HttpStatus.OK.value())
+				.data("success")
+				.build();
+	}
+
 	public  static CommonResponse fail(String message) {
 		return CommonResponse.builder()
 				.status(HttpStatus.INTERNAL_SERVER_ERROR.value())

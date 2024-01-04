@@ -19,5 +19,8 @@ public class PostFacade {
 		}
 	}
 
+	public void deletePost(String postIdx) {
+		postService.deletePost(Long.parseLong(postIdx));
+	}
 
 }
