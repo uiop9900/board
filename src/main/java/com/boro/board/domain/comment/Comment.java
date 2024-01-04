@@ -25,7 +25,7 @@ public class Comment extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx; // idx
 
-    private String content; // 댓글 내용
+    private String content; // 댓글 내용원
 
     // 부모 정의
     @ManyToOne(fetch = FetchType.LAZY)

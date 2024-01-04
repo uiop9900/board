@@ -2,6 +2,9 @@ package com.boro.board.domain.comment;
 
 import com.boro.board.domain.post.Post;
 import com.boro.board.domain.member.Member;
+import com.sun.security.auth.UserPrincipal;
+import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -11,17 +14,19 @@ public class CommentCommand {
 	@Getter
 	public static class Create {
 
-		private String postIdx; // idx가 있으면 update, 없으면 insert
-		private String title;
-		private String content;
-		private String memberIdx;
-		private String hashTags; // 해시태그 리스트 ex) #안녕 #하이 #자바 #자바스크립트
+		private String postIdx; // post의 idx
+		private String parentCommentIdx; // 대댓글의 경우, 상위 댓글
+		private String comment; // 댓글내용
+		private String tagMemberIdx; // 언급당한 회원
+		private String writerIdx; // 작성자
 
-		public Post toEntity(Member member) {
-			return Post.builder()
-					.title(title)
-					.content(content)
-					.member(member)
+		public Comment toEntity(Post post, Comment parentComment, Member tagMember) {
+			return Comment.builder()
+					.post(post)
+					.parentComment(parentComment)
+					.content(comment)
+					.tagMember(tagMember)
+					.writer(UserPrincipal.get().getMember())
 					.build();
 		}
 

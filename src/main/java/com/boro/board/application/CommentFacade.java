@@ -1,5 +1,6 @@
 package com.boro.board.application;
 
+import com.boro.board.domain.comment.CommentCommand;
 import com.boro.board.domain.comment.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -10,8 +11,8 @@ public class CommentFacade {
 
 	private final CommentService commentService;
 
-	public void upsertComment() {
-
+	public void upsertComment(CommentCommand.Create create) {
+		commentService.createComment(create);
 	}
 
 }
