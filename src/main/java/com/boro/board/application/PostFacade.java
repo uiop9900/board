@@ -13,12 +13,10 @@ public class PostFacade {
 	private final PostService postService;
 	public void upsertPost(PostCommand.Create create) {
 		if (StringUtils.hasText(create.getPostIdx())) {
-			// update
 			postService.updatePost(create);
+		} else {
+			postService.createPost(create);
 		}
-
-		// insert
-		postService.createPost(create);
 	}
 
 
