@@ -1,14 +1,11 @@
 package com.boro.board.domain.post;
 
-import com.boro.board.domain.entity.HashTag;
-import com.boro.board.domain.entity.Post;
 import com.boro.board.domain.post.PostCommand.Create;
-import com.boro.board.infrastructure.member.Member;
+import com.boro.board.domain.member.Member;
 import com.boro.board.infrastructure.member.MemberReader;
 import com.boro.board.infrastructure.post.PostReader;
 import com.boro.board.infrastructure.post.PostStore;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

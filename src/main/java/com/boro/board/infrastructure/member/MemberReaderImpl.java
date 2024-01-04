@@ -2,8 +2,8 @@ package com.boro.board.infrastructure.member;
 
 import static com.boro.board.domain.common.ErrorMessage.NOT_FOUND_MEMBER;
 
-import com.boro.board.domain.entity.RowStatus;
 import com.boro.board.domain.exception.MemberException;
+import com.boro.board.domain.member.Member;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

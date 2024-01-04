@@ -2,10 +2,10 @@ package com.boro.board.interfaces;
 
 import com.boro.board.application.PostFacade;
 import com.boro.board.interfaces.dtos.CommonResponse;
+import com.boro.board.interfaces.dtos.DeletePostRequest;
 import com.boro.board.interfaces.dtos.UpsertPostRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.event.spi.PostDeleteEvent;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

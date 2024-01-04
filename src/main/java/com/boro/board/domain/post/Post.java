@@ -1,11 +1,11 @@
-package com.boro.board.domain.entity;
+package com.boro.board.domain.post;
 
+import com.boro.board.domain.entity.BaseEntity;
+import com.boro.board.domain.entity.RowStatus;
 import com.boro.board.domain.post.PostCommand.Create;
-import com.boro.board.domain.post.PostCommand.Update;
-import com.boro.board.infrastructure.member.Member;
+import com.boro.board.domain.member.Member;
 import jakarta.persistence.*;
 import java.util.List;
-import java.util.Optional;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,7 +33,7 @@ public class Post extends BaseEntity {
     @JoinColumn(name = "member_idx")
     private Member member; // 게시글 작성하는 member
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post", cascade = CascadeType.ALL) // 기존꺼 삭제
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post", cascade = CascadeType.ALL)
     private List<HashTag> hashTags;
 
 

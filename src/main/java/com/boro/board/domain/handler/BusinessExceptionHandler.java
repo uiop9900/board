@@ -1,6 +1,5 @@
 package com.boro.board.domain.handler;
 
-import com.boro.board.domain.entity.Post;
 import com.boro.board.domain.exception.MemberException;
 import com.boro.board.domain.exception.PostException;
 import com.boro.board.interfaces.dtos.CommonResponse;

@@ -1,6 +1,7 @@
-package com.boro.board.domain.entity;
+package com.boro.board.domain.comment;
 
-import com.boro.board.infrastructure.member.Member;
+import com.boro.board.domain.entity.BaseEntity;
+import com.boro.board.domain.member.Member;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

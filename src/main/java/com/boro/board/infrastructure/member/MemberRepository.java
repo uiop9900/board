@@ -1,6 +1,6 @@
 package com.boro.board.infrastructure.member;
 
-import com.boro.board.domain.entity.RowStatus;
+import com.boro.board.domain.member.Member;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 

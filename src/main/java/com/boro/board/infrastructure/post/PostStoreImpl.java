@@ -1,8 +1,7 @@
 package com.boro.board.infrastructure.post;
 
-import com.boro.board.domain.entity.HashTag;
-import com.boro.board.domain.entity.Post;
-import com.boro.board.domain.post.PostCommand.Create;
+import com.boro.board.domain.post.HashTag;
+import com.boro.board.domain.post.Post;
 import com.boro.board.infrastructure.member.PostRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

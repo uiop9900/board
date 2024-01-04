@@ -2,7 +2,7 @@ package com.boro.board.domain.common;
 
 import com.boro.board.domain.config.SecretKeyConfig;
 import com.boro.board.domain.member.MemberService;
-import com.boro.board.infrastructure.member.Member;
+import com.boro.board.domain.member.Member;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

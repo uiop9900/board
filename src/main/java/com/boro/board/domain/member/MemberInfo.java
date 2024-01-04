@@ -1,6 +1,5 @@
 package com.boro.board.domain.member;
 
-import com.boro.board.infrastructure.member.Member;
 import com.boro.board.domain.entity.RowStatus;
 import lombok.Builder;
 

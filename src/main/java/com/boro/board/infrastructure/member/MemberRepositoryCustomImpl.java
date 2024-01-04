@@ -1,6 +1,7 @@
 package com.boro.board.infrastructure.member;
 
 import com.boro.board.domain.entity.RowStatus;
+import com.boro.board.domain.member.Member;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;

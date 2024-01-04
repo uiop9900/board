@@ -1,15 +1,9 @@
 package com.boro.board.domain.post;
 
-import com.boro.board.domain.entity.HashTag;
-import com.boro.board.domain.entity.Post;
-import com.boro.board.domain.post.HashTagCommand.Create;
-import com.boro.board.infrastructure.member.Member;
-import jakarta.annotation.Nullable;
-import jakarta.validation.constraints.NotEmpty;
+import com.boro.board.domain.member.Member;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.Getter;

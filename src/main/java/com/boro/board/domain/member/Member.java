@@ -1,20 +1,14 @@
-package com.boro.board.infrastructure.member;
+package com.boro.board.domain.member;
 
 import com.boro.board.domain.entity.BaseEntity;
-import com.boro.board.domain.entity.Post;
+import com.boro.board.domain.post.Post;
 import jakarta.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
-import javax.management.relation.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Getter
