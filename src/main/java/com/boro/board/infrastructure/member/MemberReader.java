@@ -8,4 +8,6 @@ public interface MemberReader {
 
 	Optional<Member> findByPhoneNumber(String phoneNumber);
 
+	Optional<Member> findByIdx(Long memberIdx);
+
 }

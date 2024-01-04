@@ -2,6 +2,7 @@ package com.boro.board.domain.entity;
 
 import com.boro.board.infrastructure.member.Member;
 import jakarta.persistence.*;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,4 +29,7 @@ public class Post extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "member_idx")
     private Member member; // 게시글 작성하는 member
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true) // 기존꺼 삭제
+    private List<HashTag> hashTags;
 }

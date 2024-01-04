@@ -19,4 +19,8 @@ public class MemberReaderImpl implements MemberReader {
 		return memberRepository.findMemberByPhoneNumber(phoneNumber);
 	}
 
+	@Override public Optional<Member> findByIdx(final Long memberIdx) {
+		return memberRepository.findById(memberIdx);
+	}
+
 }
