@@ -19,10 +19,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class JwtTokenUtil {
 
-	private final static Long EXPIRE_TIME_MS = 3600L;
+	private final static Long EXPIRE_TIME_MS = 720000L;
 
-
-	public static String createToken(String secretKey, String phoneNumber, String password) {
+	public static String createToken(String secretKey, String phoneNumber) {
 		// Claim = Jwt Token에 들어갈 정보
 		Claims claims = Jwts.claims();
 		claims.put("phoneNumber", phoneNumber);

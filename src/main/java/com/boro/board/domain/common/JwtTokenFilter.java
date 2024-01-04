@@ -3,6 +3,7 @@ package com.boro.board.domain.common;
 import com.boro.board.domain.config.SecretKeyConfig;
 import com.boro.board.domain.member.MemberService;
 import com.boro.board.domain.member.Member;
+import com.boro.board.interfaces.dtos.UserPrincipal;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,13 +35,8 @@ public class JwtTokenFilter extends OncePerRequestFilter { // 매 요청마다 �
 			String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
 			// Header의 Authorization 값이 비어있으면 => Jwt Token을 전송하지 않음 => 로그인 하지 않음
-			if (authorizationHeader == null) {
-				filterChain.doFilter(request, response);
-				return;
-			}
-
 			// Header의 Authorization 값이 'Bearer '로 시작하지 않으면 => 잘못된 토큰
-			if (!authorizationHeader.startsWith("Bearer ")) {
+			if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
 				filterChain.doFilter(request, response);
 				return;
 			}
@@ -58,16 +54,18 @@ public class JwtTokenFilter extends OncePerRequestFilter { // 매 요청마다 �
 			String loginId = JwtTokenUtil.getLoginId(token, secretKeyConfig.getSecretKey());
 
 			// 추출한 loginId로 User 찾아오기
-			Member loginUser = memberService.getMemberByPhoneNumber(loginId);
+		final Member member = memberService.getMemberByPhoneNumber(loginId);
+		final UserPrincipal userPrincipal = UserPrincipal.toUserPrincipal(member);
 
-			// loginUser 정보로 UsernamePasswordAuthenticationToken 발급
+		// loginUser 정보로 UsernamePasswordAuthenticationToken 발급
 		final UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-				loginUser.getPhoneNumber(),
-				null,
+				userPrincipal,
+				authorizationHeader,
 				List.of(new SimpleGrantedAuthority("ROLE_USER")));
 
 			// 권한 부여
 			SecurityContextHolder.getContext().setAuthentication(authentication);
+
 			filterChain.doFilter(request, response);
 		}
 }

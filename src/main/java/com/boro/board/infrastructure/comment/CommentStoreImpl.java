@@ -13,7 +13,6 @@ public class CommentStoreImpl implements CommentStore {
 	private final CommentRepository commentRepository;
 
 	@Override
-	@Transactional
 	public void save(final Comment comment) {
 		commentRepository.save(comment);
 	}

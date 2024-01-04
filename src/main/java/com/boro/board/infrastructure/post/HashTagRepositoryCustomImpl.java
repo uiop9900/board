@@ -1,6 +1,6 @@
 package com.boro.board.infrastructure.post;
 
-import static com.boro.board.domain.entity.QHashTag.hashTag;
+import static com.boro.board.domain.post.QHashTag.hashTag;
 
 import com.boro.board.domain.entity.RowStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;

@@ -1,7 +1,9 @@
 package com.boro.board.interfaces;
 
 import com.boro.board.application.MemberFacade;
+import com.boro.board.domain.common.JwtTokenUtil;
 import com.boro.board.domain.common.PasswordValidator;
+import com.boro.board.domain.config.SecretKeyConfig;
 import com.boro.board.interfaces.dtos.CheckPasswordRequest;
 import com.boro.board.interfaces.dtos.CheckUserIdRequest;
 import com.boro.board.interfaces.dtos.CommonResponse;
@@ -20,6 +22,8 @@ public class MemberController {
 	private final MemberFacade memberFacade;
 
 	private final PasswordValidator passwordValidator;
+
+	private final SecretKeyConfig secretKeyConfig;
 
 	@GetMapping("/test")
 	public String hello() {
@@ -67,7 +71,9 @@ public class MemberController {
      */
 	@PostMapping("/log-in")
 	public CommonResponse<TokenInfo> signIn(@RequestBody @Valid SignInRequest request) {
-		return CommonResponse.success(TokenInfo.of(memberFacade.login(request.getPhoneNumber(), request.getPassword())));
+		memberFacade.setAuthentication(request.getPhoneNumber(), request.getPassword());
+		final String token = JwtTokenUtil.createToken(secretKeyConfig.getSecretKey(), request.getPhoneNumber());
+		return CommonResponse.success(TokenInfo.of(token));
 	}
 
 }

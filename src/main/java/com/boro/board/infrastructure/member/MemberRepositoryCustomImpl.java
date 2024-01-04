@@ -1,13 +1,13 @@
 package com.boro.board.infrastructure.member;
 
+import static com.boro.board.domain.member.QMember.member;
+
 import com.boro.board.domain.entity.RowStatus;
 import com.boro.board.domain.member.Member;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-
-import static com.boro.board.infrastructure.member.QMember.member;
 
 @Repository
 @RequiredArgsConstructor

@@ -20,13 +20,13 @@ public class CommentCommand {
 		private String tagMemberIdx; // 언급당한 회원
 		private String writerIdx; // 작성자
 
-		public Comment toEntity(Post post, Comment parentComment, Member tagMember) {
+		public Comment toEntity(Post post, Comment parentComment, Member tagMember, Member writer) {
 			return Comment.builder()
 					.post(post)
 					.parentComment(parentComment)
 					.content(comment)
 					.tagMember(tagMember)
-					.writer(UserPrincipal.get().getMember())
+					.writer(writer)
 					.build();
 		}
 

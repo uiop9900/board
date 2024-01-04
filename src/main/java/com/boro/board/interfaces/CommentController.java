@@ -23,8 +23,12 @@ public class CommentController {
      */
 		@PostMapping
 		public CommonResponse createComment(@RequestBody @Valid UpsertCommentRequest request) {
-			return null;
+			commentFacade.upsertComment(request.toCommand());
+			return CommonResponse.success();
 		}
+
+
+
 
     /**
      * 댓글 삭제

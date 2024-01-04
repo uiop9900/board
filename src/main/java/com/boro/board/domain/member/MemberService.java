@@ -13,6 +13,6 @@ public interface MemberService {
 
 	@Transactional void signUpMember(SignUp signUp);
 
-	String logInMember(String phoneNumber, String password);
+	void logInMember(String phoneNumber, String password);
 
 }

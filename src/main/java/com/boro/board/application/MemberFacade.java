@@ -24,8 +24,12 @@ public class MemberFacade {
 		memberService.signUpMember(signUp);
 	}
 
-	public String login(String phoneNumber, String password) {
-		return memberService.logInMember(phoneNumber, password);
+	public void login(String phoneNumber, String password) {
+		memberService.logInMember(phoneNumber, password);
+	}
+
+	public void setAuthentication(String phoneNumber, String password) {
+		memberService.logInMember(phoneNumber, password);
 	}
 
 }
