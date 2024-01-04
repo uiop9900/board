@@ -29,7 +29,7 @@ public class Post extends BaseEntity {
     private String title; // 게시글 제목
     private String content; // 게시글 내용
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "member_idx")
     private Member member; // 게시글 작성하는 member
 
@@ -37,10 +37,10 @@ public class Post extends BaseEntity {
     private List<HashTag> hashTags;
 
 
-    public void update(Create create, Optional<Member> member, List<HashTag> hashTags) {
+    public void update(Create create, Member member, List<HashTag> hashTags) {
         this.title = create.getTitle();
         this.content = create.getContent();
-        this.member = member.isPresent() ? member.get() : null;
+        this.member = member;
         this.hashTags = hashTags;
     }
 

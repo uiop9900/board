@@ -30,7 +30,7 @@ public class MemberController {
      * 회원가입
      */
 	@PostMapping("/sign-up")
-	public CommonResponse<Boolean> signUp(SignUpRequest request) {
+	public CommonResponse<Boolean> signUp(@RequestBody @Valid SignUpRequest request) {
 		memberFacade.signUp(request.toCommand());
 		return CommonResponse.success(true); // 회원가입 성공 시 true 반환
 	}

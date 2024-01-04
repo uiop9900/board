@@ -53,13 +53,12 @@ public class PostServiceImpl implements PostService {
 		postStore.deleteHashTags(postIdx);
 	}
 
-	public Optional<Member> findMemberForMention(Create create) {
-		Optional<Member> member = Optional.empty();
+	public Member findMemberForMention(Create create) {
 		if (create.getMemberIdx() != null) {
-			member = memberReader.findByIdx(Long.parseLong(create.getMemberIdx()));
+			return memberReader.findByIdx(Long.parseLong(create.getMemberIdx()));
 		}
 
-		return member;
+		return null;
 
 	}
 }

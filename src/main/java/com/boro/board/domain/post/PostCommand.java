@@ -26,11 +26,11 @@ public class PostCommand {
 		private String memberIdx;
 		private String hashTags; // 해시태그 리스트 ex) #안녕 #하이 #자바 #자바스크립트
 
-		public Post toEntity(Optional<Member> member) {
+		public Post toEntity(Member member) {
 			return Post.builder()
 					.title(title)
 					.content(content)
-					.member(member.isPresent() ? member.get() : null)
+					.member(member)
 					.build();
 		}
 

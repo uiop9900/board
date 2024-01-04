@@ -1,6 +1,7 @@
 package com.boro.board.infrastructure.member;
 
 import com.boro.board.domain.entity.BaseEntity;
+import com.boro.board.domain.entity.Post;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,4 +35,6 @@ public class Member extends BaseEntity {
     private String phoneNumber; // 핸드폰 번호 (ID로 사용)
     private String password; // 비밀번호
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Post> posts;
 }

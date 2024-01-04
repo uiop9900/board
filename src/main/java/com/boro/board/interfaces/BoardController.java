@@ -39,8 +39,7 @@ public class BoardController {
 
 
     /**
-     * 게시글 삭제
-     * -> 해당 게시글의 댓글도 삭제한다.
+     * 게시글 삭제(게시글의 댓글도 삭제한다)
      */
 		@DeleteMapping
 		public CommonResponse deletePost(@RequestBody @Valid DeletePostRequest request) {
