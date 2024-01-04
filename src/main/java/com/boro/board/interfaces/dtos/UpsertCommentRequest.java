@@ -21,7 +21,7 @@ public class UpsertCommentRequest {
 		return CommentCommand.Create.builder()
 				.postIdx(postIdx)
 				.parentCommentIdx(parentCommentIdx)
-				.comment(comment)
+				.content(comment)
 				.tagMemberIdx(tagMemberIdx)
 				.build();
 	}
