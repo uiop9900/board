@@ -2,13 +2,10 @@ package com.boro.board.interfaces;
 
 import com.boro.board.application.CommentFacade;
 import com.boro.board.interfaces.dtos.CommonResponse;
-import com.boro.board.interfaces.dtos.UpsertCommentRequest;
+import com.boro.board.interfaces.dtos.CreateCommentRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/comment")
@@ -21,18 +18,28 @@ public class CommentController {
      * 댓글 작성 / 수정
      * 댓글 작성시, 회원 멘션 가능
      */
-		@PostMapping
-		public CommonResponse createComment(@RequestBody @Valid UpsertCommentRequest request) {
-			commentFacade.upsertComment(request.toCommand());
-			return CommonResponse.success();
-		}
+	@PostMapping
+	public CommonResponse createComment(@RequestBody @Valid CreateCommentRequest request) {
+		commentFacade.createComment(request.toCommand());
+		return CommonResponse.success();
+	}
 
-
+	@PatchMapping
+	public CommonResponse updateComment(@RequestBody @Valid UpdateCommentRequest request) {
+		commentFacade.updateComment(request.toCommand());
+		return CommonResponse.success();
+	}
 
 
     /**
      * 댓글 삭제
      */
+	@DeleteMapping
+	public CommonResponse deleteComment(@RequestBody @Valid DeleteCommentRequest request) {
+		commentFacade.deleteComment(request.getCommentIdx());
+		return CommonResponse.success();
+	}
+
 
     /**
      * 댓글 작성시, 회원 멘션을 위해 회원 조회 API

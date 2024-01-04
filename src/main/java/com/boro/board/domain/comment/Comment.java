@@ -1,6 +1,7 @@
 package com.boro.board.domain.comment;
 
 import com.boro.board.domain.entity.BaseEntity;
+import com.boro.board.domain.entity.RowStatus;
 import com.boro.board.domain.post.Post;
 import com.boro.board.domain.member.Member;
 import jakarta.persistence.*;
@@ -47,4 +48,23 @@ public class Comment extends BaseEntity {
     // 추가적으로 대댓글들과의 관계를 설정해주는 필드도 추가할 수 있습니다.
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentComment", cascade = CascadeType.ALL)
     private List<Comment> comments; // 대댓글들
+
+    public void update(String content, Member member) {
+        this.content = content;
+        this.tagMember = member;
+    }
+
+
+    public void unUse() {
+        this.content = "댓글이 삭제되었습니다.";
+        this.rowStatus = RowStatus.N;
+    }
+
+    public void delete() {
+        this.rowStatus = RowStatus.D;
+    }
+
+    public Boolean isUnUsed() {
+        return this.rowStatus == RowStatus.N;
+    }
 }

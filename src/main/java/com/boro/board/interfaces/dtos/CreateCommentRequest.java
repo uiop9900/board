@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 
 @Getter
-public class UpsertCommentRequest {
+public class CreateCommentRequest {
 
 	@NotEmpty
 	private String postIdx; // post의 idx

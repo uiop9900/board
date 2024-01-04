@@ -11,8 +11,16 @@ public class CommentFacade {
 
 	private final CommentService commentService;
 
-	public void upsertComment(CommentCommand.Create create) {
+	public void createComment(CommentCommand.Create create) {
 		commentService.createComment(create);
+	}
+
+	public void updateComment(CommentCommand.Update update) {
+		commentService.updateComment(update);
+	}
+
+	public void deleteComment(String commentIdx) {
+		commentService.deleteComment(commentIdx);
 	}
 
 }

@@ -31,4 +31,11 @@ public class CommentCommand {
 	}
 
 
+	@Builder
+	@Getter
+	public class Update {
+		private String commentIdx;
+		private String content;
+		private String tagMemberIdx;
+	}
 }
