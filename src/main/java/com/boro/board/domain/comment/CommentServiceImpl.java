@@ -36,7 +36,7 @@ public class CommentServiceImpl implements CommentService {
 		final Post post = postReader.findPostByIdx(Long.parseLong(create.getPostIdx()));
 		final Member writer = memberReader.findByIdx(UserPrincipal.get().getMemberIdx());
 
-		final Comment comment = create.toEntity(post, findCommentForReply(create.getCommentIdx()), findMemberForMention(create.getTagMemberIdx()), writer);
+		final Comment comment = create.toEntity(post, findCommentForReply(create.getParentCommentIdx()), findMemberForMention(create.getTagMemberIdx()), writer);
 
 		commentStore.save(comment);
 	}
@@ -56,16 +56,13 @@ public class CommentServiceImpl implements CommentService {
 		Comment parentComment = comment.getParentComment();
 		Optional<Comment> childComment = commentReader.findChildCommentByCommentIdx(Long.parseLong(commentIdx));
 
-		if (parentComment != null && parentComment.isUnUsed()) { // 부모 코멘트가 미사용 댓글이다.
-			parentComment.delete();
-		}
-
-		if (childComment.isPresent()) { // 자식 댓글이 존재 -> 미사용
-			comment.isUnUsed();
-		} else { // 없으면 삭제
+		if (comment.isFirstComment()) {
+			parentComment.unUse();
+		} else {
 			comment.delete();
 		}
 	}
+
 
 	public Comment findCommentForReply(String commentIdx) {
 		if (commentIdx != null) {

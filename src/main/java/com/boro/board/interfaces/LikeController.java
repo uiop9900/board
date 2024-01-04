@@ -19,9 +19,9 @@ public class LikeController {
     /**
      * 게시글/댓글에 대한 좋아요 처리
      */
-		@PostMapping
-		public CommonResponse<Long> likeBoard(@RequestBody LikeBoardRequest request) {
-			return null;
-		}
+	@PostMapping
+	public CommonResponse<Long> likeBoard(@RequestBody LikeBoardRequest request) {
+		return null;
+	}
 
 }

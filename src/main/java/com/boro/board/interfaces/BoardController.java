@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class BoardController {
 
-		private final PostFacade postFacade;
+	private final PostFacade postFacade;
 
 
     /**
@@ -31,21 +31,21 @@ public class BoardController {
      * 게시글 작성/수정
      * 해시태그 여러개를 넣을 수 있다.
      */
-		@PostMapping
-		public CommonResponse upsertPost(@RequestBody @Valid UpsertPostRequest request) {
-			postFacade.upsertPost(request.toCommand());
-			return CommonResponse.success();
-		}
+	@PostMapping
+	public CommonResponse upsertPost(@RequestBody @Valid UpsertPostRequest request) {
+		postFacade.upsertPost(request.toCommand());
+		return CommonResponse.success();
+	}
 
 
     /**
      * 게시글 삭제(게시글의 댓글도 삭제한다)
      */
-		@DeleteMapping
-		public CommonResponse deletePost(@RequestBody @Valid DeletePostRequest request) {
-			postFacade.deletePost(request.getPostIdx());
-			return CommonResponse.success();
-		}
+	@DeleteMapping
+	public CommonResponse deletePost(@RequestBody @Valid DeletePostRequest request) {
+		postFacade.deletePost(request.getPostIdx());
+		return CommonResponse.success();
+	}
 
 
     /**

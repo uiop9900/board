@@ -11,7 +11,6 @@ public class CommentCommand {
 	@Getter
 	public static class Create {
 
-		private String commentIdx; // 댓글의 idx
 		private String postIdx; // 게시글의 idx
 		private String parentCommentIdx; // 대댓글의 경우, 상위 댓글
 		private String content; // 댓글 내용
@@ -33,7 +32,7 @@ public class CommentCommand {
 
 	@Builder
 	@Getter
-	public class Update {
+	public static class Update {
 		private String commentIdx;
 		private String content;
 		private String tagMemberIdx;

@@ -3,6 +3,8 @@ package com.boro.board.interfaces;
 import com.boro.board.application.CommentFacade;
 import com.boro.board.interfaces.dtos.CommonResponse;
 import com.boro.board.interfaces.dtos.CreateCommentRequest;
+import com.boro.board.interfaces.dtos.DeleteCommentRequest;
+import com.boro.board.interfaces.dtos.UpdateCommentRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,9 @@ public class CommentController {
 		return CommonResponse.success();
 	}
 
+	/**
+	 * 댓글 수정
+	 */
 	@PatchMapping
 	public CommonResponse updateComment(@RequestBody @Valid UpdateCommentRequest request) {
 		commentFacade.updateComment(request.toCommand());
@@ -44,6 +49,7 @@ public class CommentController {
     /**
      * 댓글 작성시, 회원 멘션을 위해 회원 조회 API
      */
+
 
     /**
      * 멘션된 사용자의 댓글을 모아보기가 가능하다.

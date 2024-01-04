@@ -67,4 +67,8 @@ public class Comment extends BaseEntity {
     public Boolean isUnUsed() {
         return this.rowStatus == RowStatus.N;
     }
+
+    public Boolean isFirstComment() {
+        return this.parentComment == null;
+    }
 }

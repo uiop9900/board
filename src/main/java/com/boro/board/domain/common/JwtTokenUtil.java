@@ -2,6 +2,7 @@ package com.boro.board.domain.common;
 
 
 import com.boro.board.domain.config.SecretKeyConfig;
+import com.boro.board.domain.member.Member;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

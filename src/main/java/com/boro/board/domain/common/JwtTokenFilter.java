@@ -46,8 +46,9 @@ public class JwtTokenFilter extends OncePerRequestFilter { // 매 요청마다 �
 
 			// 전송받은 Jwt Token이 만료되었으면 => 다음 필터 진행(인증 X)
 			if (JwtTokenUtil.isExpired(token, secretKeyConfig.getSecretKey())) {
-				filterChain.doFilter(request, response);
-				return;
+				throw new RuntimeException("token시간이 만료되었습니다.");
+//				filterChain.doFilter(request, response);
+//				return;
 			}
 
 			// Jwt Token에서 loginId 추출
