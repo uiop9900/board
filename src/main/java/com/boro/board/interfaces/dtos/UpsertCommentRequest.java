@@ -16,8 +16,6 @@ public class UpsertCommentRequest {
 	private String comment; // 댓글내용
 	@Nullable
 	private String tagMemberIdx; // 언급당한 회원
-	@NotEmpty
-	private String writerIdx; // 작성자
 
 	public CommentCommand.Create toCommand() {
 		return CommentCommand.Create.builder()
@@ -25,7 +23,6 @@ public class UpsertCommentRequest {
 				.parentCommentIdx(parentCommentIdx)
 				.comment(comment)
 				.tagMemberIdx(tagMemberIdx)
-				.writerIdx(writerIdx)
 				.build();
 	}
 

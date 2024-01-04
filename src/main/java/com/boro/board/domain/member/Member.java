@@ -1,5 +1,6 @@
 package com.boro.board.domain.member;
 
+import com.boro.board.domain.comment.Comment;
 import com.boro.board.domain.entity.BaseEntity;
 import com.boro.board.domain.post.Post;
 import jakarta.persistence.*;
@@ -31,4 +32,11 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Post> posts;
+
+    @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Comment> comments;
+
+    @OneToMany(mappedBy = "tagMember", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Comment> commentList;
+
 }

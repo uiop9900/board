@@ -1,5 +1,6 @@
 package com.boro.board.domain.post;
 
+import com.boro.board.domain.comment.Comment;
 import com.boro.board.domain.entity.BaseEntity;
 import com.boro.board.domain.entity.RowStatus;
 import com.boro.board.domain.post.PostCommand.Create;
@@ -33,8 +34,11 @@ public class Post extends BaseEntity {
     @JoinColumn(name = "member_idx")
     private Member member; // 게시글 작성하는 member
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<HashTag> hashTags;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Comment> comments; // 게시글 댓글들
 
 
     public void update(Create create, Member member, List<HashTag> hashTags) {

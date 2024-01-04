@@ -29,21 +29,20 @@ public class Comment extends BaseEntity {
 
     // 부모 정의
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parrnet_comment_idx", referencedColumnName = "comment_idx")
+    @JoinColumn(name = "parennt_comment_idx", referencedColumnName = "comment_idx")
     private Comment parentComment; // 대댓글을 위한 부모 댓글
 
-    @OneToOne
-    @JoinColumn(referencedColumnName = "post_idx", insertable = false, updatable = false)
+    @ManyToOne
+    @JoinColumn(name = "post_idx", referencedColumnName = "post_idx")
     private Post post;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "member_idx", insertable = false, updatable = false)
+    @JoinColumn(name = "member_idx", referencedColumnName = "member_idx")
     private Member writer; // 댓글을 작성한 회원
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tagMemberIdx", referencedColumnName = "member_idx", insertable = false, updatable = false)
+    @JoinColumn(name = "tag_member_idx", referencedColumnName = "member_idx")
     private Member tagMember; // 언급당한 회원
-
 
     // 추가적으로 대댓글들과의 관계를 설정해주는 필드도 추가할 수 있습니다.
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentComment", cascade = CascadeType.ALL)
