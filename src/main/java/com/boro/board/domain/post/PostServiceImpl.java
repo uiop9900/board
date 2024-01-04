@@ -6,6 +6,8 @@ import com.boro.board.infrastructure.member.MemberReader;
 import com.boro.board.infrastructure.post.PostReader;
 import com.boro.board.infrastructure.post.PostStore;
 import java.util.List;
+
+import com.boro.board.interfaces.dtos.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -26,7 +28,8 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	@Transactional public void createPost(Create create) {
-		final Post post = create.toEntity(findMemberForMention(create));
+		Member member = memberReader.findByIdx(UserPrincipal.get().getMemberIdx());
+		final Post post = create.toEntity(member);
 		final List<HashTag> hashTags = create.toHashTagCommand();
 		postStore.savePostAndHashTags(post, hashTags);
 	}
@@ -37,7 +40,8 @@ public class PostServiceImpl implements PostService {
 		final Post post = postReader.findPostByIdx(Long.parseLong(create.getPostIdx()));
 		final List<HashTag> hashTags = create.toHashTagCommand();
 
-		post.update(create, findMemberForMention(create), hashTags);
+		Member member = memberReader.findByIdx(UserPrincipal.get().getMemberIdx());
+		post.update(create, member, hashTags);
 
 		// 해시태그 update
 		postStore.updateHashTags(post, hashTags);
@@ -49,13 +53,5 @@ public class PostServiceImpl implements PostService {
 		post.delete();
 		postStore.deleteHashTags(postIdx);
 	}
-
-	public Member findMemberForMention(Create create) {
-		if (create.getMemberIdx() != null) {
-			return memberReader.findByIdx(Long.parseLong(create.getMemberIdx()));
-		}
-
-		return null;
-
-	}
+	
 }

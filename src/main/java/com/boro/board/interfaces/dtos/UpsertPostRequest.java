@@ -15,8 +15,6 @@ public class UpsertPostRequest {
 	@NotEmpty
 	private String content;
 	@Nullable
-	private String memberIdx;
-	@Nullable
 	private String hashTags; // 해시태그 리스트 ex) #안녕 #하이 #자바 #자바스크립트
 
 	public Create toCommand() {
@@ -24,7 +22,6 @@ public class UpsertPostRequest {
 				.postIdx(postIdx)
 				.title(title)
 				.content(content)
-				.memberIdx(memberIdx)
 				.hashTags(hashTags)
 				.build();
 	}

@@ -33,11 +33,11 @@ public class Comment extends BaseEntity {
     private Comment parentComment; // 대댓글을 위한 부모 댓글
 
     @OneToOne
-    @JoinColumn(name = "post_idx", referencedColumnName = "post_idx", insertable = false, updatable = false)
+    @JoinColumn(referencedColumnName = "post_idx", insertable = false, updatable = false)
     private Post post;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "writeMemberIdx", referencedColumnName = "member_idx", insertable = false, updatable = false)
+    @JoinColumn(referencedColumnName = "member_idx", insertable = false, updatable = false)
     private Member writer; // 댓글을 작성한 회원
 
     @ManyToOne(fetch = FetchType.LAZY)
