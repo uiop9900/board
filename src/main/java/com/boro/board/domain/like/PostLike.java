@@ -1,5 +1,7 @@
-package com.boro.board.domain.entity;
+package com.boro.board.domain.like;
 
+import com.boro.board.domain.entity.BaseEntity;
+import com.boro.board.domain.entity.RowStatus;
 import com.boro.board.domain.post.Post;
 import com.boro.board.domain.member.Member;
 import jakarta.persistence.*;
@@ -13,22 +15,32 @@ import org.hibernate.annotations.DynamicUpdate;
 @Getter
 @Builder
 @DynamicUpdate
-@AllArgsConstructor
+@AllArgsConstructor(staticName = "of")
 @NoArgsConstructor
 @Table(name = "POST_LIKE")
+@IdClass(PostLikeId.class)
 public class PostLike extends BaseEntity {
 
-    @Id
-    @Column(name = "post_like_idx")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idx; // 댓글의 ID
 
     @OneToOne
     @JoinColumn(name = "post_idx")
+    @Id
     private Post post; // 좋아요를 누른 게시글
 
     @OneToOne
     @JoinColumn(name = "member_idx")
+    @Id
     private Member member; // 좋아요를 누른 회원의 ID
 
+    public boolean isUnLiked() {
+        return this.rowStatus == RowStatus.D;
+    }
+
+    public void unLike() {
+        this.rowStatus = RowStatus.D;
+    }
+
+    public void like() {
+        this.rowStatus = RowStatus.U;
+    }
 }

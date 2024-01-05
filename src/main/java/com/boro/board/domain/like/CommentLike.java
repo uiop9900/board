@@ -1,5 +1,6 @@
-package com.boro.board.domain.comment;
+package com.boro.board.domain.like;
 
+import com.boro.board.domain.comment.Comment;
 import com.boro.board.domain.entity.BaseEntity;
 import com.boro.board.domain.member.Member;
 import jakarta.persistence.*;
@@ -13,22 +14,20 @@ import org.hibernate.annotations.DynamicUpdate;
 @Getter
 @Builder
 @DynamicUpdate
-@AllArgsConstructor
+@AllArgsConstructor(staticName = "of")
 @NoArgsConstructor
 @Table(name = "COMMENT_LIKE")
+@IdClass(CommentLikeId.class)
 public class CommentLike extends BaseEntity {
 
     @Id
-    @Column(name = "comment_like_idx")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idx; // 댓글의 ID
-
     @OneToOne
-    @JoinColumn(name = "comment_idx") // 외래 키
+    @JoinColumn(name = "comment_idx", referencedColumnName = "comment_idx") // 외래 키
     private Comment comment; // 좋아요를 누른 회원의 ID
 
+    @Id
     @OneToOne
-    @JoinColumn(name = "member_idx") // 외래 키
+    @JoinColumn(name = "member_idx", referencedColumnName = "member_idx") // 외래 키
     private Member member; // 좋아요를 누른 회원의 ID
 
 }
