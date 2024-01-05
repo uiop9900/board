@@ -4,6 +4,7 @@ import static com.boro.board.domain.common.ErrorMessage.NOT_FOUND_COMMENT;
 
 import com.boro.board.domain.comment.Comment;
 import com.boro.board.domain.exception.CommentException;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -22,5 +23,17 @@ public class CommentReaderImpl implements CommentReader {
 	@Override
 	public Optional<Comment> findChildCommentByCommentIdx(Long commentIdx) {
 		return commentRepository.getChildCommentByCommentIdx(commentIdx);
+	}
+
+	@Override public List<Comment> findCommentByPostIdx(final Long postIdx) {
+		return commentRepository.getCommentsByPostIdx(postIdx);
+	}
+
+	@Override public List<Comment> getChildCommentsByPostIdx(final Long postIdx, final Long commentIdx) {
+		return commentRepository.getChildCommentsByPostIdx(postIdx, commentIdx);
+	}
+
+	@Override public Comment getParentCommentByPostIdx(final Long postIdx) {
+		return commentRepository.getParentCommentByPostIdx(postIdx);
 	}
 }

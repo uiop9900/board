@@ -11,6 +11,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Getter
@@ -19,6 +20,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "COMMENT")
+@Where(clause = BaseEntity.WHERE)
 public class Comment extends BaseEntity {
 
     @Id

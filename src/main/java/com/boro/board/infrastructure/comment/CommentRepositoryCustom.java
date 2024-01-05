@@ -11,4 +11,10 @@ public interface CommentRepositoryCustom {
 
     void deleteComments(List<Long> commentIdxs);
 
+    List<Comment> getCommentsByPostIdx(Long postIdx);
+
+    List<Comment> getChildCommentsByPostIdx(Long postIdx, Long commentIdx);
+
+    Comment getParentCommentByPostIdx(Long postIdx);
+
 }

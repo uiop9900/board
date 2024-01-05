@@ -35,4 +35,34 @@ public class CommentRepositoryCustomImpl implements CommentRepositoryCustom {
             .where(comment.idx.in(commentIdxs))
             .execute();
     }
+
+    @Override
+    public List<Comment> getCommentsByPostIdx(final Long postIdx) {
+        return jpaQueryFactory.selectFrom(comment)
+            .where(
+                comment.post.idx.eq(postIdx)
+                    .and(comment.rowStatus.eq(RowStatus.U))
+            )
+
+            .fetch();
+    }
+
+    @Override public List<Comment> getChildCommentsByPostIdx(final Long postIdx, Long commentIdx) {
+        return jpaQueryFactory.selectFrom(comment)
+            .where(
+                comment.post.idx.eq(postIdx)
+                    .and(comment.rowStatus.eq(RowStatus.U))
+                    .and(comment.idx.ne(commentIdx)) // 현재 내 댓글을 제외하고 조회한다.
+            )
+            .fetch();
+    }
+
+    @Override public Comment getParentCommentByPostIdx(final Long postIdx) {
+        return jpaQueryFactory.selectFrom(comment)
+            .where(
+                comment.post.idx.eq(postIdx)
+                    .and(comment.parentComment.isNull()) // 최초의 댓글 조회
+            ).fetchFirst();
+    }
+
 }

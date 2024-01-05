@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 public abstract class BaseEntity {
 
     @Transient
-    public static final String WHERE = "rowStatus in ('U', 'N')"; // 삭제가 안된 것
+    public static final String WHERE =  "row_status IN ('U', 'N')";
 
     @CreatedDate
 //    @CreationTimestamp -> 하이버네이트 제공 어노테이션 -> 사용하지 않는 추세.
