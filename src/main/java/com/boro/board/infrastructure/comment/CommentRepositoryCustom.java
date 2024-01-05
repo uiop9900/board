@@ -13,7 +13,7 @@ public interface CommentRepositoryCustom {
 
     List<Comment> getCommentsByPostIdx(Long postIdx);
 
-    List<Comment> getChildCommentsByPostIdx(Long postIdx, Long commentIdx);
+    List<Comment> getCommentsExceptMeByPostIdx(Long postIdx, Long commentIdx);
 
     Comment getParentCommentByPostIdx(Long postIdx);
 

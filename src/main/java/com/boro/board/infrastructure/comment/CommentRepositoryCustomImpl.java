@@ -47,7 +47,7 @@ public class CommentRepositoryCustomImpl implements CommentRepositoryCustom {
             .fetch();
     }
 
-    @Override public List<Comment> getChildCommentsByPostIdx(final Long postIdx, Long commentIdx) {
+    @Override public List<Comment> getCommentsExceptMeByPostIdx(final Long postIdx, Long commentIdx) {
         return jpaQueryFactory.selectFrom(comment)
             .where(
                 comment.post.idx.eq(postIdx)

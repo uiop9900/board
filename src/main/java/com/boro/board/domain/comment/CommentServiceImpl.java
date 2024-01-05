@@ -1,10 +1,6 @@
 package com.boro.board.domain.comment;
 
-import static com.boro.board.domain.common.ErrorMessage.NOT_FOUND_COMMENT;
-
 import com.boro.board.domain.comment.CommentCommand.Create;
-import com.boro.board.domain.entity.RowStatus;
-import com.boro.board.domain.exception.CommentException;
 import com.boro.board.domain.member.Member;
 import com.boro.board.domain.post.Post;
 import com.boro.board.infrastructure.comment.CommentReader;
@@ -13,12 +9,8 @@ import com.boro.board.infrastructure.comment.CommentStore;
 import com.boro.board.infrastructure.member.MemberReader;
 import com.boro.board.infrastructure.post.PostReader;
 import com.boro.board.interfaces.dtos.UserPrincipal;
-import com.querydsl.core.types.dsl.ComparableEntityPath;
 import java.util.List;
-import java.util.Optional;
 
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,27 +50,23 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	@Transactional
 	public void deleteComment(String commentIdx) {
-		// 삭제할 코멘트
 		Comment comment = commentReader.findCommentByIdx(Long.parseLong(commentIdx));
 		Long postIdx = comment.getPost().getIdx();
 
-		// 해당 게시글의 모든 살아있는 댓글을 가지고 온다.
-		final List<Comment> childrenComment = commentReader.getChildCommentsByPostIdx(postIdx, comment.getIdx());
+		// 나(댓글)를 제외한 ROWSTS = U인 댓글을 조회한다.
+		final List<Comment> commentsExceptMe = commentReader.getCommentsExceptMeByPostIdx(postIdx, comment.getIdx());
+		final boolean haveReply = commentsExceptMe.size() > 0;
 
-		final boolean haveReply = childrenComment.size() > 0; // 대댓글이 존재한다.
-
-		// 내가 첫 게시글인데 reply가 있으면 미사용
+		// 내가 첫 게시글인데 reply가 있으면 미사용 처리
 		if (comment.isFirstComment() && haveReply) {
 			comment.unUse();
 			return;
 		}
 
-		// 나머지는 삭제 처리하는데, 모든 댓글이 삭제면 N으로 된거  삭제처리 한다.
-
+		// reply가 없으면, 전제 삭제 처리 한다.
 		if (!haveReply) {
-			// 삭제 처리
 			comment.delete();
-			// 최초 댓글을 삭제처리한다.
+			// 최초 댓글을 삭제
 			final Comment parentComment = commentReader.getParentCommentByPostIdx(postIdx);
 			parentComment.delete();
 			return;

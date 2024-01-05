@@ -29,8 +29,8 @@ public class CommentReaderImpl implements CommentReader {
 		return commentRepository.getCommentsByPostIdx(postIdx);
 	}
 
-	@Override public List<Comment> getChildCommentsByPostIdx(final Long postIdx, final Long commentIdx) {
-		return commentRepository.getChildCommentsByPostIdx(postIdx, commentIdx);
+	@Override public List<Comment> getCommentsExceptMeByPostIdx(final Long postIdx, final Long commentIdx) {
+		return commentRepository.getCommentsExceptMeByPostIdx(postIdx, commentIdx);
 	}
 
 	@Override public Comment getParentCommentByPostIdx(final Long postIdx) {
