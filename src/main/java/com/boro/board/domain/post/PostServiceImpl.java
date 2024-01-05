@@ -32,7 +32,7 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	@Transactional public void createPost(Create create) {
-		Member member = memberReader.findByIdx(UserPrincipal.get().getMemberIdx());
+		Member member = memberReader.getMemberByIdx(UserPrincipal.get().getMemberIdx());
 		final Post post = create.toEntity(member);
 		final List<HashTag> hashTags = create.toHashTagCommand();
 		postStore.savePostAndHashTags(post, hashTags);
@@ -44,7 +44,7 @@ public class PostServiceImpl implements PostService {
 		final Post post = postReader.findPostByIdx(Long.parseLong(create.getPostIdx()));
 		final List<HashTag> hashTags = create.toHashTagCommand();
 
-		Member member = memberReader.findByIdx(UserPrincipal.get().getMemberIdx());
+		Member member = memberReader.getMemberByIdx(UserPrincipal.get().getMemberIdx());
 		post.update(create, member, hashTags);
 
 		// 해시태그 update

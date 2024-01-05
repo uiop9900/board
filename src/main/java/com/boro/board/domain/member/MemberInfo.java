@@ -1,7 +1,11 @@
 package com.boro.board.domain.member;
 
 import com.boro.board.domain.entity.RowStatus;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 
 public class MemberInfo {
@@ -29,6 +33,16 @@ public class MemberInfo {
 		}
 	}
 
+	@Builder
+	@AllArgsConstructor(staticName = "of")
+	@NoArgsConstructor
+	@Getter
+	public static class Mention {
+
+		private Long memberIdx;
+		private String nickName;
+
+	}
 
 
 

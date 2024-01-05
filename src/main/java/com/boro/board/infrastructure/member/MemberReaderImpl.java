@@ -4,6 +4,7 @@ import static com.boro.board.domain.common.ErrorMessage.NOT_FOUND_MEMBER;
 
 import com.boro.board.domain.exception.MemberException;
 import com.boro.board.domain.member.Member;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -22,8 +23,13 @@ public class MemberReaderImpl implements MemberReader {
 		return memberRepository.findMemberByPhoneNumber(phoneNumber);
 	}
 
-	@Override public Member findByIdx(final Long memberIdx) {
+	@Override public Member getMemberByIdx(final Long memberIdx) {
 		return memberRepository.findById(memberIdx).orElseThrow(() -> new MemberException(NOT_FOUND_MEMBER));
+	}
+
+	@Override
+	public List<Member> getMembersByNickNameLetter(final String nickNameLetter) {
+		return memberRepository.getMembersByNickNameLetter(nickNameLetter);
 	}
 
 }

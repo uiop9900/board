@@ -1,6 +1,7 @@
 package com.boro.board.infrastructure.member;
 
 import com.boro.board.domain.member.Member;
+import java.util.List;
 import java.util.Optional;
 
 public interface MemberReader {
@@ -9,6 +10,8 @@ public interface MemberReader {
 
 	Optional<Member> findByPhoneNumber(String phoneNumber);
 
-	Member findByIdx(Long memberIdx);
+	Member getMemberByIdx(Long memberIdx);
+
+	List<Member> getMembersByNickNameLetter(String nickNameLetter);
 
 }

@@ -4,6 +4,7 @@ import com.boro.board.application.MemberFacade;
 import com.boro.board.domain.common.JwtTokenUtil;
 import com.boro.board.domain.common.PasswordValidator;
 import com.boro.board.domain.config.SecretKeyConfig;
+import com.boro.board.domain.member.MemberInfo.Mention;
 import com.boro.board.interfaces.dtos.CheckPasswordRequest;
 import com.boro.board.interfaces.dtos.CheckUserIdRequest;
 import com.boro.board.interfaces.dtos.CommonResponse;
@@ -11,6 +12,7 @@ import com.boro.board.interfaces.dtos.SignInRequest;
 import com.boro.board.interfaces.dtos.SignUpRequest;
 import com.boro.board.interfaces.dtos.TokenInfo;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,7 +54,7 @@ public class MemberController {
     /**
      * 회원의 id(phoneNumber) 중복체크
      */
-    @PostMapping("/phoneNumber")
+  @PostMapping("/phoneNumber")
 	public CommonResponse<Boolean> checkUserId(@RequestBody @Valid CheckUserIdRequest request) {
 		return CommonResponse.success(memberFacade.isDuplicatedUserPhoneNumber(request.getPhoneNumber()));
 	}
@@ -75,5 +77,15 @@ public class MemberController {
 		final String token = JwtTokenUtil.createToken(secretKeyConfig.getSecretKey(), request.getPhoneNumber());
 		return CommonResponse.success(TokenInfo.of(token));
 	}
+
+
+	/**
+	 * 댓글 작성시, 회원 멘션을 위해 회원 조회 API
+	 */
+	@PostMapping("/mention")
+	public CommonResponse<List<Mention>> checkMemberForMention(@RequestBody @Valid CheckMemberForMentionRequest request)  {
+		return CommonResponse.success(memberFacade.getMemberInfosForMention(request.getMentionNickNameLetter()));
+	}
+
 
 }

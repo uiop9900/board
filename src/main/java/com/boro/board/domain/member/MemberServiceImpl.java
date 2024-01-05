@@ -11,6 +11,7 @@ import com.boro.board.domain.member.MemberCommand.SignUp;
 import com.boro.board.infrastructure.member.MemberReader;
 import com.boro.board.infrastructure.member.MemberStore;
 import com.boro.board.interfaces.dtos.UserPrincipal;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -29,7 +30,6 @@ public class MemberServiceImpl implements MemberService {
 
 	private final PasswordEncrypt passwordEncrypt;
 
-	private final SecretKeyConfig secretKeyConfig;
 
 	@Override
 	public boolean isDuplicatedNickName(final String nickName) {
@@ -68,6 +68,10 @@ public class MemberServiceImpl implements MemberService {
 		final UserPrincipal userPrincipal = UserPrincipal.toUserPrincipal(member);
 		final Authentication authentication = new UsernamePasswordAuthenticationToken(userPrincipal, null, null);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
+	}
+
+	@Override public List<Member> getMembersByNickNameLetter(final String nickNameLetter) {
+		return memberReader.getMembersByNickNameLetter(nickNameLetter);
 	}
 
 }

@@ -1,16 +1,13 @@
 package com.boro.board.domain.comment;
 
 import com.boro.board.domain.comment.CommentCommand.Create;
-import com.boro.board.domain.entity.RowStatus;
 import com.boro.board.domain.member.Member;
 import com.boro.board.domain.post.Post;
-import com.boro.board.domain.post.PostCommand;
 import com.boro.board.infrastructure.comment.CommentReader;
 import com.boro.board.infrastructure.comment.CommentStore;
 import com.boro.board.infrastructure.member.MemberReader;
 import com.boro.board.infrastructure.post.PostReader;
 import com.boro.board.interfaces.dtos.UserPrincipal;
-import java.nio.file.attribute.UserPrincipalLookupService;
 import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
@@ -34,7 +31,7 @@ public class CommentServiceImpl implements CommentService {
 	@Transactional
 	public void createComment(final Create create) {
 		final Post post = postReader.findPostByIdx(Long.parseLong(create.getPostIdx()));
-		final Member writer = memberReader.findByIdx(UserPrincipal.get().getMemberIdx());
+		final Member writer = memberReader.getMemberByIdx(UserPrincipal.get().getMemberIdx());
 
 		final Comment comment = create.toEntity(post, findCommentForReply(create.getParentCommentIdx()), findMemberForMention(create.getTagMemberIdx()), writer);
 
@@ -74,7 +71,7 @@ public class CommentServiceImpl implements CommentService {
 
 	public Member findMemberForMention(String tagMemberIdx) {
 		if (tagMemberIdx != null) {
-			return memberReader.findByIdx(Long.parseLong(tagMemberIdx));
+			return memberReader.getMemberByIdx(Long.parseLong(tagMemberIdx));
 		}
 
 		return null;
