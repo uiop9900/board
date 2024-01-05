@@ -22,14 +22,14 @@ import org.hibernate.annotations.DynamicUpdate;
 public class PostLike extends BaseEntity {
 
 
+    @Id
     @OneToOne
     @JoinColumn(name = "post_idx")
-    @Id
     private Post post; // 좋아요를 누른 게시글
 
+    @Id
     @OneToOne
     @JoinColumn(name = "member_idx")
-    @Id
     private Member member; // 좋아요를 누른 회원의 ID
 
     public boolean isUnLiked() {

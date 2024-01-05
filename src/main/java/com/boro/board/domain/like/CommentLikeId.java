@@ -18,10 +18,10 @@ public class CommentLikeId implements Serializable {
 
     @Id
     @Column(name = "comment_idx")
-    private Comment comment; // 좋아요를 댓글
+    private Long comment; // 좋아요를 댓글
 
     @Id
     @Column(name = "member_idx")
-    private Member member; // 좋아요를 누른 회원의 ID
+    private Long member; // 좋아요를 누른 회원의 ID
 
 }

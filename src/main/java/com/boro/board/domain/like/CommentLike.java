@@ -22,12 +22,12 @@ public class CommentLike extends BaseEntity {
 
     @Id
     @OneToOne
-    @JoinColumn(name = "comment_idx", referencedColumnName = "comment_idx") // 외래 키
+    @JoinColumn(name = "comment_idx") // 외래 키
     private Comment comment; // 좋아요를 누른 회원의 ID
 
     @Id
     @OneToOne
-    @JoinColumn(name = "member_idx", referencedColumnName = "member_idx") // 외래 키
+    @JoinColumn(name = "member_idx") // 외래 키
     private Member member; // 좋아요를 누른 회원의 ID
 
 }

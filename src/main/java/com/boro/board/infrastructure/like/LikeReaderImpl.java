@@ -23,11 +23,11 @@ public class LikeReaderImpl implements LikeReader {
 	private final RedisTemplate<String, Object> redisTemplate;
 
 	@Override public Optional<CommentLike> getCommentLikeById(final Comment comment, final Member member) {
-		return commentLikeRepository.findById(new CommentLikeId(comment, member));
+		return commentLikeRepository.findById(new CommentLikeId(comment.getIdx(), member.getIdx()));
 	}
 
 	@Override public Optional<PostLike> getPostLikeById(final Post post, final Member member) {
-		return postLikeRepository.findById(new PostLikeId(post, member));
+		return postLikeRepository.findById(new PostLikeId(post.getIdx(), member.getIdx()));
 	}
 
 	@Override public Long findLikes(final Long idx, final String redisKey) {
