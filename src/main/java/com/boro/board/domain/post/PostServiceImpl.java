@@ -2,12 +2,14 @@ package com.boro.board.domain.post;
 
 import com.boro.board.domain.post.PostCommand.Create;
 import com.boro.board.domain.member.Member;
+import com.boro.board.infrastructure.comment.CommentStore;
 import com.boro.board.infrastructure.member.MemberReader;
 import com.boro.board.infrastructure.post.PostReader;
 import com.boro.board.infrastructure.post.PostStore;
 import java.util.List;
 
 import com.boro.board.interfaces.dtos.UserPrincipal;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,8 @@ public class PostServiceImpl implements PostService {
 	private final PostStore postStore;
 
 	private final MemberReader memberReader;
+
+	private final CommentStore commentStore;
 
 
 	@Override
@@ -50,8 +54,12 @@ public class PostServiceImpl implements PostService {
 	@Override
 	@Transactional public void deletePost(final Long postIdx) {
 		final Post post = postReader.findPostByIdx(postIdx);
+
 		post.delete();
 		postStore.deleteHashTags(postIdx);
+
+		final List<Long> commentIdxs = post.getComments().stream().map(comment -> comment.getIdx()).collect(Collectors.toList());
+		commentStore.deleteComments(commentIdxs);
 	}
 	
 }

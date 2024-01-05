@@ -28,4 +28,11 @@ public class CommentRepositoryCustomImpl implements CommentRepositoryCustom {
                 ).fetchFirst()
         );
     }
+
+    @Override
+    public void deleteComments(final List<Long> commentIdxs) {
+        jpaQueryFactory.delete(comment)
+            .where(comment.idx.in(commentIdxs))
+            .execute();
+    }
 }
