@@ -1,9 +1,9 @@
 package com.boro.board.interfaces;
 
 import com.boro.board.application.MemberFacade;
-import com.boro.board.domain.common.JwtTokenUtil;
-import com.boro.board.domain.common.PasswordValidator;
-import com.boro.board.domain.config.SecretKeyConfig;
+import com.boro.board.common.JwtTokenUtil;
+import com.boro.board.common.PasswordValidator;
+import com.boro.board.common.config.SecretKeyConfig;
 import com.boro.board.domain.member.MemberInfo.Mention;
 import com.boro.board.interfaces.dtos.CheckPasswordRequest;
 import com.boro.board.interfaces.dtos.CheckUserIdRequest;

@@ -1,4 +1,4 @@
-package com.boro.board.domain.config;
+package com.boro.board.common.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

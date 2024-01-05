@@ -1,8 +1,6 @@
-package com.boro.board.domain.common;
+package com.boro.board.common;
 
 
-import com.boro.board.domain.config.SecretKeyConfig;
-import com.boro.board.domain.member.Member;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -10,7 +8,6 @@ import java.util.Date;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 

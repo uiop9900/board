@@ -1,9 +1,9 @@
 package com.boro.board.infrastructure.comment;
 
-import static com.boro.board.domain.common.ErrorMessage.NOT_FOUND_COMMENT;
+import static com.boro.board.common.ErrorMessage.NOT_FOUND_COMMENT;
 
 import com.boro.board.domain.comment.Comment;
-import com.boro.board.domain.exception.CommentException;
+import com.boro.board.common.exception.CommentException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

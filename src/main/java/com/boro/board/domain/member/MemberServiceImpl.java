@@ -1,12 +1,10 @@
 package com.boro.board.domain.member;
 
-import static com.boro.board.domain.common.ErrorMessage.NOT_CORRECT_PASSWORD;
-import static com.boro.board.domain.common.ErrorMessage.NOT_FOUND_MEMBER;
+import static com.boro.board.common.ErrorMessage.NOT_CORRECT_PASSWORD;
+import static com.boro.board.common.ErrorMessage.NOT_FOUND_MEMBER;
 
-import com.boro.board.domain.common.JwtTokenUtil;
-import com.boro.board.domain.common.PasswordEncrypt;
-import com.boro.board.domain.config.SecretKeyConfig;
-import com.boro.board.domain.exception.MemberException;
+import com.boro.board.common.PasswordEncrypt;
+import com.boro.board.common.exception.MemberException;
 import com.boro.board.domain.member.MemberCommand.SignUp;
 import com.boro.board.infrastructure.member.MemberReader;
 import com.boro.board.infrastructure.member.MemberStore;

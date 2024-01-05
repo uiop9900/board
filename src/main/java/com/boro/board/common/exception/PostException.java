@@ -1,4 +1,4 @@
-package com.boro.board.domain.exception;
+package com.boro.board.common.exception;
 
 public class PostException extends RuntimeException {
 

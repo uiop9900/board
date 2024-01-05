@@ -1,5 +1,6 @@
 package com.boro.board.domain.comment;
 
+import com.boro.board.common.annotation.RedissonLock;
 import com.boro.board.domain.comment.CommentCommand.Create;
 import com.boro.board.domain.member.Member;
 import com.boro.board.domain.post.Post;
@@ -30,7 +31,7 @@ public class CommentServiceImpl implements CommentService {
 	private final CommentRepository commentRepository;
 
 	@Override
-	@Transactional
+	@RedissonLock
 	public void createComment(final Create create) {
 		final Post post = postReader.findPostByIdx(Long.parseLong(create.getPostIdx()));
 		final Member writer = memberReader.getMemberByIdx(UserPrincipal.get().getMemberIdx());

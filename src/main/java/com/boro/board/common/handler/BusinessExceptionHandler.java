@@ -1,8 +1,8 @@
-package com.boro.board.domain.handler;
+package com.boro.board.common.handler;
 
-import com.boro.board.domain.exception.CommentException;
-import com.boro.board.domain.exception.MemberException;
-import com.boro.board.domain.exception.PostException;
+import com.boro.board.common.exception.CommentException;
+import com.boro.board.common.exception.MemberException;
+import com.boro.board.common.exception.PostException;
 import com.boro.board.interfaces.dtos.CommonResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;

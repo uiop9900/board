@@ -1,4 +1,4 @@
-package com.boro.board.domain.common;
+package com.boro.board.common;
 
 public class ErrorMessage {
 

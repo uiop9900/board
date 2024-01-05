@@ -1,8 +1,8 @@
 package com.boro.board.infrastructure.member;
 
-import static com.boro.board.domain.common.ErrorMessage.NOT_FOUND_MEMBER;
+import static com.boro.board.common.ErrorMessage.NOT_FOUND_MEMBER;
 
-import com.boro.board.domain.exception.MemberException;
+import com.boro.board.common.exception.MemberException;
 import com.boro.board.domain.member.Member;
 import java.util.List;
 import java.util.Optional;

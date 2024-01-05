@@ -1,9 +1,9 @@
 package com.boro.board.infrastructure.post;
 
-import static com.boro.board.domain.common.ErrorMessage.NOT_FOUND_POST;
+import static com.boro.board.common.ErrorMessage.NOT_FOUND_POST;
 
 import com.boro.board.domain.post.Post;
-import com.boro.board.domain.exception.PostException;
+import com.boro.board.common.exception.PostException;
 import com.boro.board.infrastructure.member.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package com.boro.board.domain.config;
+package com.boro.board.common.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;

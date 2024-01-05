@@ -1,6 +1,6 @@
-package com.boro.board.domain.common;
+package com.boro.board.common;
 
-import com.boro.board.domain.config.SecretKeyConfig;
+import com.boro.board.common.config.SecretKeyConfig;
 import com.boro.board.domain.member.MemberService;
 import com.boro.board.domain.member.Member;
 import com.boro.board.interfaces.dtos.UserPrincipal;
