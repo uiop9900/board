@@ -40,9 +40,8 @@ public class LikeServiceImpl implements LikeService {
 		final Member member = memberReader.getMemberByIdx(UserPrincipal.get().getMemberIdx());
 		final Post post = postReader.findPostByIdx(Long.parseLong(postIdx));
 
-
 		Long previousLikeNumber = likeReader.findLikes(post.getIdx(), POST_LIKE_REDIS_KEY);
-		Long resultLike = calculateLikeNumber(member, post, previousLikeNumber);
+		Long resultLike = calculatePostLikeNumber(member, post, previousLikeNumber);
 
 		likeStore.setLikesNumber(post.getIdx(), POST_LIKE_REDIS_KEY, resultLike);
 		return resultLike;
@@ -52,12 +51,14 @@ public class LikeServiceImpl implements LikeService {
 		final Member member = memberReader.getMemberByIdx(UserPrincipal.get().getMemberIdx());
 		final Comment comment = commentReader.findCommentByIdx(Long.parseLong(commentIdx));
 
-		final CommentLike commentLike = CommentLike.of(comment, member);
-		likeStore.save(commentLike);
-		return null;
+		Long previousLikeNumber = likeReader.findLikes(comment.getIdx(), COMMENT_LIKE_REDIS_KEY);
+		Long resultLike = calculateCommentLikeNumber(member, comment, previousLikeNumber);
+
+		likeStore.setLikesNumber(comment.getIdx(), COMMENT_LIKE_REDIS_KEY, resultLike);
+		return resultLike;
 	}
 
-	private Long calculateLikeNumber(Member member, Post post, Long likeNumber) {
+	private Long calculatePostLikeNumber(Member member, Post post, Long likeNumber) {
 		final Optional<PostLike> previousPostLike = likeReader.getPostLikeById(post, member);
 
 		// 기존에 좋아요 이력 미존재
@@ -79,6 +80,35 @@ public class LikeServiceImpl implements LikeService {
 		// 좋아요 취소
 		if (!postLike.isUnLiked()) {
 			postLike.unLike();
+			likeNumber -= 1L;
+			return likeNumber;
+		}
+
+		throw new LikeException(CAN_NOT_CALCULATE_LIKE);
+	}
+
+	private Long calculateCommentLikeNumber(Member member, Comment comment, Long likeNumber) {
+		Optional<CommentLike> previousCommentLike = likeReader.getCommentLikeById(comment, member);
+
+		// 기존에 좋아요 이력 미존재
+		if (previousCommentLike.isEmpty()) {
+			CommentLike commentLike = CommentLike.toEntity(member, comment);
+			likeStore.save(commentLike);
+			likeNumber += 1L;
+			return likeNumber;
+		}
+
+		// 좋아요
+		CommentLike commentLike = previousCommentLike.get();
+		if (commentLike.isUnLiked()) {
+			commentLike.like();
+			likeNumber += 1L;
+			return likeNumber;
+		}
+
+		// 좋아요 취소
+		if (!commentLike.isUnLiked()) {
+			commentLike.unLike();
 			likeNumber -= 1L;
 			return likeNumber;
 		}

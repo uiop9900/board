@@ -33,7 +33,7 @@ public class LikeController {
 	@PostMapping("/comment")
 	@Cacheable
 	public CommonResponse<Long> likeComment(@RequestBody @Valid LikeCommentRequest request) {
-		return null;
+		return CommonResponse.success(likeFacade.likeComment(request.getCommentIdx()));
 	}
 
 }
