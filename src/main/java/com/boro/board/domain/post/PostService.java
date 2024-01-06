@@ -12,5 +12,5 @@ public interface PostService {
 	@Transactional void deletePost(Long postIdx);
 	PostInfo.Detail getPostDetail(Long postIdx);
 
-	List<PostInfo.Main> getPosts(String hashTag, String page);
+	List<PostInfo.Main> getPosts(String page, String hashTag);
 }

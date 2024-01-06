@@ -30,7 +30,7 @@ public class PostFacade {
 		return postService.getPostDetail(Long.parseLong(postIdx));
 	}
 
-	public List<PostInfo.Main> getPosts(String hashTag, String page) {
-		return postService.getPosts(hashTag, page);
+	public List<PostInfo.Main> getPosts(String page, String hashTag) {
+		return postService.getPosts(page, hashTag);
 	}
 }

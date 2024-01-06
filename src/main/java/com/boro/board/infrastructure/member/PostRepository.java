@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PostRepository extends JpaRepository<Post, Long>, PostRepositoryCustom {
 
-    Page<Post> getPosts(Pageable pageable);
+    Page<Post> findByHashTagsTagTitle(String tagTitle, Pageable pageable);
 
 }

@@ -5,9 +5,9 @@ import com.boro.board.domain.post.PostInfo;
 import com.boro.board.interfaces.dtos.CommonResponse;
 import com.boro.board.interfaces.dtos.DeletePostRequest;
 import com.boro.board.interfaces.dtos.UpsertPostRequest;
-import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/post")
 @RequiredArgsConstructor
+@Slf4j
 public class BoardController {
 
 	private final PostFacade postFacade;
@@ -56,11 +57,12 @@ public class BoardController {
    * 게시글 리스트 조회 -> 해시태그 있으면 해당 게시글 리스트나 나온다.
    * 제목, 작성자, 좋아요 수, 해시태그 목록, 댓글 수
    */
-  	@GetMapping("/list/{hashTag}/{page}")
+  	@GetMapping(value = {"/list/{page}/{hashTag}", "/list/{page}"})
 	public CommonResponse<List<PostInfo.Main>> getPosts(
-			@Nullable @PathVariable("hashTag") String hashTag,
-			@PathVariable("page") String page) {
-		  return CommonResponse.success(postFacade.getPosts(hashTag, page));
+			@PathVariable("page") String page,
+			@PathVariable(required = false, name = "hashTag") String hashTag) {
+		log.error("request");
+		  return CommonResponse.success(postFacade.getPosts(page, hashTag));
   }
 
 }

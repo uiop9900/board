@@ -3,15 +3,17 @@ package com.boro.board.domain.post;
 import com.boro.board.domain.comment.Comment;
 import com.boro.board.domain.entity.BaseEntity;
 import com.boro.board.domain.entity.RowStatus;
-import com.boro.board.domain.post.PostCommand.Create;
 import com.boro.board.domain.member.Member;
+import com.boro.board.domain.post.PostCommand.Create;
 import jakarta.persistence.*;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Where;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,6 +22,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "POST")
+@Where(clause = BaseEntity.WHERE)
 public class Post extends BaseEntity {
 
     @Id

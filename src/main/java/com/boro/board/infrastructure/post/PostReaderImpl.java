@@ -25,11 +25,11 @@ public class PostReaderImpl implements PostReader {
 
 	@Override
 	public Page<Post> getPosts(Pageable pageable) {
-		return postRepository.getPosts(pageable);
+		return postRepository.findAll(pageable);
 	}
 
 	@Override
 	public Page<Post> getPostsByHashTag(String hashTag, Pageable pageable) {
-		return postRepository.getPostsByHashTag(hashTag, pageable);
+		return postRepository.findByHashTagsTagTitle(hashTag, pageable);
 	}
 }

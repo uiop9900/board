@@ -88,7 +88,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<PostInfo.Main> getPosts(String hashTag, String page) {
+	public List<PostInfo.Main> getPosts(String page, String hashTag) {
 		Page<Post> posts;
 		PageRequest pageRequest = PageRequest.of(Integer.parseInt(page), PAGE_SIZE);
 
