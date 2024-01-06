@@ -18,18 +18,19 @@ import org.hibernate.annotations.DynamicUpdate;
 @AllArgsConstructor(staticName = "of")
 @NoArgsConstructor
 @Table(name = "POST_LIKE")
-@IdClass(PostLikeId.class)
 public class PostLike extends BaseEntity {
 
+    @EmbeddedId
+    private PostLikeId postLikeId;
 
-    @Id
     @OneToOne
-    @JoinColumn(name = "post_idx")
+    @MapsId("post_idx")
+    @JoinColumn(name = "post_idx", referencedColumnName = "post_idx")
     private Post post; // 좋아요를 누른 게시글
 
-    @Id
     @OneToOne
-    @JoinColumn(name = "member_idx")
+    @MapsId("member_idx")
+    @JoinColumn(name = "member_idx", referencedColumnName = "member_idx")
     private Member member; // 좋아요를 누른 회원의 ID
 
     public boolean isUnLiked() {
@@ -42,5 +43,13 @@ public class PostLike extends BaseEntity {
 
     public void like() {
         this.rowStatus = RowStatus.U;
+    }
+
+    public static PostLike toEntity(Member member, Post post) {
+        return PostLike.builder()
+                .postLikeId(new PostLikeId(post.getIdx(), member.getIdx()))
+                .post(post)
+                .member(member)
+                .build();
     }
 }

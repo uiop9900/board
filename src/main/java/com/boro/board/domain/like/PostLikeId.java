@@ -1,6 +1,7 @@
 package com.boro.board.domain.like;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Id;
 import lombok.*;
 
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.io.Serializable;
 @Getter
 @ToString
 public class PostLikeId implements Serializable {
+
 
     @Column(name = "post_idx")
     private Long post; // 좋아요를 누른 게시글

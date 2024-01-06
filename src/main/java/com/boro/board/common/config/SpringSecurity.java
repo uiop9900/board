@@ -66,7 +66,6 @@ public class SpringSecurity {
 
 	private String[] getPermitAllPaths() {
 		return new String[]{
-				"/**",
 				"/member/test",
 				"/member/log-in",
 				"/member/sign-up",

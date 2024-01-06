@@ -1,6 +1,7 @@
 package com.boro.board.common.handler;
 
 import com.boro.board.common.exception.CommentException;
+import com.boro.board.common.exception.LikeException;
 import com.boro.board.common.exception.MemberException;
 import com.boro.board.common.exception.PostException;
 import com.boro.board.interfaces.dtos.CommonResponse;
@@ -24,6 +25,11 @@ public class BusinessExceptionHandler {
 
 	@ExceptionHandler(CommentException.class)
 	public CommonResponse commentHandlerException(CommentException e) {
+		return CommonResponse.fail(e.getMessage());
+	}
+
+	@ExceptionHandler(LikeException.class)
+	public CommonResponse likeHandlerException(CommentException e) {
 		return CommonResponse.fail(e.getMessage());
 	}
 }

@@ -1,5 +1,6 @@
 package com.boro.board.domain.like;
 
+import com.boro.board.common.exception.LikeException;
 import com.boro.board.domain.comment.Comment;
 import com.boro.board.domain.member.Member;
 import com.boro.board.domain.post.Post;
@@ -13,6 +14,8 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import static com.boro.board.common.ErrorMessage.CAN_NOT_CALCULATE_LIKE;
 
 @Component
 @RequiredArgsConstructor
@@ -34,42 +37,15 @@ public class LikeServiceImpl implements LikeService {
 
 	@Override
 	@Transactional public Long likePost(final String postIdx) {
-		// 좋아요 누른 사람
 		final Member member = memberReader.getMemberByIdx(UserPrincipal.get().getMemberIdx());
 		final Post post = postReader.findPostByIdx(Long.parseLong(postIdx));
 
-		final Optional<PostLike> previousPostLike = likeReader.getPostLikeById(post, member);
 
+		Long previousLikeNumber = likeReader.findLikes(post.getIdx(), POST_LIKE_REDIS_KEY);
+		Long resultLike = calculateLikeNumber(member, post, previousLikeNumber);
 
-		Long likesNumber = likeReader.findLikes(post.getIdx(), POST_LIKE_REDIS_KEY);
-
-		// 기존에 좋아요 하지 않았으면,
-		if (previousPostLike.isEmpty()) {
-			final PostLike postLike = PostLike.of(post, member);
-			// 기존에 좋아요 했으면 취소고, 아니면 좋아요임.
-			likeStore.save(postLike);
-			likesNumber += 1L;
-			likeStore.setLikesNumber(post.getIdx(), POST_LIKE_REDIS_KEY, likesNumber);
-
-			return likesNumber;
-		}
-
-		final PostLike postLike = previousPostLike.get();
-		// 좋아요
-		if (postLike.isUnLiked()) {
-			postLike.like();
-			likesNumber += 1L;
-		}
-
-		// 좋아요 취소
-		if (!postLike.isUnLiked()) {
-			postLike.unLike();
-			likesNumber -= 1L;
-		}
-
-		likeStore.setLikesNumber(post.getIdx(), POST_LIKE_REDIS_KEY, likesNumber);
-
-		return likesNumber;
+		likeStore.setLikesNumber(post.getIdx(), POST_LIKE_REDIS_KEY, resultLike);
+		return resultLike;
 	}
 
 	@Override public Long likeComment(final String commentIdx) {
@@ -79,5 +55,34 @@ public class LikeServiceImpl implements LikeService {
 		final CommentLike commentLike = CommentLike.of(comment, member);
 		likeStore.save(commentLike);
 		return null;
+	}
+
+	private Long calculateLikeNumber(Member member, Post post, Long likeNumber) {
+		final Optional<PostLike> previousPostLike = likeReader.getPostLikeById(post, member);
+
+		// 기존에 좋아요 이력 미존재
+		if (previousPostLike.isEmpty()) {
+			PostLike postLike = PostLike.toEntity(member, post);
+			likeStore.save(postLike);
+			likeNumber += 1L;
+			return likeNumber;
+		}
+
+		// 좋아요
+		final PostLike postLike = previousPostLike.get();
+		if (postLike.isUnLiked()) {
+			postLike.like();
+			likeNumber += 1L;
+			return likeNumber;
+		}
+
+		// 좋아요 취소
+		if (!postLike.isUnLiked()) {
+			postLike.unLike();
+			likeNumber -= 1L;
+			return likeNumber;
+		}
+
+		throw new LikeException(CAN_NOT_CALCULATE_LIKE);
 	}
 }

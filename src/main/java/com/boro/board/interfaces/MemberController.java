@@ -55,7 +55,7 @@ public class MemberController {
     /**
      * 회원의 id(phoneNumber) 중복체크
      */
-  @PostMapping("/phoneNumber")
+  	@PostMapping("/phoneNumber")
 	public CommonResponse<Boolean> checkUserId(@RequestBody @Valid CheckUserIdRequest request) {
 		return CommonResponse.success(memberFacade.isDuplicatedUserPhoneNumber(request.getPhoneNumber()));
 	}
@@ -87,6 +87,5 @@ public class MemberController {
 	public CommonResponse<List<Mention>> checkMemberForMention(@RequestBody @Valid CheckMemberForMentionRequest request)  {
 		return CommonResponse.success(memberFacade.getMemberInfosForMention(request.getMentionNickNameLetter()));
 	}
-
 
 }
