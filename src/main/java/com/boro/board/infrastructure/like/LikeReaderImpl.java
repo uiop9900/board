@@ -30,7 +30,7 @@ public class LikeReaderImpl implements LikeReader {
 		return postLikeRepository.findById(new PostLikeId(post.getIdx(), member.getIdx()));
 	}
 
-	@Override public Long findLikes(final Long idx, final String redisKey) {
+	@Override public Long getLikeNumber(final Long idx, final String redisKey) {
 		String key = redisKey + idx;
 		final Object value = redisTemplate.opsForValue().get(key);
 		return value == null ? 0L : (Long)value;

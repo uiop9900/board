@@ -13,6 +13,8 @@ public interface LikeReader {
 
 	Optional<PostLike> getPostLikeById(final Post post, final Member member);
 
-	Long findLikes(Long idx,  String redisKey);
+	Long getLikeNumber(Long idx, String redisKey);
+
+
 
 }

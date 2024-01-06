@@ -16,6 +16,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.boro.board.common.ErrorMessage.CAN_NOT_CALCULATE_LIKE;
+import static com.boro.board.common.RedisKeyProperties.COMMENT_LIKE_REDIS_KEY;
+import static com.boro.board.common.RedisKeyProperties.POST_LIKE_REDIS_KEY;
+
 
 @Component
 @RequiredArgsConstructor
@@ -31,16 +34,12 @@ public class LikeServiceImpl implements LikeService {
 
 	private final CommentReader commentReader;
 
-	private final static String POST_LIKE_REDIS_KEY = "BOARD::LIKE::POST::";
-
-	private final static String COMMENT_LIKE_REDIS_KEY = "BOARD::LIKE::COMMENT::";
-
 	@Override
 	@Transactional public Long likePost(final String postIdx) {
 		final Member member = memberReader.getMemberByIdx(UserPrincipal.get().getMemberIdx());
 		final Post post = postReader.findPostByIdx(Long.parseLong(postIdx));
 
-		Long previousLikeNumber = likeReader.findLikes(post.getIdx(), POST_LIKE_REDIS_KEY);
+		Long previousLikeNumber = likeReader.getLikeNumber(post.getIdx(), POST_LIKE_REDIS_KEY);
 		Long resultLike = calculatePostLikeNumber(member, post, previousLikeNumber);
 
 		likeStore.setLikesNumber(post.getIdx(), POST_LIKE_REDIS_KEY, resultLike);
@@ -51,7 +50,7 @@ public class LikeServiceImpl implements LikeService {
 		final Member member = memberReader.getMemberByIdx(UserPrincipal.get().getMemberIdx());
 		final Comment comment = commentReader.findCommentByIdx(Long.parseLong(commentIdx));
 
-		Long previousLikeNumber = likeReader.findLikes(comment.getIdx(), COMMENT_LIKE_REDIS_KEY);
+		Long previousLikeNumber = likeReader.getLikeNumber(comment.getIdx(), COMMENT_LIKE_REDIS_KEY);
 		Long resultLike = calculateCommentLikeNumber(member, comment, previousLikeNumber);
 
 		likeStore.setLikesNumber(comment.getIdx(), COMMENT_LIKE_REDIS_KEY, resultLike);

@@ -2,6 +2,7 @@ package com.boro.board.domain.comment;
 
 import com.boro.board.domain.entity.BaseEntity;
 import com.boro.board.domain.entity.RowStatus;
+import com.boro.board.domain.like.CommentLike;
 import com.boro.board.domain.post.Post;
 import com.boro.board.domain.member.Member;
 import jakarta.persistence.*;
@@ -35,7 +36,7 @@ public class Comment extends BaseEntity {
     @JoinColumn(name = "parennt_comment_idx", referencedColumnName = "comment_idx")
     private Comment parentComment; // 대댓글을 위한 부모 댓글
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_idx", referencedColumnName = "post_idx")
     private Post post;
 
@@ -48,8 +49,11 @@ public class Comment extends BaseEntity {
     private Member tagMember; // 언급당한 회원
 
     // 추가적으로 대댓글들과의 관계를 설정해주는 필드도 추가할 수 있습니다.
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentComment", cascade = CascadeType.ALL)
-    private List<Comment> comments; // 대댓글들
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentComment", cascade = CascadeType.ALL)
+//    private List<Comment> comments; // 대댓글들
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "comment", cascade = CascadeType.ALL)
+    private List<CommentLike> likes;
 
     public void update(String content, Member member) {
         this.content = content;

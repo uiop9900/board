@@ -26,14 +26,15 @@ public class CommentLike extends BaseEntity {
     private CommentLikeId commentLikeId;
 
     @MapsId("comment_idx")
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "comment_idx", referencedColumnName = "comment_idx")
     private Comment comment; // 좋아요를 누른 댓글
 
     @MapsId("member_idx")
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "member_idx", referencedColumnName = "member_idx")
     private Member member; // 좋아요를 누른 회원의 ID
+
 
     public boolean isUnLiked() {
         return this.rowStatus == RowStatus.D;
