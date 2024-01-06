@@ -1,6 +1,7 @@
 package com.boro.board.interfaces;
 
 import com.boro.board.application.CommentFacade;
+import com.boro.board.domain.comment.CommentInfo;
 import com.boro.board.interfaces.dtos.CommonResponse;
 import com.boro.board.interfaces.dtos.CreateCommentRequest;
 import com.boro.board.interfaces.dtos.DeleteCommentRequest;
@@ -8,6 +9,8 @@ import com.boro.board.interfaces.dtos.UpdateCommentRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/comment")
@@ -50,6 +53,9 @@ public class CommentController {
   /**
    * 멘션된 사용자의 댓글을 모아보기가 가능하다.
    */
-
+  @GetMapping("/mentioned")
+	public CommonResponse<List<CommentInfo.Main>> getCommentsMentioned() {
+		return CommonResponse.success(commentFacade.getCommentsMentioned());
+  }
 
 }

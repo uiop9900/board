@@ -17,6 +17,8 @@ public interface CommentReader {
 
 	Comment getParentCommentByPostIdx(Long postIdx);
 
+	List<Comment> getCommentsByTagMemberIdx(Long memberIdx);
+
 
 
 }

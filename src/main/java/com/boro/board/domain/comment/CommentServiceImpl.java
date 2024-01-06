@@ -11,6 +11,7 @@ import com.boro.board.infrastructure.member.MemberReader;
 import com.boro.board.infrastructure.post.PostReader;
 import com.boro.board.interfaces.dtos.UserPrincipal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class CommentServiceImpl implements CommentService {
 	private final PostReader postReader;
 
 	private final MemberReader memberReader;
-	private final CommentRepository commentRepository;
+
 
 	@Override
 	@RedissonLock
@@ -74,6 +75,13 @@ public class CommentServiceImpl implements CommentService {
 		}
 
 		comment.delete();
+	}
+
+	@Override
+	public List<CommentInfo.Main> getCommentsMentioned() {
+		return commentReader.getCommentsByTagMemberIdx(UserPrincipal.get().getMemberIdx())
+				.stream().map(CommentInfo.Main::toInfo)
+				.collect(Collectors.toList());
 	}
 
 
