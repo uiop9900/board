@@ -10,8 +10,6 @@ public class CreateCommentRequest {
 
 	@NotEmpty
 	private String postIdx; // post의 idx
-	@Nullable
-	private String parentCommentIdx; // 대댓글의 경우, 상위 댓글
 	@NotEmpty
 	private String comment; // 댓글내용
 	@Nullable
@@ -20,7 +18,6 @@ public class CreateCommentRequest {
 	public CommentCommand.Create toCommand() {
 		return CommentCommand.Create.builder()
 				.postIdx(postIdx)
-				.parentCommentIdx(parentCommentIdx)
 				.content(comment)
 				.tagMemberIdx(tagMemberIdx)
 				.build();

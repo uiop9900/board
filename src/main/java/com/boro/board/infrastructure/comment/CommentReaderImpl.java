@@ -20,15 +20,6 @@ public class CommentReaderImpl implements CommentReader {
 		return commentRepository.findById(commentIdx).orElseThrow(() -> new CommentException(NOT_FOUND_COMMENT));
 	}
 
-	@Override
-	public Optional<Comment> findChildCommentByCommentIdx(Long commentIdx) {
-		return commentRepository.getChildCommentByCommentIdx(commentIdx);
-	}
-
-	@Override public List<Comment> findCommentByPostIdx(final Long postIdx) {
-		return commentRepository.getCommentsByPostIdx(postIdx);
-	}
-
 	@Override public List<Comment> getCommentsExceptMeByPostIdx(final Long postIdx, final Long commentIdx) {
 		return commentRepository.getCommentsExceptMeByPostIdx(postIdx, commentIdx);
 	}
@@ -40,5 +31,10 @@ public class CommentReaderImpl implements CommentReader {
 	@Override
 	public List<Comment> getCommentsByTagMemberIdx(Long memberIdx) {
 		return commentRepository.getCommentsByTagMemberIdx(memberIdx);
+	}
+
+	@Override
+	public Optional<Comment> getCommentRecentlyByPostIdx(Long postIdx) {
+		return commentRepository.getCommentRecentlyByPostIdx(postIdx);
 	}
 }

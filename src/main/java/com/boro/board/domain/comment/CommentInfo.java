@@ -44,8 +44,8 @@ public class CommentInfo {
 		public static Detail toInfo(Comment comment, Long commentLikes) {
 			Member mentionedMember = comment.getTagMember();
 			return Detail.builder()
-					.tagMemberIdx(mentionedMember.getIdx())
-					.nickName(mentionedMember.getNickName())
+					.tagMemberIdx(mentionedMember == null ? null : mentionedMember.getIdx())
+					.nickName(mentionedMember == null ? null : mentionedMember.getNickName())
 					.content(comment.getContent())
 					.commentLikes(commentLikes)
 					.createdAt(comment.getCreatedAt())

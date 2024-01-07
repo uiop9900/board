@@ -7,14 +7,12 @@ import java.util.Optional;
 
 public interface CommentRepositoryCustom {
 
-    Optional<Comment> getChildCommentByCommentIdx(Long commentIdx);
-
     void deleteComments(List<Long> commentIdxs);
-
-    List<Comment> getCommentsByPostIdx(Long postIdx);
 
     List<Comment> getCommentsExceptMeByPostIdx(Long postIdx, Long commentIdx);
 
     Comment getParentCommentByPostIdx(Long postIdx);
+
+    Optional<Comment> getCommentRecentlyByPostIdx(Long postIdx);
 
 }

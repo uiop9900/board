@@ -19,32 +19,10 @@ public class CommentRepositoryCustomImpl implements CommentRepositoryCustom {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public Optional<Comment> getChildCommentByCommentIdx(Long commentIdx) {
-        return Optional.ofNullable(
-                jpaQueryFactory.selectFrom(comment)
-                .where(
-                        comment.parentComment.idx.eq(commentIdx)
-                                .and(comment.rowStatus.eq(RowStatus.U)) // 대댓글이 존재하는 경우
-                ).fetchFirst()
-        );
-    }
-
-    @Override
     public void deleteComments(final List<Long> commentIdxs) {
         jpaQueryFactory.delete(comment)
             .where(comment.idx.in(commentIdxs))
             .execute();
-    }
-
-    @Override
-    public List<Comment> getCommentsByPostIdx(final Long postIdx) {
-        return jpaQueryFactory.selectFrom(comment)
-            .where(
-                comment.post.idx.eq(postIdx)
-                    .and(comment.rowStatus.eq(RowStatus.U))
-            )
-
-            .fetch();
     }
 
     @Override public List<Comment> getCommentsExceptMeByPostIdx(final Long postIdx, Long commentIdx) {
@@ -63,6 +41,16 @@ public class CommentRepositoryCustomImpl implements CommentRepositoryCustom {
                 comment.post.idx.eq(postIdx)
                     .and(comment.parentComment.isNull()) // 최초의 댓글 조회
             ).fetchFirst();
+    }
+
+    @Override
+    public Optional<Comment> getCommentRecentlyByPostIdx(Long postIdx) {
+        return Optional.ofNullable(
+                jpaQueryFactory.selectFrom(comment)
+                        .where(comment.post.idx.eq(postIdx))
+                        .orderBy(comment.createdAt.desc())
+                        .fetchFirst()
+        );
     }
 
 }

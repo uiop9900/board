@@ -12,6 +12,8 @@ public class ErrorMessage {
 
 	public final static String NOT_FOUND_COMMENT = "해당 댓글이 존재하지 않습니다.";
 
+	public final static String CAN_NOT_WRITE_COMMENT = "삭제된 댓글에는 댓글작성이 불가합니다.";
+
 	// token
 	public final static String NOT_CORRECT_TOKEN = "잘못된 토큰입니다.";
 

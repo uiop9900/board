@@ -9,15 +9,13 @@ public interface CommentReader {
 
 	Comment findCommentByIdx(Long commentIdx);
 
-	Optional<Comment> findChildCommentByCommentIdx(Long commentIdx);
-
-	List<Comment> findCommentByPostIdx(Long postIdx);
-
 	List<Comment> getCommentsExceptMeByPostIdx(Long postIdx, Long commentIdx);
 
 	Comment getParentCommentByPostIdx(Long postIdx);
 
 	List<Comment> getCommentsByTagMemberIdx(Long memberIdx);
+
+	Optional<Comment> getCommentRecentlyByPostIdx(Long postIdx);
 
 
 

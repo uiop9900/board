@@ -1,21 +1,24 @@
 package com.boro.board.domain.comment;
 
 import com.boro.board.common.annotation.RedissonLock;
+import com.boro.board.common.exception.CommentException;
 import com.boro.board.domain.comment.CommentCommand.Create;
 import com.boro.board.domain.member.Member;
 import com.boro.board.domain.post.Post;
 import com.boro.board.infrastructure.comment.CommentReader;
-import com.boro.board.infrastructure.comment.CommentRepository;
 import com.boro.board.infrastructure.comment.CommentStore;
 import com.boro.board.infrastructure.member.MemberReader;
 import com.boro.board.infrastructure.post.PostReader;
 import com.boro.board.interfaces.dtos.UserPrincipal;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static com.boro.board.common.ErrorMessage.CAN_NOT_WRITE_COMMENT;
 
 @Service
 @RequiredArgsConstructor
@@ -37,7 +40,7 @@ public class CommentServiceImpl implements CommentService {
 		final Post post = postReader.findPostByIdx(Long.parseLong(create.getPostIdx()));
 		final Member writer = memberReader.getMemberByIdx(UserPrincipal.get().getMemberIdx());
 
-		final Comment comment = create.toEntity(post, findCommentForReply(create.getParentCommentIdx()), findMemberForMention(create.getTagMemberIdx()), writer);
+		final Comment comment = create.toEntity(post, findCommentForReply(post), findMemberForMention(create.getTagMemberIdx()), writer);
 
 		commentStore.save(comment);
 	}
@@ -67,10 +70,10 @@ public class CommentServiceImpl implements CommentService {
 
 		// reply가 없으면, 전제 삭제 처리 한다.
 		if (!haveReply) {
-			comment.delete();
 			// 최초 댓글을 삭제
 			final Comment parentComment = commentReader.getParentCommentByPostIdx(postIdx);
 			parentComment.delete();
+			comment.delete();
 			return;
 		}
 
@@ -85,12 +88,18 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 
-	public Comment findCommentForReply(String commentIdx) {
-		if (commentIdx != null) {
-			return commentReader.findCommentByIdx(Long.parseLong(commentIdx));
+	public Comment findCommentForReply(Post post) {
+		Optional<Comment> recentComment = commentReader.getCommentRecentlyByPostIdx(post.getIdx());
+
+		if (recentComment.isEmpty()) {
+			return null; // 최초의 댓글
 		}
 
-		return null;
+		if (recentComment.get().isUnUsed()) {
+			throw new CommentException(CAN_NOT_WRITE_COMMENT);
+		}
+
+		return recentComment.get();
 	}
 
 	public Member findMemberForMention(String tagMemberIdx) {

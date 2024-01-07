@@ -12,7 +12,6 @@ public class CommentCommand {
 	public static class Create {
 
 		private String postIdx; // 게시글의 idx
-		private String parentCommentIdx; // 대댓글의 경우, 상위 댓글
 		private String content; // 댓글 내용
 		private String tagMemberIdx; // 언급당한 회원
 
