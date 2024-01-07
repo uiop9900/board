@@ -10,7 +10,6 @@ public interface PostService {
 	@Transactional void createPost(Create create);
 	@Transactional void updatePost(Create create);
 	@Transactional void deletePost(Long postIdx);
-	PostInfo.Detail getPostDetail(Long postIdx);
-
-	List<PostInfo.Main> getPosts(String page, String hashTag);
+	PostInfo.Detail findPostDetail(Long postIdx);
+	List<PostInfo.Main> findPosts(String page, String hashTag);
 }

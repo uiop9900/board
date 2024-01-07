@@ -8,6 +8,6 @@ public interface MemberRepositoryCustom {
 
 	Optional<Member> findMemberByPhoneNumber(String phoneNumber);
 
-	List<Member> getMembersByNickNameLetter(String nickNameLetter);
+	List<Member> findMembersByNickNameLetter(String nickNameLetter);
 
 }

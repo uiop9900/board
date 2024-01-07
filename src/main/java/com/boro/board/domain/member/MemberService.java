@@ -16,6 +16,6 @@ public interface MemberService {
 
 	void logInMember(String phoneNumber, String password);
 
-	List<Member> getMembersByNickNameLetter(String mentionMemberLetter);
+	List<Member> findMembersByNickNameLetter(String mentionMemberLetter);
 
 }

@@ -85,7 +85,7 @@ public class MemberController {
 	 */
 	@PostMapping("/mention")
 	public CommonResponse<List<Mention>> checkMemberForMention(@RequestBody @Valid CheckMemberForMentionRequest request)  {
-		return CommonResponse.success(memberFacade.getMemberInfosForMention(request.getMentionNickNameLetter()));
+		return CommonResponse.success(memberFacade.findMemberInfosForMention(request.getMentionNickNameLetter()));
 	}
 
 }

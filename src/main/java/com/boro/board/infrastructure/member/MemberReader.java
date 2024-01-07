@@ -12,6 +12,6 @@ public interface MemberReader {
 
 	Member getMemberByIdx(Long memberIdx);
 
-	List<Member> getMembersByNickNameLetter(String nickNameLetter);
+	List<Member> findMembersByNickNameLetter(String nickNameLetter);
 
 }

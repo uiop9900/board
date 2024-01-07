@@ -6,10 +6,10 @@ import org.springframework.data.domain.Pageable;
 
 public interface PostReader {
 
-	Post findPostByIdx(Long idx);
+	Post getPostByIdx(Long idx);
 
-	Page<Post> getPosts(Pageable pageable);
+	Page<Post> findPosts(Pageable pageable);
 
-	Page<Post> getPostsByHashTag(String hashTag, Pageable pageable);
+	Page<Post> findPostsByHashTag(String hashTag, Pageable pageable);
 
 }

@@ -20,7 +20,7 @@ public class CommentStoreImpl implements CommentStore {
 
 	@Override
 	public void deleteComments(final List<Long> commentIdxs) {
-			commentRepository.deleteComments(commentIdxs);
+		commentRepository.deleteComments(commentIdxs);
 	}
 
 

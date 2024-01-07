@@ -28,7 +28,7 @@ public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
 	}
 
 	@Override
-	public List<Member> getMembersByNickNameLetter(final String nickNameLetter) {
+	public List<Member> findMembersByNickNameLetter(final String nickNameLetter) {
 		return queryFactory.selectFrom(member)
 				.where(
 						member.nickName.like("%" + nickNameLetter + "%")

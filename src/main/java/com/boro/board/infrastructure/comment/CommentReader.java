@@ -7,15 +7,15 @@ import java.util.Optional;
 
 public interface CommentReader {
 
-	Comment findCommentByIdx(Long commentIdx);
+	Comment getCommentByIdx(Long commentIdx);
 
-	List<Comment> getCommentsExceptMeByPostIdx(Long postIdx, Long commentIdx);
+	List<Comment> findCommentsExceptMeByPostIdx(Long postIdx, Long commentIdx);
 
-	Comment getParentCommentByPostIdx(Long postIdx);
+	Comment findParentCommentByPostIdx(Long postIdx);
 
-	List<Comment> getCommentsByTagMemberIdx(Long memberIdx);
+	List<Comment> findCommentsByTagMemberIdx(Long memberIdx);
 
-	Optional<Comment> getCommentRecentlyByPostIdx(Long postIdx);
+	Optional<Comment> findCommentRecentlyByPostIdx(Long postIdx);
 
 
 

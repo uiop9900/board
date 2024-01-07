@@ -16,25 +16,25 @@ public class CommentReaderImpl implements CommentReader {
 
 	private final CommentRepository commentRepository;
 
-	@Override public Comment findCommentByIdx(final Long commentIdx) {
+	@Override public Comment getCommentByIdx(final Long commentIdx) {
 		return commentRepository.findById(commentIdx).orElseThrow(() -> new CommentException(NOT_FOUND_COMMENT));
 	}
 
-	@Override public List<Comment> getCommentsExceptMeByPostIdx(final Long postIdx, final Long commentIdx) {
-		return commentRepository.getCommentsExceptMeByPostIdx(postIdx, commentIdx);
+	@Override public List<Comment> findCommentsExceptMeByPostIdx(final Long postIdx, final Long commentIdx) {
+		return commentRepository.findCommentsExceptMeByPostIdx(postIdx, commentIdx);
 	}
 
-	@Override public Comment getParentCommentByPostIdx(final Long postIdx) {
-		return commentRepository.getParentCommentByPostIdx(postIdx);
-	}
-
-	@Override
-	public List<Comment> getCommentsByTagMemberIdx(Long memberIdx) {
-		return commentRepository.getCommentsByTagMemberIdx(memberIdx);
+	@Override public Comment findParentCommentByPostIdx(final Long postIdx) {
+		return commentRepository.findParentCommentByPostIdx(postIdx);
 	}
 
 	@Override
-	public Optional<Comment> getCommentRecentlyByPostIdx(Long postIdx) {
-		return commentRepository.getCommentRecentlyByPostIdx(postIdx);
+	public List<Comment> findCommentsByTagMemberIdx(Long memberIdx) {
+		return commentRepository.findCommentsByTagMemberIdx(memberIdx);
+	}
+
+	@Override
+	public Optional<Comment> findCommentRecentlyByPostIdx(Long postIdx) {
+		return commentRepository.findCommentRecentlyByPostIdx(postIdx);
 	}
 }

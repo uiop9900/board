@@ -9,10 +9,10 @@ public interface CommentRepositoryCustom {
 
     void deleteComments(List<Long> commentIdxs);
 
-    List<Comment> getCommentsExceptMeByPostIdx(Long postIdx, Long commentIdx);
+    List<Comment> findCommentsExceptMeByPostIdx(Long postIdx, Long commentIdx);
 
-    Comment getParentCommentByPostIdx(Long postIdx);
+    Comment findParentCommentByPostIdx(Long postIdx);
 
-    Optional<Comment> getCommentRecentlyByPostIdx(Long postIdx);
+    Optional<Comment> findCommentRecentlyByPostIdx(Long postIdx);
 
 }

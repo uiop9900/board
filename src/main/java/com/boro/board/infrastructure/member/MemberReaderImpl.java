@@ -28,8 +28,8 @@ public class MemberReaderImpl implements MemberReader {
 	}
 
 	@Override
-	public List<Member> getMembersByNickNameLetter(final String nickNameLetter) {
-		return memberRepository.getMembersByNickNameLetter(nickNameLetter);
+	public List<Member> findMembersByNickNameLetter(final String nickNameLetter) {
+		return memberRepository.findMembersByNickNameLetter(nickNameLetter);
 	}
 
 }

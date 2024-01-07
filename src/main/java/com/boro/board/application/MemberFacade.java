@@ -31,8 +31,8 @@ public class MemberFacade {
 		memberService.logInMember(phoneNumber, password);
 	}
 
-	public List<MemberInfo.Mention> getMemberInfosForMention(String nickNameLetter) {
-		return memberService.getMembersByNickNameLetter(nickNameLetter)
+	public List<MemberInfo.Mention> findMemberInfosForMention(String nickNameLetter) {
+		return memberService.findMembersByNickNameLetter(nickNameLetter)
 				.stream().map(member -> Mention.of(member.getIdx(), member.getNickName()))
 				.collect(Collectors.toList());
 	}

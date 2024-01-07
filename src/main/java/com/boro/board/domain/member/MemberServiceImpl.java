@@ -68,8 +68,8 @@ public class MemberServiceImpl implements MemberService {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 	}
 
-	@Override public List<Member> getMembersByNickNameLetter(final String nickNameLetter) {
-		return memberReader.getMembersByNickNameLetter(nickNameLetter);
+	@Override public List<Member> findMembersByNickNameLetter(final String nickNameLetter) {
+		return memberReader.findMembersByNickNameLetter(nickNameLetter);
 	}
 
 }

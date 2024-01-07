@@ -10,6 +10,8 @@ public class ErrorMessage {
 	// post
 	public final static String NOT_FOUND_POST = "해당 게시글이 존재하지 않습니다.";
 
+	public final static String CAN_NOT_DELETE = "본인의 게시글만 삭제가능합니다.";
+
 	public final static String NOT_FOUND_COMMENT = "해당 댓글이 존재하지 않습니다.";
 
 	public final static String CAN_NOT_WRITE_COMMENT = "삭제된 댓글에는 댓글작성이 불가합니다.";

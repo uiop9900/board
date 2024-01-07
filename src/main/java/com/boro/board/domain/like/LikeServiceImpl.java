@@ -35,9 +35,10 @@ public class LikeServiceImpl implements LikeService {
 	private final CommentReader commentReader;
 
 	@Override
-	@Transactional public Long likePost(final String postIdx) {
+	@Transactional
+	public Long likePost(final String postIdx) {
 		final Member member = memberReader.getMemberByIdx(UserPrincipal.get().getMemberIdx());
-		final Post post = postReader.findPostByIdx(Long.parseLong(postIdx));
+		final Post post = postReader.getPostByIdx(Long.parseLong(postIdx));
 
 		Long previousLikeNumber = likeReader.getLikeNumber(post.getIdx(), POST_LIKE_REDIS_KEY);
 		Long resultLike = calculatePostLikeNumber(member, post, previousLikeNumber);
@@ -46,9 +47,11 @@ public class LikeServiceImpl implements LikeService {
 		return resultLike;
 	}
 
-	@Override public Long likeComment(final String commentIdx) {
+	@Override
+	@Transactional
+	public Long likeComment(final String commentIdx) {
 		final Member member = memberReader.getMemberByIdx(UserPrincipal.get().getMemberIdx());
-		final Comment comment = commentReader.findCommentByIdx(Long.parseLong(commentIdx));
+		final Comment comment = commentReader.getCommentByIdx(Long.parseLong(commentIdx));
 
 		Long previousLikeNumber = likeReader.getLikeNumber(comment.getIdx(), COMMENT_LIKE_REDIS_KEY);
 		Long resultLike = calculateCommentLikeNumber(member, comment, previousLikeNumber);
@@ -57,6 +60,8 @@ public class LikeServiceImpl implements LikeService {
 		return resultLike;
 	}
 
+
+	// TODO: 중복로직 제거하기
 	private Long calculatePostLikeNumber(Member member, Post post, Long likeNumber) {
 		final Optional<PostLike> previousPostLike = likeReader.getPostLikeById(post, member);
 

@@ -1,5 +1,6 @@
 package com.boro.board.domain.post;
 
+import com.boro.board.common.exception.MemberException;
 import com.boro.board.domain.comment.CommentInfo;
 import com.boro.board.domain.member.Member;
 import com.boro.board.domain.post.PostCommand.Create;
@@ -16,10 +17,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.boro.board.common.ErrorMessage.CAN_NOT_DELETE;
 import static com.boro.board.common.RedisKeyProperties.COMMENT_LIKE_REDIS_KEY;
 import static com.boro.board.common.RedisKeyProperties.POST_LIKE_REDIS_KEY;
 
@@ -53,7 +56,7 @@ public class PostServiceImpl implements PostService {
 	@Override
 	@Transactional public void updatePost(Create create) {
 		// 게시글 update
-		final Post post = postReader.findPostByIdx(Long.parseLong(create.getPostIdx()));
+		final Post post = postReader.getPostByIdx(Long.parseLong(create.getPostIdx()));
 		final List<HashTag> hashTags = create.toHashTagCommand();
 
 		Member member = memberReader.getMemberByIdx(UserPrincipal.get().getMemberIdx());
@@ -65,18 +68,24 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	@Transactional public void deletePost(final Long postIdx) {
-		final Post post = postReader.findPostByIdx(postIdx);
+		Member member = memberReader.getMemberByIdx(UserPrincipal.get().getMemberIdx());
+
+		final Post post = postReader.getPostByIdx(postIdx);
+		if (post.getMember().getIdx() != member.getIdx()) {
+			throw new MemberException(CAN_NOT_DELETE);
+		}
 
 		post.delete();
 		postStore.deleteHashTags(postIdx);
+		final List<Long> commentIdxs = post.getComments().stream().map(comment -> comment.getIdx())
+				.sorted(Comparator.reverseOrder()) .collect(Collectors.toList());
 
-		final List<Long> commentIdxs = post.getComments().stream().map(comment -> comment.getIdx()).collect(Collectors.toList());
 		commentStore.deleteComments(commentIdxs);
 	}
 
 	@Override
-	public PostInfo.Detail getPostDetail(Long postIdx) {
-		Post post = postReader.findPostByIdx(postIdx);
+	public PostInfo.Detail findPostDetail(Long postIdx) {
+		Post post = postReader.getPostByIdx(postIdx);
 		Long postLikes = likeReader.getLikeNumber(post.getIdx(), POST_LIKE_REDIS_KEY);
 
 		List<CommentInfo.Detail> commentInfos = post.getComments().stream()
@@ -88,14 +97,14 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<PostInfo.Main> getPosts(String page, String hashTag) {
+	public List<PostInfo.Main> findPosts(String page, String hashTag) {
 		Page<Post> posts;
 		PageRequest pageRequest = PageRequest.of(Integer.parseInt(page), PAGE_SIZE);
 
 		if (hashTag == null) {
-			posts = postReader.getPosts(pageRequest);
+			posts = postReader.findPosts(pageRequest);
 		} else {
-			posts = postReader.getPostsByHashTag(hashTag, pageRequest);
+			posts = postReader.findPostsByHashTag(hashTag, pageRequest);
 		}
 
 		List<Long> postIdxs = posts.stream().map(Post::getIdx).toList();

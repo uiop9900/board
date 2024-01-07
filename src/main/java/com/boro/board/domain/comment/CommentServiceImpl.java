@@ -37,7 +37,7 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	@RedissonLock
 	public void createComment(final Create create) {
-		final Post post = postReader.findPostByIdx(Long.parseLong(create.getPostIdx()));
+		final Post post = postReader.getPostByIdx(Long.parseLong(create.getPostIdx()));
 		final Member writer = memberReader.getMemberByIdx(UserPrincipal.get().getMemberIdx());
 
 		final Comment comment = create.toEntity(post, findCommentForReply(post), findMemberForMention(create.getTagMemberIdx()), writer);
@@ -48,18 +48,18 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	@Transactional
 	public void updateComment(CommentCommand.Update update) {
-		Comment comment = commentReader.findCommentByIdx(Long.parseLong(update.getCommentIdx()));
+		Comment comment = commentReader.getCommentByIdx(Long.parseLong(update.getCommentIdx()));
 		comment.update(update.getContent(), findMemberForMention(update.getTagMemberIdx()));
 	}
 
 	@Override
 	@Transactional
 	public void deleteComment(String commentIdx) {
-		Comment comment = commentReader.findCommentByIdx(Long.parseLong(commentIdx));
+		Comment comment = commentReader.getCommentByIdx(Long.parseLong(commentIdx));
 		Long postIdx = comment.getPost().getIdx();
 
 		// 나(댓글)를 제외한 ROWSTS = U인 댓글을 조회한다.
-		final List<Comment> commentsExceptMe = commentReader.getCommentsExceptMeByPostIdx(postIdx, comment.getIdx());
+		final List<Comment> commentsExceptMe = commentReader.findCommentsExceptMeByPostIdx(postIdx, comment.getIdx());
 		final boolean haveReply = commentsExceptMe.size() > 0;
 
 		// 내가 첫 게시글인데 reply가 있으면 미사용 처리
@@ -71,7 +71,7 @@ public class CommentServiceImpl implements CommentService {
 		// reply가 없으면, 전제 삭제 처리 한다.
 		if (!haveReply) {
 			// 최초 댓글을 삭제
-			final Comment parentComment = commentReader.getParentCommentByPostIdx(postIdx);
+			final Comment parentComment = commentReader.findParentCommentByPostIdx(postIdx);
 			parentComment.delete();
 			comment.delete();
 			return;
@@ -82,14 +82,14 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<CommentInfo.Main> getCommentsMentioned() {
-		return commentReader.getCommentsByTagMemberIdx(UserPrincipal.get().getMemberIdx())
+		return commentReader.findCommentsByTagMemberIdx(UserPrincipal.get().getMemberIdx())
 				.stream().map(CommentInfo.Main::toInfo)
 				.collect(Collectors.toList());
 	}
 
 
 	public Comment findCommentForReply(Post post) {
-		Optional<Comment> recentComment = commentReader.getCommentRecentlyByPostIdx(post.getIdx());
+		Optional<Comment> recentComment = commentReader.findCommentRecentlyByPostIdx(post.getIdx());
 
 		if (recentComment.isEmpty()) {
 			return null; // 최초의 댓글

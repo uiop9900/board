@@ -20,12 +20,16 @@ public class CommentRepositoryCustomImpl implements CommentRepositoryCustom {
 
     @Override
     public void deleteComments(final List<Long> commentIdxs) {
-        jpaQueryFactory.delete(comment)
-            .where(comment.idx.in(commentIdxs))
-            .execute();
+        for (Long commentIdx : commentIdxs) {  // TODO: 한방쿼리 생각해보기.
+            jpaQueryFactory.update(comment)
+                    .set(comment.rowStatus, RowStatus.D)
+                .where(comment.idx.eq(commentIdx))
+                .execute();
+        }
+
     }
 
-    @Override public List<Comment> getCommentsExceptMeByPostIdx(final Long postIdx, Long commentIdx) {
+    @Override public List<Comment> findCommentsExceptMeByPostIdx(final Long postIdx, Long commentIdx) {
         return jpaQueryFactory.selectFrom(comment)
             .where(
                 comment.post.idx.eq(postIdx)
@@ -35,7 +39,7 @@ public class CommentRepositoryCustomImpl implements CommentRepositoryCustom {
             .fetch();
     }
 
-    @Override public Comment getParentCommentByPostIdx(final Long postIdx) {
+    @Override public Comment findParentCommentByPostIdx(final Long postIdx) {
         return jpaQueryFactory.selectFrom(comment)
             .where(
                 comment.post.idx.eq(postIdx)
@@ -44,7 +48,7 @@ public class CommentRepositoryCustomImpl implements CommentRepositoryCustom {
     }
 
     @Override
-    public Optional<Comment> getCommentRecentlyByPostIdx(Long postIdx) {
+    public Optional<Comment> findCommentRecentlyByPostIdx(Long postIdx) {
         return Optional.ofNullable(
                 jpaQueryFactory.selectFrom(comment)
                         .where(comment.post.idx.eq(postIdx))

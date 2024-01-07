@@ -19,17 +19,17 @@ public class PostReaderImpl implements PostReader {
 
 	private final PostRepository postRepository;
 
-	@Override public Post findPostByIdx(final Long idx) {
+	@Override public Post getPostByIdx(final Long idx) {
 		return postRepository.findById(idx).orElseThrow(() -> new PostException(NOT_FOUND_POST));
 	}
 
 	@Override
-	public Page<Post> getPosts(Pageable pageable) {
+	public Page<Post> findPosts(Pageable pageable) {
 		return postRepository.findAll(pageable);
 	}
 
 	@Override
-	public Page<Post> getPostsByHashTag(String hashTag, Pageable pageable) {
+	public Page<Post> findPostsByHashTag(String hashTag, Pageable pageable) {
 		return postRepository.findByHashTagsTagTitle(hashTag, pageable);
 	}
 }

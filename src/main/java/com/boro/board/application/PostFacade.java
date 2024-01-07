@@ -26,11 +26,11 @@ public class PostFacade {
 		postService.deletePost(Long.parseLong(postIdx));
 	}
 
-	public PostInfo.Detail getPostDetail(String postIdx) {
-		return postService.getPostDetail(Long.parseLong(postIdx));
+	public PostInfo.Detail findPostDetail(String postIdx) {
+		return postService.findPostDetail(Long.parseLong(postIdx));
 	}
 
-	public List<PostInfo.Main> getPosts(String page, String hashTag) {
-		return postService.getPosts(page, hashTag);
+	public List<PostInfo.Main> findPosts(String page, String hashTag) {
+		return postService.findPosts(page, hashTag);
 	}
 }
