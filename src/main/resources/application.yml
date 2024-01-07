@@ -2,6 +2,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3310/board?serverTimezone=UTC
+#    url: jdbc:mysql://mysql-local:3306/board TODO: 도커로 띄우기
     username: root
     password: root123
 
@@ -9,7 +10,7 @@ spring:
     database: mysql
     database-platform: org.hibernate.dialect.MySQLDialect # ??? ??? ??? ????.
     hibernate:
-      ddl-auto: validate
+      ddl-auto: validate # TODO: 초기 db 넣기
     show-sql: true
     properties:
       hibernate:

@@ -1,6 +1,6 @@
 version: "3"
 services:
-  mysql_container:
+  mysql_container: # 해당 이름으로 찾아간다.
     image: mysql:latest
     container_name: mysql-local
     ports:
@@ -28,3 +28,22 @@ services:
     # 컨테이너 종료시 재시작 여부 설정
     restart: always
     command: redis-server /var/folders/redis # volume 과 파일경로를 동일하게 해야한다.
+#
+#  board:
+#    build: .
+#    ports:
+#      - 8080:8080
+#    depends_on:
+#      - mysql_container
+#      - redis_container
+#    environment:
+#      DATABASE_URL: mysql_container
+#      DATABASE_PORT: 3306
+#      MYSQL_USER: root
+#      MYSQL_PASSWORD: root123
+#      REDIS_URL : redis_container
+#      REDIS_PORT: 6379
+#
+#volumes:
+#  mysql_data:
+#    driver: local
