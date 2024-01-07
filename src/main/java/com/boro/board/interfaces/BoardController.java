@@ -61,7 +61,6 @@ public class BoardController {
 	public CommonResponse<List<PostInfo.Main>> getPosts(
 			@PathVariable("page") String page,
 			@PathVariable(required = false, name = "hashTag") String hashTag) {
-		log.error("request");
 		  return CommonResponse.success(postFacade.getPosts(page, hashTag));
   }
 

@@ -17,11 +17,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.boro.board.common.RedisKeyProperties.COMMENT_LIKE_REDIS_KEY;
 import static com.boro.board.common.RedisKeyProperties.POST_LIKE_REDIS_KEY;
-import static java.util.Arrays.stream;
 
 @Service
 @RequiredArgsConstructor
@@ -98,9 +98,12 @@ public class PostServiceImpl implements PostService {
 			posts = postReader.getPostsByHashTag(hashTag, pageRequest);
 		}
 
+		List<Long> postIdxs = posts.stream().map(Post::getIdx).toList();
+		Map<Long, Long> likeNumbers = likeReader.getLikeNumbers(postIdxs, POST_LIKE_REDIS_KEY);
+
 		return posts.stream()
 				.map(post -> PostInfo.Main.toInfo(post,
-						likeReader.getLikeNumber(post.getIdx(), POST_LIKE_REDIS_KEY)))
+						likeNumbers.get(post.getIdx())))
 				.toList();
 	}
 

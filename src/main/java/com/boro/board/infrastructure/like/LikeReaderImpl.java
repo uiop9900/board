@@ -7,10 +7,14 @@ import com.boro.board.domain.like.PostLike;
 import com.boro.board.domain.like.PostLikeId;
 import com.boro.board.domain.member.Member;
 import com.boro.board.domain.post.Post;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -34,6 +38,21 @@ public class LikeReaderImpl implements LikeReader {
 		String key = redisKey + idx;
 		final Object value = redisTemplate.opsForValue().get(key);
 		return value == null ? 0L : (Long)value;
+	}
+
+	@Override
+	public Map<Long, Long> getLikeNumbers(List<Long> idxs, String redisKey) {
+		List<String> keys = idxs.stream().map(idx -> redisKey + idx).toList();
+		List<Object> values = redisTemplate.opsForValue().multiGet(keys);
+
+		HashMap<Long, Long> likes = new HashMap<>();
+		for (int i = 0; i < keys.size(); i++) {
+			likes.put(
+					idxs.get(i),
+					values.get(i) == null ? 0L : (Long) values.get(i)
+			);
+		}
+		return likes;
 	}
 
 
