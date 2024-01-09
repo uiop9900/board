@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum RowStatus {
     U("사용중"),
-    N("미사용"), // TODO: 미사용 경우 없으면 추후 삭제
+    N("미사용"),
     D("삭제");
 
     private final String description;

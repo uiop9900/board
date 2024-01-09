@@ -1,8 +1,8 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3310/board?serverTimezone=UTC
-#    url: jdbc:mysql://mysql-local:3306/board TODO: 도커로 띄우기
+#    url: jdbc:mysql://localhost:3310/board?serverTimezone=UTC
+    url: jdbc:mysql://mysql_container:3306/board?characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: root123
 
@@ -18,8 +18,8 @@ spring:
 
   data:
     redis:
-      host: localhost
-      port: 6380
+      host: redis_container
+      port: 6379
 
   sql:
     init:
