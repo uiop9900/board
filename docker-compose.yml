@@ -7,13 +7,16 @@ services:
       - "3310:3306"
     environment:
       MYSQL_DATABASE: board
+      MYSQL_ROOT_USER: root
       MYSQL_ROOT_PASSWORD: root123
     command: # 명령어 실행
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
+#      - --init-file /docker-entrypoint-initdb.d/init.sql # 이 부분이 변경된 부분입니다.
     volumes:
-      - /var/folders/mysql # 다렉토리 마운트 설정
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     restart: always
+
 
   redis_container:
     image: redis:latest
@@ -25,9 +28,10 @@ services:
     labels:
       - "name=redis"
       - "mode=standalone"
-    # 컨테이너 종료시 재시작 여부 설정
-    restart: always
     command: redis-server /var/folders/redis # volume 과 파일경로를 동일하게 해야한다.
+    restart: always
+    # 컨테이너 종료시 재시작 여부 설정
+
 
   board:
     build: .

@@ -4,7 +4,7 @@
 
 
 ### 실행방법
-- docker-compose.yml 실행 
-  - 레디스, mysql 도커로 띄우기
-- application.yml의 ddl-auto: create로 서버 실행
-  - 초기 db 세팅하기
+- docker-compose.yml 실행
+  - `redis`, `mysql`, `project`를 도커에서 실행합니다.
+- 실행확인 후, board 프로젝트 실행하기.
+  - db설정이 create라, 서버 재기동시 기존 db는 사라집니다.
