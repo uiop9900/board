@@ -2,7 +2,7 @@ package com.boro.board.interfaces;
 
 import com.boro.board.application.MemberFacade;
 import com.boro.board.common.utils.JwtTokenUtil;
-import com.boro.board.common.PasswordValidator;
+import com.boro.board.common.validator.PasswordValidator;
 import com.boro.board.common.config.SecretKeyConfig;
 import com.boro.board.domain.member.MemberInfo.Mention;
 import com.boro.board.interfaces.dtos.member.CheckMemberForMentionRequest;

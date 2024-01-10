@@ -1,4 +1,4 @@
-package com.boro.board.common;
+package com.boro.board.common.filter;
 
 import com.boro.board.common.config.SecretKeyConfig;
 import com.boro.board.common.utils.JwtTokenUtil;

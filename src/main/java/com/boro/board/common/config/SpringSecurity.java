@@ -1,7 +1,7 @@
 package com.boro.board.common.config;
 
 
-import com.boro.board.common.JwtTokenFilter;
+import com.boro.board.common.filter.JwtTokenFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
