@@ -1,10 +1,6 @@
-package com.boro.board.interfaces.dtos;
+package com.boro.board.domain.entity;
 
 import com.boro.board.domain.member.Member;
-import com.boro.board.domain.post.PostCommand.Create;
-import jakarta.annotation.Nullable;
-import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;

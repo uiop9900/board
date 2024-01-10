@@ -1,8 +1,7 @@
 package com.boro.board.infrastructure.comment;
 
 import com.boro.board.domain.comment.Comment;
-import com.boro.board.domain.comment.QComment;
-import com.boro.board.domain.entity.RowStatus;
+import com.boro.board.domain.enums.RowStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

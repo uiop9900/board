@@ -1,4 +1,4 @@
-package com.boro.board.interfaces.dtos;
+package com.boro.board.interfaces.dtos.like;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;

@@ -2,9 +2,8 @@ package com.boro.board.domain.like;
 
 import com.boro.board.domain.comment.Comment;
 import com.boro.board.domain.entity.BaseEntity;
-import com.boro.board.domain.entity.RowStatus;
+import com.boro.board.domain.enums.RowStatus;
 import com.boro.board.domain.member.Member;
-import com.boro.board.domain.post.Post;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

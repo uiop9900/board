@@ -1,7 +1,7 @@
 package com.boro.board.domain.comment;
 
 import com.boro.board.domain.entity.BaseEntity;
-import com.boro.board.domain.entity.RowStatus;
+import com.boro.board.domain.enums.RowStatus;
 import com.boro.board.domain.like.CommentLike;
 import com.boro.board.domain.post.Post;
 import com.boro.board.domain.member.Member;

@@ -1,4 +1,4 @@
-package com.boro.board.interfaces.dtos;
+package com.boro.board.interfaces.dtos.member;
 
 import lombok.Getter;
 

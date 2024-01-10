@@ -2,7 +2,7 @@ package com.boro.board.domain.post;
 
 import com.boro.board.domain.comment.Comment;
 import com.boro.board.domain.entity.BaseEntity;
-import com.boro.board.domain.entity.RowStatus;
+import com.boro.board.domain.enums.RowStatus;
 import com.boro.board.domain.member.Member;
 import com.boro.board.domain.post.PostCommand.Create;
 import jakarta.persistence.*;

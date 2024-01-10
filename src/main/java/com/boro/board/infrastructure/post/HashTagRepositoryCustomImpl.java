@@ -2,7 +2,7 @@ package com.boro.board.infrastructure.post;
 
 import static com.boro.board.domain.post.QHashTag.hashTag;
 
-import com.boro.board.domain.entity.RowStatus;
+import com.boro.board.domain.enums.RowStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

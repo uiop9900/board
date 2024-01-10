@@ -3,12 +3,12 @@ package com.boro.board.domain.member;
 import static com.boro.board.common.ErrorMessage.NOT_CORRECT_PASSWORD;
 import static com.boro.board.common.ErrorMessage.NOT_FOUND_MEMBER;
 
-import com.boro.board.common.PasswordEncrypt;
+import com.boro.board.common.utils.PasswordEncrypt;
 import com.boro.board.common.exception.MemberException;
 import com.boro.board.domain.member.MemberCommand.SignUp;
 import com.boro.board.infrastructure.member.MemberReader;
 import com.boro.board.infrastructure.member.MemberStore;
-import com.boro.board.interfaces.dtos.UserPrincipal;
+import com.boro.board.domain.entity.UserPrincipal;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

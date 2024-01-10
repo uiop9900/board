@@ -1,4 +1,4 @@
-package com.boro.board.interfaces.dtos;
+package com.boro.board.interfaces.dtos.comment;
 
 import com.boro.board.domain.comment.CommentCommand;
 import jakarta.annotation.Nullable;

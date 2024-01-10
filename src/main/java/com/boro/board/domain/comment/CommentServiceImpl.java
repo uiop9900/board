@@ -9,7 +9,7 @@ import com.boro.board.infrastructure.comment.CommentReader;
 import com.boro.board.infrastructure.comment.CommentStore;
 import com.boro.board.infrastructure.member.MemberReader;
 import com.boro.board.infrastructure.post.PostReader;
-import com.boro.board.interfaces.dtos.UserPrincipal;
+import com.boro.board.domain.entity.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,10 +1,10 @@
-package com.boro.board.interfaces.dtos;
+package com.boro.board.interfaces.dtos.like;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 
 @Getter
-public class DeletePostRequest {
+public class LikePostRequest {
 
 	@NotEmpty
 	private String postIdx;

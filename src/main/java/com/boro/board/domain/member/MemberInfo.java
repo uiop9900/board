@@ -1,7 +1,6 @@
 package com.boro.board.domain.member;
 
-import com.boro.board.domain.entity.RowStatus;
-import jakarta.validation.constraints.NotEmpty;
+import com.boro.board.domain.enums.RowStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

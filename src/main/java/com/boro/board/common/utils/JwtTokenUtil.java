@@ -1,4 +1,4 @@
-package com.boro.board.common;
+package com.boro.board.common.utils;
 
 
 import io.jsonwebtoken.Claims;

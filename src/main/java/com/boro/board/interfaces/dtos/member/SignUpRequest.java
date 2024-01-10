@@ -1,4 +1,4 @@
-package com.boro.board.interfaces.dtos;
+package com.boro.board.interfaces.dtos.member;
 
 import com.boro.board.domain.member.MemberCommand.SignUp;
 import jakarta.validation.constraints.NotEmpty;

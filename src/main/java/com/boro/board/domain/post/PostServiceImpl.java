@@ -9,7 +9,7 @@ import com.boro.board.infrastructure.like.LikeReader;
 import com.boro.board.infrastructure.member.MemberReader;
 import com.boro.board.infrastructure.post.PostReader;
 import com.boro.board.infrastructure.post.PostStore;
-import com.boro.board.interfaces.dtos.UserPrincipal;
+import com.boro.board.domain.entity.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -23,8 +23,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.boro.board.common.ErrorMessage.CAN_NOT_DELETE;
-import static com.boro.board.common.RedisKeyProperties.COMMENT_LIKE_REDIS_KEY;
-import static com.boro.board.common.RedisKeyProperties.POST_LIKE_REDIS_KEY;
+import static com.boro.board.common.property.RedisKeyProperties.COMMENT_LIKE_REDIS_KEY;
+import static com.boro.board.common.property.RedisKeyProperties.POST_LIKE_REDIS_KEY;
 
 @Service
 @RequiredArgsConstructor

@@ -2,8 +2,8 @@ package com.boro.board.interfaces;
 
 import com.boro.board.application.LikeFacade;
 import com.boro.board.interfaces.dtos.CommonResponse;
-import com.boro.board.interfaces.dtos.LikeCommentRequest;
-import com.boro.board.interfaces.dtos.LikePostRequest;
+import com.boro.board.interfaces.dtos.like.LikeCommentRequest;
+import com.boro.board.interfaces.dtos.like.LikePostRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

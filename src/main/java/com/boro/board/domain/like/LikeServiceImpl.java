@@ -9,15 +9,15 @@ import com.boro.board.infrastructure.like.LikeReader;
 import com.boro.board.infrastructure.like.LikeStore;
 import com.boro.board.infrastructure.member.MemberReader;
 import com.boro.board.infrastructure.post.PostReader;
-import com.boro.board.interfaces.dtos.UserPrincipal;
+import com.boro.board.domain.entity.UserPrincipal;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.boro.board.common.ErrorMessage.CAN_NOT_CALCULATE_LIKE;
-import static com.boro.board.common.RedisKeyProperties.COMMENT_LIKE_REDIS_KEY;
-import static com.boro.board.common.RedisKeyProperties.POST_LIKE_REDIS_KEY;
+import static com.boro.board.common.property.RedisKeyProperties.COMMENT_LIKE_REDIS_KEY;
+import static com.boro.board.common.property.RedisKeyProperties.POST_LIKE_REDIS_KEY;
 
 
 @Component

@@ -1,17 +1,17 @@
 package com.boro.board.interfaces;
 
 import com.boro.board.application.MemberFacade;
-import com.boro.board.common.JwtTokenUtil;
+import com.boro.board.common.utils.JwtTokenUtil;
 import com.boro.board.common.PasswordValidator;
 import com.boro.board.common.config.SecretKeyConfig;
 import com.boro.board.domain.member.MemberInfo.Mention;
-import com.boro.board.interfaces.dtos.CheckMemberForMentionRequest;
-import com.boro.board.interfaces.dtos.CheckPasswordRequest;
-import com.boro.board.interfaces.dtos.CheckUserIdRequest;
+import com.boro.board.interfaces.dtos.member.CheckMemberForMentionRequest;
+import com.boro.board.interfaces.dtos.member.CheckPasswordRequest;
+import com.boro.board.interfaces.dtos.member.CheckUserIdRequest;
 import com.boro.board.interfaces.dtos.CommonResponse;
-import com.boro.board.interfaces.dtos.SignInRequest;
-import com.boro.board.interfaces.dtos.SignUpRequest;
-import com.boro.board.interfaces.dtos.TokenInfo;
+import com.boro.board.interfaces.dtos.member.SignInRequest;
+import com.boro.board.interfaces.dtos.member.SignUpRequest;
+import com.boro.board.interfaces.dtos.member.TokenInfo;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
