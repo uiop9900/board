@@ -27,7 +27,7 @@ public class LikeReaderImpl implements LikeReader {
 	private final RedisTemplate<String, Object> redisTemplate;
 
 	@Override public Optional<CommentLike> getCommentLikeById(final Comment comment, final Member member) {
-		return commentLikeRepository.findById(new CommentLikeId(comment.getIdx(), member.getIdx()));
+		return commentLikeRepository.findById(new CommentLikeId(comment.getIdx(), member.getIdx())); // 잦은 변동은 안쓰는게 나음 (캐시히트율)
 	}
 
 	@Override public Optional<PostLike> getPostLikeById(final Post post, final Member member) {

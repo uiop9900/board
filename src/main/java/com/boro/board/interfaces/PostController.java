@@ -47,6 +47,7 @@ public class PostController {
      * 게시글 삭제(게시글의 댓글도 삭제한다)
      */
 	@DeleteMapping
+	// /post/1 ->
 	public CommonResponse deletePost(@RequestBody @Valid DeletePostRequest request) {
 		postFacade.deletePost(request.getPostIdx());
 		return CommonResponse.success();
@@ -57,7 +58,7 @@ public class PostController {
    * 게시글 리스트 조회 -> 해시태그 있으면 해당 게시글 리스트나 나온다.
    * 제목, 작성자, 좋아요 수, 해시태그 목록, 댓글 수
    */
-  @GetMapping(value = "/list")
+  @GetMapping(value = "/dash-board")
 	public CommonResponse<List<PostInfo.Main>> findPosts(
 			@RequestParam(required = false, name = "page", defaultValue = "0") Integer page,
 			@RequestParam(required = false, name = "hashTag") String hashTag) {
