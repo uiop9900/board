@@ -7,6 +7,6 @@ import lombok.Getter;
 public class DeletePostRequest {
 
 	@NotEmpty
-	private String postIdx;
+	private Long postIdx;
 
 }

@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/post")
 @RequiredArgsConstructor
 @Slf4j
-public class BoardController {
+public class PostController {
 
 	private final PostFacade postFacade;
 
@@ -27,7 +27,7 @@ public class BoardController {
    * 제목, content, 작성자, 작성시간, 해시태그들, 좋아요 수, 댓글 전체
    */
   @GetMapping("/{postIdx}")
-  public CommonResponse<PostInfo.Detail> findPost(@PathVariable("postIdx") String postIdx) {
+  public CommonResponse<PostInfo.Detail> findPost(@PathVariable("postIdx") Long postIdx) {
 		return CommonResponse.success(postFacade.findPostDetail(postIdx));
   }
 
@@ -57,10 +57,10 @@ public class BoardController {
    * 게시글 리스트 조회 -> 해시태그 있으면 해당 게시글 리스트나 나온다.
    * 제목, 작성자, 좋아요 수, 해시태그 목록, 댓글 수
    */
-  	@GetMapping(value = {"/list/{page}/{hashTag}", "/list/{page}"})
+  @GetMapping(value = "/list")
 	public CommonResponse<List<PostInfo.Main>> findPosts(
-			@PathVariable("page") String page,
-			@PathVariable(required = false, name = "hashTag") String hashTag) {
+			@RequestParam(required = false, name = "page", defaultValue = "0") Integer page,
+			@RequestParam(required = false, name = "hashTag") String hashTag) {
 		  return CommonResponse.success(postFacade.findPosts(page, hashTag));
   }
 

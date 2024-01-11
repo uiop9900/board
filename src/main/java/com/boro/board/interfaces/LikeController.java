@@ -22,6 +22,7 @@ public class LikeController {
    * 게시글에 대한 좋아요 처리
    */
 	@PostMapping("/post")
+	// ex) /post/{postIdx}/likef
 	public CommonResponse<Long> likePost(@RequestBody @Valid LikePostRequest request) {
 		return CommonResponse.success(likeFacade.likePost(request.getPostIdx()));
 	}
@@ -31,6 +32,7 @@ public class LikeController {
 	 * 댓글에 대한 좋아요 처리
 	 */
 	@PostMapping("/comment")
+	// ex) /post/{postIdx}/comment/{commentIdx}/like
 	public CommonResponse<Long> likeComment(@RequestBody @Valid LikeCommentRequest request) {
 		return CommonResponse.success(likeFacade.likeComment(request.getCommentIdx()));
 	}

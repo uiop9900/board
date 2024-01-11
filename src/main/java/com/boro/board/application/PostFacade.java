@@ -22,15 +22,15 @@ public class PostFacade {
 		}
 	}
 
-	public void deletePost(String postIdx) {
-		postService.deletePost(Long.parseLong(postIdx));
+	public void deletePost(Long postIdx) {
+		postService.deletePost(postIdx);
 	}
 
-	public PostInfo.Detail findPostDetail(String postIdx) {
-		return postService.findPostDetail(Long.parseLong(postIdx));
+	public PostInfo.Detail findPostDetail(Long postIdx) {
+		return postService.findPostDetail(postIdx);
 	}
 
-	public List<PostInfo.Main> findPosts(String page, String hashTag) {
+	public List<PostInfo.Main> findPosts(Integer page, String hashTag) {
 		return postService.findPosts(page, hashTag);
 	}
 }

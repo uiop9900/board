@@ -97,9 +97,9 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<PostInfo.Main> findPosts(String page, String hashTag) {
+	public List<PostInfo.Main> findPosts(Integer page, String hashTag) {
 		Page<Post> posts;
-		PageRequest pageRequest = PageRequest.of(Integer.parseInt(page), PAGE_SIZE);
+		PageRequest pageRequest = PageRequest.of(page, PAGE_SIZE);
 
 		if (hashTag == null) {
 			posts = postReader.findPosts(pageRequest);

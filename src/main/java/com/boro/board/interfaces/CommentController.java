@@ -24,6 +24,9 @@ public class CommentController {
      * 댓글 작성시, 회원 멘션 가능
      */
 	@PostMapping
+	// ex) /post/{postIdx}/comment/
+	// ex) /post/{postIdx}/comment/{commentIdx}
+
 	public CommonResponse createComment(@RequestBody @Valid CreateCommentRequest request) {
 		commentFacade.createComment(request.toCommand());
 		return CommonResponse.success();
@@ -32,6 +35,8 @@ public class CommentController {
 	/**
 	 * 댓글 수정
 	 */
+	// ex) /post/{postIdx}/comment/
+	// ex) /post/{postIdx}/comment/{commentIdx}
 	@PatchMapping
 	public CommonResponse updateComment(@RequestBody @Valid UpdateCommentRequest request) {
 		commentFacade.updateComment(request.toCommand());
