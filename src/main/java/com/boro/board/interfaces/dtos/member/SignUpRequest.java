@@ -14,7 +14,7 @@ public class SignUpRequest {
 	private String nickName;
 
 	@NotEmpty
-	private String phoneNumber;
+	private String email;
 
 	@NotEmpty
 	private String password;
@@ -23,7 +23,7 @@ public class SignUpRequest {
 		return SignUp.builder()
 			.name(name)
 			.nickName(nickName)
-			.phoneNumber(phoneNumber)
+			.email(email)
 			.password(password)
 			.build();
 	}

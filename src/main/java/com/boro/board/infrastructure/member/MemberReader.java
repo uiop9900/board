@@ -8,7 +8,7 @@ public interface MemberReader {
 
 	Integer isDuplicatedByNickName(String nickName);
 
-	Optional<Member> findByPhoneNumber(String phoneNumber);
+	Optional<Member> findByEmail(String phoneNumber);
 
 	Member getMemberByIdx(Long memberIdx);
 

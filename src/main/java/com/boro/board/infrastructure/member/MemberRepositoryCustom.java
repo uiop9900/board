@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface MemberRepositoryCustom {
 
-	Optional<Member> findMemberByPhoneNumber(String phoneNumber);
+	Optional<Member> findMemberByEmail(String email);
 
 	List<Member> findMembersByNickNameLetter(String nickNameLetter);
 

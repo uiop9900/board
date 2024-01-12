@@ -8,6 +8,6 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberRep
 
 	Integer countMemberByNickName(String nickName);
 
-	Optional<Member> findMemberByPhoneNumber(String phoneNumber);
+	Optional<Member> findMemberByEmail(String email);
 
 }

@@ -19,16 +19,16 @@ public class MemberFacade {
 		return memberService.isDuplicatedNickName(nickName);
 	}
 
-	public boolean isDuplicatedUserPhoneNumber(String phoneNumber) {
-		return memberService.isDuplicatedPhoneNumber(phoneNumber);
+	public boolean isDuplicatedUserEmail(String email) {
+		return memberService.isDuplicatedEmail(email);
 	}
 
 	public void signUp(SignUp signUp) {
 		memberService.signUpMember(signUp);
 	}
 
-	public void setAuthentication(String phoneNumber, String password) {
-		memberService.logInMember(phoneNumber, password);
+	public void setAuthentication(String email, String password) {
+		memberService.logInMember(email, password);
 	}
 
 	public List<MemberInfo.Mention> findMemberInfosForMention(String nickNameLetter) {

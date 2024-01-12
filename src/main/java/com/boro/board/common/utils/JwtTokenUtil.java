@@ -19,12 +19,11 @@ public class JwtTokenUtil {
 
 	private final static Long EXPIRE_TIME_MS = 720000L;
 
-	public static String createToken(String secretKey, String phoneNumber) {
+	public static String createToken(String secretKey, String email) {
 		// Claim = Jwt Token에 들어갈 정보
 		Claims claims = Jwts.claims();
-		claims.put("phoneNumber", phoneNumber);
+		claims.put("email", email);
 
-		log.error(secretKey);
 		return Jwts.builder()
 				.setClaims(claims)
 				.setIssuedAt(new Date(System.currentTimeMillis()))
@@ -35,7 +34,7 @@ public class JwtTokenUtil {
 
 	// Claims에서 phoneNumber 꺼내기
 	public static String getLoginId(String token, String secretKey) {
-		return extractClaims(token, secretKey).get("phoneNumber").toString();
+		return extractClaims(token, secretKey).get("email").toString();
 	}
 
 	// 밝급된 Token이 만료 시간이 지났는지 체크

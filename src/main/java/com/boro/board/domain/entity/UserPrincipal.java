@@ -12,7 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public class UserPrincipal {
 
 	private Long memberIdx;
-	private String phoneNumber;
+	private String email;
 
 	public static UserPrincipal get() {
 		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -32,7 +32,7 @@ public class UserPrincipal {
 	public static UserPrincipal toUserPrincipal(Member member){
 		return UserPrincipal.builder()
 				.memberIdx(member.getIdx())
-				.phoneNumber(member.getPhoneNumber())
+				.email(member.getEmail())
 				.build();
 	}
 }

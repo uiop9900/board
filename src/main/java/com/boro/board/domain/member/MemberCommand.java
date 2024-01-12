@@ -11,14 +11,14 @@ public class MemberCommand {
 
 		private String name;
 		private String nickName;
-		private String phoneNumber;
+		private String email;
 		private String password;
 
 		public Member toEntity(String encryptPassword) {
 			return Member.builder()
 					.name(name)
 					.nickName(nickName)
-					.phoneNumber(phoneNumber)
+					.email(email)
 					.password(encryptPassword)
 					.build();
 		}

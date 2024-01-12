@@ -35,12 +35,12 @@ public class MemberServiceImpl implements MemberService {
 		return member > 0;
 	}
 
-	@Override public boolean isDuplicatedPhoneNumber(final String phoneNumber) {
-		return memberReader.findByPhoneNumber(phoneNumber).isPresent();
+	@Override public boolean isDuplicatedEmail(final String email) {
+		return memberReader.findByEmail(email).isPresent();
 	}
 
-	@Override public Member getMemberByPhoneNumber(final String phoneNumber) {
-		return memberReader.findByPhoneNumber(phoneNumber).orElseThrow(IllegalAccessError::new);
+	@Override public Member getMemberByEmail(final String email) {
+		return memberReader.findByEmail(email).orElseThrow(IllegalAccessError::new);
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override public void logInMember(final String phoneNumber, final String password) {
 		// 회원 확인
-		Member member = memberReader.findByPhoneNumber(phoneNumber).orElseThrow(() -> new MemberException(NOT_FOUND_MEMBER));
+		Member member = memberReader.findByEmail(phoneNumber).orElseThrow(() -> new MemberException(NOT_FOUND_MEMBER));
 
 		final boolean passwordMatches = passwordEncrypt.matches(password, member.getPassword());
 

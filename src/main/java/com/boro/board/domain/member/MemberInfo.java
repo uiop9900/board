@@ -25,7 +25,7 @@ public class MemberInfo {
 					.idx(member.getIdx())
 					.name(member.getName())
 					.nickName(member.getNickName())
-					.phoneNumber(member.getPhoneNumber())
+					.phoneNumber(member.getEmail())
 					.password(member.getPassword())
 					.rowStatus(member.getRowStatus())
 					.build();

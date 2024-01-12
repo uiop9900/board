@@ -8,9 +8,9 @@ public interface MemberService {
 
 	boolean isDuplicatedNickName(String nickName);
 
-	boolean isDuplicatedPhoneNumber(String phoneNumber);
+	boolean isDuplicatedEmail(String email);
 
-	Member getMemberByPhoneNumber(String phoneNumber);
+	Member getMemberByEmail(String email);
 
 	@Transactional void signUpMember(SignUp signUp);
 

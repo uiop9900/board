@@ -5,7 +5,6 @@ import com.boro.board.common.utils.JwtTokenUtil;
 import com.boro.board.common.validator.PasswordValidator;
 import com.boro.board.common.config.SecretKeyConfig;
 import com.boro.board.domain.member.MemberInfo.Mention;
-import com.boro.board.interfaces.dtos.member.CheckMemberForMentionRequest;
 import com.boro.board.interfaces.dtos.member.CheckPasswordRequest;
 import com.boro.board.interfaces.dtos.member.CheckUserIdRequest;
 import com.boro.board.interfaces.dtos.CommonResponse;
@@ -55,9 +54,9 @@ public class MemberController {
     /**
      * 회원의 id(phoneNumber) 중복체크
      */
-  	@PostMapping("/email")
+  @PostMapping("/email")
 	public CommonResponse<Boolean> checkUserId(@RequestBody @Valid CheckUserIdRequest request) {
-		return CommonResponse.success(memberFacade.isDuplicatedUserPhoneNumber(request.getPhoneNumber()));
+		return CommonResponse.success(memberFacade.isDuplicatedUserEmail(request.getEmail()));
 	}
 
 
@@ -74,8 +73,8 @@ public class MemberController {
      */
 	@PostMapping("/log-in")
 	public CommonResponse<TokenInfo> signIn(@RequestBody @Valid SignInRequest request) {
-		memberFacade.setAuthentication(request.getPhoneNumber(), request.getPassword());
-		final String token = JwtTokenUtil.createToken(secretKeyConfig.getSecretKey(), request.getPhoneNumber());
+		memberFacade.setAuthentication(request.getEmail(), request.getPassword());
+		final String token = JwtTokenUtil.createToken(secretKeyConfig.getSecretKey(), request.getEmail());
 		return CommonResponse.success(TokenInfo.of(token));
 	}
 

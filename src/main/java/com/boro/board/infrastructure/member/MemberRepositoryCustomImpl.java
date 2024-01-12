@@ -17,11 +17,11 @@ public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
 	private final JPAQueryFactory queryFactory;
 
 	@Override
-	public Optional<Member> findMemberByPhoneNumber(final String phoneNumber) {
+	public Optional<Member> findMemberByEmail(final String email) {
 		return Optional.ofNullable(
 				queryFactory.selectFrom(member)
 			.where(
-					member.phoneNumber.eq(phoneNumber)
+					member.email.eq(email)
 						.and(member.rowStatus.eq(RowStatus.U))
 			).fetchFirst()
 		);

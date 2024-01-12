@@ -7,7 +7,7 @@ import lombok.Getter;
 public class SignInRequest {
 
 	@NotEmpty
-	private String phoneNumber;
+	private String email;
 
 	@NotEmpty
 	private String password;

@@ -47,16 +47,16 @@ public class JwtTokenFilter extends OncePerRequestFilter { // 매 요청마다 �
 
 			// 전송받은 Jwt Token이 만료되었으면 => 다음 필터 진행(인증 X)
 			if (JwtTokenUtil.isExpired(token, secretKeyConfig.getSecretKey())) {
-				throw new RuntimeException("token시간이 만료되었습니다.");
-//				filterChain.doFilter(request, response);
-//				return;
+//				throw new RuntimeException("token시간이 만료되었습니다.");
+				filterChain.doFilter(request, response);
+				return;
 			}
 
 			// Jwt Token에서 loginId 추출
 			String loginId = JwtTokenUtil.getLoginId(token, secretKeyConfig.getSecretKey());
 
 			// 추출한 loginId로 User 찾아오기
-		final Member member = memberService.getMemberByPhoneNumber(loginId);
+		final Member member = memberService.getMemberByEmail(loginId);
 		final UserPrincipal userPrincipal = UserPrincipal.toUserPrincipal(member);
 
 		// loginUser 정보로 UsernamePasswordAuthenticationToken 발급

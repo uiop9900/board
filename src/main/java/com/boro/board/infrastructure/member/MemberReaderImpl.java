@@ -19,8 +19,8 @@ public class MemberReaderImpl implements MemberReader {
 		return memberRepository.countMemberByNickName(nickName);
 	}
 
-	@Override public Optional<Member> findByPhoneNumber(final String phoneNumber) {
-		return memberRepository.findMemberByPhoneNumber(phoneNumber);
+	@Override public Optional<Member> findByEmail(final String email) {
+		return memberRepository.findMemberByEmail(email);
 	}
 
 	@Override public Member getMemberByIdx(final Long memberIdx) {
