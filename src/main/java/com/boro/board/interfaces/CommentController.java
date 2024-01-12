@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/comment")
 @RequiredArgsConstructor
 public class CommentController {
 
@@ -23,10 +22,11 @@ public class CommentController {
      * 댓글 작성 / 수정
      * 댓글 작성시, 회원 멘션 가능
      */
-	@PostMapping
-	// ex) /posts/{postIdx}/comments/
-	// ex) /post/{postIdx}/comment/{commentIdx}
-	public CommonResponse createComment(@RequestBody @Valid CreateCommentRequest request) {
+  // /post/{postIdx}/comment
+	@PostMapping("/posts/{postIdx}/comments")
+	public CommonResponse createComment(
+			@PathVariable("postIdx") Long postIdx,
+			@RequestBody @Valid CreateCommentRequest request) {
 		commentFacade.createComment(request.toCommand());
 		return CommonResponse.success();
 	}
@@ -34,10 +34,11 @@ public class CommentController {
 	/**
 	 * 댓글 수정
 	 */
-	// ex) /posts/{postIdx}/comments/
 	// ex) /posts/{postIdx}/comments/{commentIdx}
-	@PatchMapping
-	public CommonResponse updateComment(@RequestBody @Valid UpdateCommentRequest request) {
+	@PatchMapping("/posts/{postIdx}/comments/{commentIdx}")
+	public CommonResponse updateComment(
+			@PathVariable("commentIdx") Long commentIdx,
+			@RequestBody @Valid UpdateCommentRequest request) {
 		commentFacade.updateComment(request.toCommand());
 		return CommonResponse.success();
 	}
@@ -46,9 +47,12 @@ public class CommentController {
     /**
      * 댓글 삭제
      */
-	@DeleteMapping
-	public CommonResponse deleteComment(@RequestBody @Valid DeleteCommentRequest request) {
-		commentFacade.deleteComment(request.getCommentIdx());
+	@DeleteMapping("/post/{postIdx}/comments/{commentIdx}")
+	public CommonResponse deleteComment(
+			@PathVariable("postIdx") Long postIdx,
+			@PathVariable("commentIdx") Long commentIdx
+			) {
+		commentFacade.deleteComment(commentIdx);
 		return CommonResponse.success();
 	}
 
@@ -57,7 +61,7 @@ public class CommentController {
   /**
    * 멘션된 사용자의 댓글을 모아보기가 가능하다.
    */
-  @GetMapping("/mentioned")
+  @GetMapping("/comments/mentioned") // 내것만 가능함.
 	public CommonResponse<List<CommentInfo.Main>> getCommentsMentioned() {
 		return CommonResponse.success(commentFacade.getCommentsMentioned());
   }

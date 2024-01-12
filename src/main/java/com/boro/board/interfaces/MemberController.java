@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/member")
+@RequestMapping("/members")
 @RequiredArgsConstructor
 public class MemberController {
 
@@ -55,7 +55,7 @@ public class MemberController {
     /**
      * 회원의 id(phoneNumber) 중복체크
      */
-  	@PostMapping("/phoneNumber")
+  	@PostMapping("/email")
 	public CommonResponse<Boolean> checkUserId(@RequestBody @Valid CheckUserIdRequest request) {
 		return CommonResponse.success(memberFacade.isDuplicatedUserPhoneNumber(request.getPhoneNumber()));
 	}
@@ -83,9 +83,10 @@ public class MemberController {
 	/**
 	 * 댓글 작성시, 회원 멘션을 위해 회원 조회 API
 	 */
-	@PostMapping("/mention")
-	public CommonResponse<List<Mention>> checkMemberForMention(@RequestBody @Valid CheckMemberForMentionRequest request)  {
-		return CommonResponse.success(memberFacade.findMemberInfosForMention(request.getMentionNickNameLetter()));
+	@PostMapping("/{nickNameLetter}")
+	public CommonResponse<List<Mention>> checkMemberForMention(
+			@PathVariable("nickNameLetter") String nickNameLetter)  {
+		return CommonResponse.success(memberFacade.findMemberInfosForMention(nickNameLetter));
 	}
 
 }

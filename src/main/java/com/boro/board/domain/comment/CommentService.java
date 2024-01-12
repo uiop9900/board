@@ -10,7 +10,7 @@ public interface CommentService {
 
 	@Transactional void updateComment(CommentCommand.Update update);
 
-	@Transactional void deleteComment(String commentIdx);
+	@Transactional void deleteComment(Long commentIdx);
 
 	List<CommentInfo.Main> getCommentsMentioned();
 

@@ -7,6 +7,6 @@ import lombok.Getter;
 public class CheckUserIdRequest {
 
 	@NotEmpty
-	private String phoneNumber; // id이자, 핸드폰 번호.
+	private String email; // id이자, 핸드폰 번호.
 
 }

@@ -4,8 +4,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface LikeService {
 
-	@Transactional Long likePost(String poseIdx);
+	@Transactional Long likePost(Long poseIdx);
 
-	@Transactional Long likeComment(String commentIdx);
+	@Transactional Long likeComment(Long commentIdx);
 
 }

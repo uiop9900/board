@@ -22,7 +22,7 @@ public class CommentFacade {
 		commentService.updateComment(update);
 	}
 
-	public void deleteComment(String commentIdx) {
+	public void deleteComment(Long commentIdx) {
 		commentService.deleteComment(commentIdx);
 	}
 

@@ -36,9 +36,9 @@ public class LikeServiceImpl implements LikeService {
 
 	@Override
 	@Transactional
-	public Long likePost(final String postIdx) {
+	public Long likePost(final Long postIdx) {
 		final Member member = memberReader.getMemberByIdx(UserPrincipal.get().getMemberIdx());
-		final Post post = postReader.getPostByIdx(Long.parseLong(postIdx));
+		final Post post = postReader.getPostByIdx(postIdx);
 
 		Long previousLikeNumber = likeReader.getLikeNumber(post.getIdx(), POST_LIKE_REDIS_KEY);
 		Long resultLike = calculatePostLikeNumber(member, post, previousLikeNumber);
@@ -49,9 +49,9 @@ public class LikeServiceImpl implements LikeService {
 
 	@Override
 	@Transactional
-	public Long likeComment(final String commentIdx) {
+	public Long likeComment(final Long commentIdx) {
 		final Member member = memberReader.getMemberByIdx(UserPrincipal.get().getMemberIdx());
-		final Comment comment = commentReader.getCommentByIdx(Long.parseLong(commentIdx));
+		final Comment comment = commentReader.getCommentByIdx(commentIdx);
 
 		Long previousLikeNumber = likeReader.getLikeNumber(comment.getIdx(), COMMENT_LIKE_REDIS_KEY);
 		Long resultLike = calculateCommentLikeNumber(member, comment, previousLikeNumber);

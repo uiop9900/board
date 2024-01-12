@@ -54,8 +54,8 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	@Transactional
-	public void deleteComment(String commentIdx) {
-		Comment comment = commentReader.getCommentByIdx(Long.parseLong(commentIdx));
+	public void deleteComment(Long commentIdx) {
+		Comment comment = commentReader.getCommentByIdx(commentIdx);
 		Long postIdx = comment.getPost().getIdx();
 
 		// 나(댓글)를 제외한 ROWSTS = U인 댓글을 조회한다.

@@ -10,11 +10,11 @@ public class LikeFacade {
 
 	private final LikeService likeService;
 
-	public Long likePost(String postIdx) {
+	public Long likePost(Long postIdx) {
 		return likeService.likePost(postIdx);
 	}
 
-	public Long likeComment(String commentIdx) {
+	public Long likeComment(Long commentIdx) {
 		return likeService.likeComment(commentIdx);
 	}
 }
