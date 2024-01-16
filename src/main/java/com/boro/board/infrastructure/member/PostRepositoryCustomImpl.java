@@ -23,15 +23,16 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
 
     @Override
     public Page<Post> getPostsByHashTag(String hashTag, Pageable pageable) {
-        List<Post> posts = jpaQueryFactory.select(
-                        QHashTag.hashTag.post
-                    )
-                .from(QHashTag.hashTag)
-                .where(QHashTag.hashTag.tagTitle.eq(hashTag))
-                .limit(pageable.getPageSize())  // 페이지 크기 설정
-                .offset(pageable.getOffset())  // 오프셋 설정
-                .fetch();
-
-        return new PageImpl<>(posts, pageable, posts.size());
+//        List<Post> posts = jpaQueryFactory.select(
+//                        QHashTag.hashTag
+//                    )
+//                .from(QHashTag.hashTag)
+//                .where(QHashTag.hashTag.tagTitle.eq(hashTag))
+//                .limit(pageable.getPageSize())  // 페이지 크기 설정
+//                .offset(pageable.getOffset())  // 오프셋 설정
+//                .fetch();
+//
+//        return new PageImpl<>(posts, pageable, posts.size());
+        return null;
     }
 }

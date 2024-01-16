@@ -19,7 +19,7 @@ public class HashTagCommand {
 			List<HashTag> hashTags = new ArrayList<>();
 			for (String tagTitle : tagTitles) {
 				final HashTag hashTag = HashTag.builder()
-						.post(post)
+//						.post(post)
 						.tagTitle(tagTitle)
 						.build();
 				hashTags.add(hashTag);

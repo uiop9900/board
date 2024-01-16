@@ -28,13 +28,9 @@ public class PostInfo {
 		public static Main toInfo(Post post, Long postLikes) {
 			Member member = post.getMember();
 
-			List<HashTagInfo.Main> hashTags = post.getHashTags().stream()
-					.map(HashTagInfo.Main::toInfo).toList();
-
 			return Main.builder()
 					.postIdx(post.getIdx())
 					.title(post.getTitle())
-					.hashTags(hashTags)
 					.postLikes(postLikes)
 					.commentCount(post.getComments().size())
 					.writerIdx(member.getIdx())
@@ -63,14 +59,11 @@ public class PostInfo {
 		public static Detail toInfo(Post post, List<CommentInfo.Detail> commentInfos, Long postLikes) {
 			Member member = post.getMember();
 
-			List<HashTagInfo.Main> hashTags = post.getHashTags().stream()
-					.map(HashTagInfo.Main::toInfo).toList();
 
 			return Detail.builder()
 					.postIdx(post.getIdx())
 					.title(post.getTitle())
 					.content(post.getContent())
-					.hashTags(hashTags)
 					.postLikes(postLikes)
 					.comments(commentInfos)
 					.writerIdx(member.getIdx())

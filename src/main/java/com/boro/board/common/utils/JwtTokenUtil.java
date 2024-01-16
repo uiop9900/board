@@ -34,7 +34,7 @@ public class JwtTokenUtil {
 
 	// Claims에서 phoneNumber 꺼내기
 	public static String getLoginId(String token, String secretKey) {
-		return extractClaims(token, secretKey).get("email").toString();
+		return extractClaims(token, secretKey).get("email").toString(); 
 	}
 
 	// 밝급된 Token이 만료 시간이 지났는지 체크
