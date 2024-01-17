@@ -66,12 +66,12 @@ public class SpringSecurity {
 
 	private String[] getPermitAllPaths() {
 		return new String[]{
-				"/member/test",
-				"/member/log-in",
-				"/member/sign-up",
-				"/member/nickname/**",
-				"/member/phoneNumber",
-				"/member/password"
+				"/members/test",
+				"/members/log-in",
+				"/members/sign-up",
+				"/members/nickname/**",
+				"/members/email",
+				"/members/password"
 		};
 	}
 

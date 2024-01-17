@@ -11,9 +11,9 @@ public class CommentCommand {
 	@Getter
 	public static class Create {
 
-		private String postIdx; // 게시글의 idx
+		private Long postIdx; // 게시글의 idx
 		private String content; // 댓글 내용
-		private String tagMemberIdx; // 언급당한 회원
+		private Long tagMemberIdx; // 언급당한 회원
 
 		public Comment toEntity(Post post, Comment parentComment, Member tagMember, Member writer) {
 			return Comment.builder()

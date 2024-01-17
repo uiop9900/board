@@ -35,7 +35,6 @@ public class CommentServiceImpl implements CommentService {
 
 
 	@Override
-	@RedissonLock
 	public void createComment(final Create create) {
 		final Post post = postReader.getPostByIdx(Long.parseLong(create.getPostIdx()));
 		final Member writer = memberReader.getMemberByIdx(UserPrincipal.get().getMemberIdx());

@@ -9,15 +9,15 @@ import lombok.Getter;
 public class CreateCommentRequest {
 
 	@NotEmpty
-	private String postIdx; // post의 idx
+	private Long parentCommentIdx; // 부모 댓글
 	@NotEmpty
 	private String comment; // 댓글내용
 	@Nullable
-	private String tagMemberIdx; // 언급당한 회원
+	private Long tagMemberIdx; // 언급당한 회원
 
 	public CommentCommand.Create toCommand() {
 		return CommentCommand.Create.builder()
-				.postIdx(postIdx)
+				.postIdx(parentCommentIdx)
 				.content(comment)
 				.tagMemberIdx(tagMemberIdx)
 				.build();

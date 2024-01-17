@@ -1,7 +1,6 @@
 package com.boro.board.domain.comment;
 
 import com.boro.board.domain.member.Member;
-import com.boro.board.domain.post.Post;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -36,16 +35,17 @@ public class CommentInfo {
 	public static class Detail {
 
 		private Long tagMemberIdx; // 태그당한 member의 idx
-		private String nickName; // 멤버의 별명
+		private String tagMemberNickName; // 댓글에 태그당한 멤버닉네임
 		private String content; // 댓글 내용
 		private Long commentLikes; // 댓글 좋아요 수
+		private String writerNickName; // 작성자
 		private LocalDateTime createdAt;
 
 		public static Detail toInfo(Comment comment, Long commentLikes) {
 			Member mentionedMember = comment.getTagMember();
 			return Detail.builder()
 					.tagMemberIdx(mentionedMember == null ? null : mentionedMember.getIdx())
-					.nickName(mentionedMember == null ? null : mentionedMember.getNickName())
+					.tagMemberNickName(mentionedMember == null ? null : mentionedMember.getNickName())
 					.content(comment.getContent())
 					.commentLikes(commentLikes)
 					.createdAt(comment.getCreatedAt())

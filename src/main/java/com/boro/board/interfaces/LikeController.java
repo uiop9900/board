@@ -22,7 +22,7 @@ public class LikeController {
   /**
    * 게시글에 대한 좋아요 처리
    */
-	@PostMapping("/post/{postIdx}/like")
+	@PostMapping("/posts/{postIdx}/likes")
 	// ex) /post/{postIdx}/like
 	public CommonResponse<Long> likePost(
 			@PathVariable("postIdx") Long postIdx) {
@@ -33,7 +33,7 @@ public class LikeController {
 	/**
 	 * 댓글에 대한 좋아요 처리
 	 */
-	@PostMapping("/post/{postIdx}/comment/{commentIdx}/like")
+	@PostMapping("/posts/{postIdx}/comments/{commentIdx}/likes")
 	public CommonResponse<Long> likeComment(
 			@PathVariable("postIdx") Long postIdx, // TODO: commentIdx만 있으면 postIdx는 필요없는 상황들이 있는데, 이런 경우 mapping을 어떻게 해야하나?
 			@PathVariable("commentIdx") Long commentIdx

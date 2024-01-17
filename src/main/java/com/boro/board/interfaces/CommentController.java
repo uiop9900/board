@@ -47,7 +47,7 @@ public class CommentController {
     /**
      * 댓글 삭제
      */
-	@DeleteMapping("/post/{postIdx}/comments/{commentIdx}")
+	@DeleteMapping("/posts/{postIdx}/comments/{commentIdx}")
 	public CommonResponse deleteComment(
 			@PathVariable("postIdx") Long postIdx,
 			@PathVariable("commentIdx") Long commentIdx

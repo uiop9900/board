@@ -52,13 +52,12 @@ public class PostInfo {
 		private Long postLikes; // 해당 게시글의 좋아요 수
 		private List<CommentInfo.Detail> comments; // 댓글들
 		private Long writerIdx;
-		private String nickName; // 작성자
+		private String writer; // 작성자
 		private LocalDateTime createdAt; // 게시글 생성일
 
 
 		public static Detail toInfo(Post post, List<CommentInfo.Detail> commentInfos, Long postLikes) {
 			Member member = post.getMember();
-
 
 			return Detail.builder()
 					.postIdx(post.getIdx())
@@ -67,7 +66,7 @@ public class PostInfo {
 					.postLikes(postLikes)
 					.comments(commentInfos)
 					.writerIdx(member.getIdx())
-					.nickName(member.getNickName())
+					.writer(member.getNickName())
 					.createdAt(post.getCreatedAt())
 					.build();
 		}

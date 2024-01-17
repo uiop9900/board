@@ -68,7 +68,8 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	@Transactional public void deletePost(final Long postIdx) {
+	@Transactional
+	public void deletePost(final Long postIdx) {
 		Member member = memberReader.getMemberByIdx(UserPrincipal.get().getMemberIdx());
 
 		final Post post = postReader.getPostByIdx(postIdx);
