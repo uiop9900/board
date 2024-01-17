@@ -27,7 +27,6 @@ import org.hibernate.annotations.DynamicUpdate;
 @Table(name = "POST_HASHTAG")
 public class PostHashTag extends BaseEntity {
 
-
     @EmbeddedId
     private PostHashTagId postHashTagId;
 
@@ -45,7 +44,6 @@ public class PostHashTag extends BaseEntity {
         return PostHashTag.builder()
             .postHashTagId(new PostHashTagId(post.getIdx(), hashTag.getIdx()))
             .build();
-
     }
 
 }

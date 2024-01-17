@@ -8,8 +8,6 @@ public interface PostReader {
 
 	Post getPostByIdx(Long idx);
 
-	Page<Post> findPosts(Pageable pageable);
-
 	Page<Post> findPostsByHashTag(String hashTag, Pageable pageable);
 
 }

@@ -28,27 +28,20 @@ public class PostStoreImpl implements PostStore {
 	}
 
 	@Override public void updateHashTags(final Post post, List<HashTag> toSave) {
-		// 기존 해시태그 update
+		// 기존 해시태그 조회
 		final List<HashTag> saved = hashTagRepository.getHashTagsByPostIdx(post.getIdx());
 
-		// 기존 post에 있던거 들고오기
-		for (HashTag hashTag : toSave) { // 기존에 있는거에서 해시태그가 있는지 확인
-			if (saved.contains(hashTag)) {
-			// 포함되어있음 수정하지 않아도 된다.
+		for (HashTag newHashTag : toSave) { // 기존에 있는거에서 해시태그가 있는지 확인
+			if (saved.contains(newHashTag)) {
+			// 기존 해시태그와 동일하다.
+				saved.remove(newHashTag);
 			} else {
-
+				// 기존 해시태그에서 변경되었다.
+				hashTagRepository.save(newHashTag);
 			}
-
 		}
-		tags.contains(
-		// comment 확인하기
 
-		// 수정하기
-
-		// 기존의 해시태그 걍 삭제해도됨;
-
-		this.deleteHashTags(post.getIdx());
-		this.saveHashTags(post, hashTags);
+		hashTagRepository.deleteHashTagsByHashTagIdxs(saved.stream().map(hashTag -> hashTag.getIdx()).toList());
 	}
 
 	@Override

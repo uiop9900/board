@@ -40,6 +40,8 @@ public class Post extends BaseEntity {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Comment> comments; // 게시글 댓글들
 
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PostHashTag> postHashTags;
 
     public void update(Create create, Member member) {
         this.title = create.getTitle();

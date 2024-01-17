@@ -99,14 +99,9 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public List<PostInfo.Main> findPosts(Integer page, String hashTag) {
-		Page<Post> posts;
 		PageRequest pageRequest = PageRequest.of(page, PAGE_SIZE);
 
-		if (hashTag == null) {
-			posts = postReader.findPosts(pageRequest);
-		} else {
-			posts = postReader.findPostsByHashTag(hashTag, pageRequest);
-		}
+		Page<Post> posts = postReader.findPostsByHashTag(hashTag, pageRequest);
 
 		List<Long> postIdxs = posts.stream().map(Post::getIdx).toList();
 		Map<Long, Long> likeNumbers = likeReader.getLikeNumbers(postIdxs, POST_LIKE_REDIS_KEY);

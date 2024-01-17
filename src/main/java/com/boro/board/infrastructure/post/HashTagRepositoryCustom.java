@@ -7,6 +7,9 @@ public interface HashTagRepositoryCustom {
 
 	void deleteAllHashTagsByPostIdx(Long postIdx);
 
+	void deleteHashTagsByHashTagIdxs(List<Long> hashTagIdxs);
+
 	List<HashTag> getHashTagsByPostIdx(Long postIdx);
+
 
 }
