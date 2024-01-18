@@ -27,7 +27,7 @@ public class CommentController {
 	public CommonResponse createComment(
 			@PathVariable("postIdx") Long postIdx,
 			@RequestBody @Valid CreateCommentRequest request) {
-		commentFacade.createComment(request.toCommand());
+		commentFacade.createComment(request.toCommand(postIdx));
 		return CommonResponse.success();
 	}
 
@@ -39,7 +39,7 @@ public class CommentController {
 	public CommonResponse updateComment(
 			@PathVariable("commentIdx") Long commentIdx,
 			@RequestBody @Valid UpdateCommentRequest request) {
-		commentFacade.updateComment(request.toCommand());
+		commentFacade.updateComment(request.toCommand(commentIdx));
 		return CommonResponse.success();
 	}
 

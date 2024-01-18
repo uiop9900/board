@@ -7,12 +7,10 @@ import lombok.Getter;
 @Getter
 public class UpdateCommentRequest {
 
-    @NotEmpty
-    private String commentIdx;
     private String content;
-    private String tagMemberIdx;
+    private Long tagMemberIdx;
 
-    public CommentCommand.Update toCommand() {
+    public CommentCommand.Update toCommand(Long commentIdx) {
         return CommentCommand.Update.builder()
                 .commentIdx(commentIdx)
                 .content(content)

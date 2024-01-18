@@ -3,6 +3,7 @@ package com.boro.board.domain.comment;
 import com.boro.board.common.annotation.RedissonLock;
 import com.boro.board.common.exception.CommentException;
 import com.boro.board.domain.comment.CommentCommand.Create;
+import com.boro.board.domain.enums.RowStatus;
 import com.boro.board.domain.member.Member;
 import com.boro.board.domain.post.Post;
 import com.boro.board.infrastructure.comment.CommentReader;
@@ -10,6 +11,8 @@ import com.boro.board.infrastructure.comment.CommentStore;
 import com.boro.board.infrastructure.member.MemberReader;
 import com.boro.board.infrastructure.post.PostReader;
 import com.boro.board.domain.entity.UserPrincipal;
+import java.awt.Choice;
+import java.util.Comparator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,18 +39,24 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public void createComment(final Create create) {
-		final Post post = postReader.getPostByIdx(Long.parseLong(create.getPostIdx()));
+		//  부모 댓글
+		Comment parentComment = null;
+		if (create.getParentCommentIdx() != null) {
+			parentComment = commentReader.getCommentByIdx(create.getParentCommentIdx());
+		}
+
+		final Post post = postReader.getPostByIdx(create.getPostIdx());
 		final Member writer = memberReader.getMemberByIdx(UserPrincipal.get().getMemberIdx());
 
-		final Comment comment = create.toEntity(post, findCommentForReply(post), findMemberForMention(create.getTagMemberIdx()), writer);
-
-		commentStore.save(comment);
+		// comment 저장
+		final Comment toSave = create.toEntity(post, parentComment, findMemberForMention(create.getTagMemberIdx()), writer);
+		commentStore.save(toSave);
 	}
 
 	@Override
 	@Transactional
 	public void updateComment(CommentCommand.Update update) {
-		Comment comment = commentReader.getCommentByIdx(Long.parseLong(update.getCommentIdx()));
+		Comment comment = commentReader.getCommentByIdx(update.getCommentIdx());
 		comment.update(update.getContent(), findMemberForMention(update.getTagMemberIdx()));
 	}
 
@@ -55,28 +64,23 @@ public class CommentServiceImpl implements CommentService {
 	@Transactional
 	public void deleteComment(Long commentIdx) {
 		Comment comment = commentReader.getCommentByIdx(commentIdx);
-		Long postIdx = comment.getPost().getIdx();
 
-		// 나(댓글)를 제외한 ROWSTS = U인 댓글을 조회한다.
-		final List<Comment> commentsExceptMe = commentReader.findCommentsExceptMeByPostIdx(postIdx, comment.getIdx());
-		final boolean haveReply = commentsExceptMe.size() > 0;
-
-		// 내가 첫 게시글인데 reply가 있으면 미사용 처리
-		if (comment.isFirstComment() && haveReply) {
+		final List<Comment> children = comment.getComments();
+		final List<RowStatus> list = children.stream().map(child -> child.getRowStatus()).toList();
+		if (list.contains(RowStatus.U)) { // 사용중인 댓글이 있다. -> N처리
 			comment.unUse();
-			return;
-		}
-
-		// reply가 없으면, 전제 삭제 처리 한다.
-		if (!haveReply) {
-			// 최초 댓글을 삭제
-			final Comment parentComment = commentReader.findParentCommentByPostIdx(postIdx);
-			parentComment.delete();
+		} else { // 사용중인 댓글이 없다 D처리
 			comment.delete();
-			return;
 		}
 
-		comment.delete();
+		// 대댓글들 중 N 처리 된 것들은 D처리로 변경.
+		final List<Comment> delete = children.stream()
+				.filter(child -> child.getRowStatus() == RowStatus.N)
+				.sorted(Comparator.comparing(Comment::getIdx).reversed()).toList();
+
+		for (Comment toDelete : delete) {
+			toDelete.delete();
+		}
 	}
 
 	@Override
@@ -101,9 +105,9 @@ public class CommentServiceImpl implements CommentService {
 		return recentComment.get();
 	}
 
-	public Member findMemberForMention(String tagMemberIdx) {
+	public Member findMemberForMention(Long tagMemberIdx) {
 		if (tagMemberIdx != null) {
-			return memberReader.getMemberByIdx(Long.parseLong(tagMemberIdx));
+			return memberReader.getMemberByIdx(tagMemberIdx);
 		}
 
 		return null;

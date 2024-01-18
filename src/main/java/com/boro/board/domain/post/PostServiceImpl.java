@@ -80,7 +80,7 @@ public class PostServiceImpl implements PostService {
 		post.delete();
 		postStore.deleteHashTags(postIdx);
 		final List<Long> commentIdxs = post.getComments().stream().map(comment -> comment.getIdx())
-				.sorted(Comparator.reverseOrder()) .collect(Collectors.toList());
+				.sorted(Comparator.reverseOrder()).collect(Collectors.toList());
 
 		commentStore.deleteComments(commentIdxs);
 	}

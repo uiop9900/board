@@ -15,9 +15,10 @@ public class CreateCommentRequest {
 	@Nullable
 	private Long tagMemberIdx; // 언급당한 회원
 
-	public CommentCommand.Create toCommand() {
+	public CommentCommand.Create toCommand(Long postIdx) {
 		return CommentCommand.Create.builder()
-				.postIdx(parentCommentIdx)
+				.postIdx(postIdx)
+				.parentCommentIdx(parentCommentIdx)
 				.content(comment)
 				.tagMemberIdx(tagMemberIdx)
 				.build();

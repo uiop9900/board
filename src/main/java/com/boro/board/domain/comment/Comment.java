@@ -48,9 +48,9 @@ public class Comment extends BaseEntity {
     @JoinColumn(name = "tag_member_idx", referencedColumnName = "member_idx")
     private Member tagMember; // 언급당한 회원
 
-    // 추가적으로 대댓글들과의 관계를 설정해주는 필드도 추가할 수 있습니다.
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentComment", cascade = CascadeType.ALL)
-//    private List<Comment> comments; // 대댓글들
+    // 대댓글
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentComment", cascade = CascadeType.ALL)
+    private List<Comment> comments; // 대댓글들
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "comment", cascade = CascadeType.ALL)
     private List<CommentLike> likes;
