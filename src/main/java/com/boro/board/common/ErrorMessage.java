@@ -25,4 +25,6 @@ public class ErrorMessage {
 
 	public final static String CAN_NOT_CALCULATE_LIKE = "좋아요를 실패했습니다.";
 
+	public final static String NO_LIKE_TYPE = "해당 타입이 존재하지 않습니다.";
+
 }

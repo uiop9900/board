@@ -3,6 +3,7 @@ package com.boro.board.infrastructure.like;
 import com.boro.board.domain.comment.Comment;
 import com.boro.board.domain.like.CommentLike;
 import com.boro.board.domain.like.CommentLikeId;
+import com.boro.board.domain.like.LikeInfo;
 import com.boro.board.domain.like.PostLike;
 import com.boro.board.domain.like.PostLikeId;
 import com.boro.board.domain.member.Member;
@@ -26,18 +27,24 @@ public class LikeReaderImpl implements LikeReader {
 
 	private final RedisTemplate<String, Object> redisTemplate;
 
+	@Override public Long getPostLikesNumber(final Long postIdx) {
+		return postLikeRepository.countPostLikeByPostIdx(postIdx);
+	}
+
+	@Override public Long getCommentLikesNumber(final Long commentIdx) {
+		return commentLikeRepository.countByCommentIdx(commentIdx);
+	}
+
+	@Override public List<LikeInfo> getCommentsLikesNumber(final List<Long> commentIdxs) {
+		return commentLikeRepository.getCommentsLikeCount(commentIdxs);
+	}
+
 	@Override public Optional<CommentLike> getCommentLikeById(final Comment comment, final Member member) {
 		return commentLikeRepository.findById(new CommentLikeId(comment.getIdx(), member.getIdx())); // 잦은 변동은 안쓰는게 나음 (캐시히트율)
 	}
 
 	@Override public Optional<PostLike> getPostLikeById(final Post post, final Member member) {
 		return postLikeRepository.findById(new PostLikeId(post.getIdx(), member.getIdx()));
-	}
-
-	@Override public Long getLikeNumber(final Long idx, final String redisKey) {
-		String key = redisKey + idx;
-		final Object value = redisTemplate.opsForValue().get(key);
-		return value == null ? 0L : (Long)value;
 	}
 
 	@Override

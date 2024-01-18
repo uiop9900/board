@@ -88,7 +88,7 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public PostInfo.Detail findPostDetail(Long postIdx) {
 		Post post = postReader.getPostByIdx(postIdx);
-		Long postLikes = likeReader.getLikeNumber(post.getIdx(), POST_LIKE_REDIS_KEY);
+		final Long postLikes = likeReader.getPostLikesNumber(postIdx);
 
 		List<CommentInfo.Detail> commentInfos = post.getComments().stream()
 				.map(comment -> CommentInfo.Detail.toInfo(comment,
