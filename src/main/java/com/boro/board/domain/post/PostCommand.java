@@ -43,6 +43,14 @@ public class PostCommand {
 			}
 			return list;
 		}
+
+		public List<String> toHashTagStrings() {
+			return Arrays.stream(hashTags.split("#"))
+					.map(hashtag -> hashtag.trim())
+					.filter(hashtag -> !hashtag.isEmpty()) // 빈 문자열 제외
+					.distinct()
+					.collect(Collectors.toList());
+		}
 	}
 
 	@Builder

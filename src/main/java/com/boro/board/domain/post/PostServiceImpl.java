@@ -58,7 +58,7 @@ public class PostServiceImpl implements PostService {
 	@Transactional public void createPost(Create create) {
 		Member member = memberReader.getMemberByIdx(UserPrincipal.get().getMemberIdx());
 		final Post post = create.toEntity(member);
-		final List<HashTag> hashTags = create.toHashTagCommand();
+		final List<String> hashTags = create.toHashTagStrings();
 		postStore.savePostAndHashTags(post, hashTags);
 	}
 
@@ -66,7 +66,7 @@ public class PostServiceImpl implements PostService {
 	@Transactional public void updatePost(Create create) {
 		// 게시글 update
 		final Post post = postReader.getPostByIdx(Long.parseLong(create.getPostIdx()));
-		final List<HashTag> hashTags = create.toHashTagCommand();
+		final List<String> hashTags = create.toHashTagStrings();
 
 		Member member = memberReader.getMemberByIdx(UserPrincipal.get().getMemberIdx());
 		// post update

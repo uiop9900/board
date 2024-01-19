@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface PostStore {
 
-	void savePostAndHashTags(Post post, List<HashTag> hashTags);
+	void savePostAndHashTags(Post post, List<String> hashTags);
 
-	void updateHashTags(Post post, List<HashTag> hashTags);
+	void updateHashTags(Post post, List<String> hashTags);
 
 	void deleteHashTags(Long postIdx);
 
-	void saveHashTags(Post post, List<HashTag> hashTags);
+	void saveHashTags(Post post, List<String> hashTags);
 
 
 

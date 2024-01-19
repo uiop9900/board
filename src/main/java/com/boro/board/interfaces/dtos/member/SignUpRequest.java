@@ -1,6 +1,7 @@
 package com.boro.board.interfaces.dtos.member;
 
 import com.boro.board.domain.member.MemberCommand.SignUp;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 
@@ -14,6 +15,7 @@ public class SignUpRequest {
 	private String nickName;
 
 	@NotEmpty
+	@Email
 	private String email;
 
 	@NotEmpty

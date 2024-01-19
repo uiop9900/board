@@ -33,6 +33,13 @@ public class HashTag extends BaseEntity {
 
     private String tagTitle; // 해시태그 해시태그를 검색할때, 그게 정확히 있어야 검색, 포함은 안됨 -> 양평숙소 -> 양평숙소만 나온다. -> #양평숙소들 안나옴
 
+
+    public static HashTag toEntity(String tagTitle) {
+        return HashTag.builder()
+            .tagTitle(tagTitle)
+            .build();
+    }
+
     public static void deleteHashTags(List<HashTag> hashTags) {
         for (HashTag hashTag : hashTags) {
             hashTag.rowStatus = RowStatus.D;
