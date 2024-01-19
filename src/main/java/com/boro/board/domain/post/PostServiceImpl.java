@@ -1,15 +1,22 @@
 package com.boro.board.domain.post;
 
 import com.boro.board.common.exception.MemberException;
+import com.boro.board.domain.comment.Comment;
 import com.boro.board.domain.comment.CommentInfo;
+import com.boro.board.domain.comment.CommentInfo.Detail;
+import com.boro.board.domain.like.LikeInfo;
 import com.boro.board.domain.member.Member;
+import com.boro.board.domain.post.HashTagInfo.Main;
 import com.boro.board.domain.post.PostCommand.Create;
+import com.boro.board.infrastructure.comment.CommentReader;
 import com.boro.board.infrastructure.comment.CommentStore;
 import com.boro.board.infrastructure.like.LikeReader;
 import com.boro.board.infrastructure.member.MemberReader;
 import com.boro.board.infrastructure.post.PostReader;
 import com.boro.board.infrastructure.post.PostStore;
 import com.boro.board.domain.entity.UserPrincipal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -41,6 +48,8 @@ public class PostServiceImpl implements PostService {
 	private final CommentStore commentStore;
 
 	private final LikeReader likeReader;
+
+	private final CommentReader commentReader;
 
 	private final static Integer PAGE_SIZE = 10;
 
@@ -87,15 +96,33 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public PostInfo.Detail findPostDetail(Long postIdx) {
+		// post
 		Post post = postReader.getPostByIdx(postIdx);
 		final Long postLikes = likeReader.getPostLikesNumber(postIdx);
 
-		List<CommentInfo.Detail> commentInfos = post.getComments().stream()
-				.map(comment -> CommentInfo.Detail.toInfo(comment,
-						likeReader.getLikeNumber(comment.getIdx(), COMMENT_LIKE_REDIS_KEY)
-						)).toList();
+		// hashTag
+		final List<Main> hashTags = post.getPostHashTags().stream()
+				.map(hashTag -> Main.toInfo(hashTag.getHashTag())).toList();
 
-		return PostInfo.Detail.toInfo(post, commentInfos, postLikes);
+		// comment
+		final List<Comment> comments = commentReader.findCommentsSortedByPostIdx(postIdx);
+		final Map<Long, Long> commentLikes = likeReader.getCommentsLikesNumber(comments.stream().map(comment -> comment.getIdx()).toList());
+
+
+		List<CommentInfo.Detail> infos = new ArrayList<>();
+		Map<Long, CommentInfo.Detail> result = new HashMap<>();
+
+		comments.stream().forEach(comment -> {
+					final Detail info = Detail.toInfo(comment, commentLikes.get(comment.getIdx()));
+					result.put(info.getCommentIdx(), info);
+					if (!comment.getParentComment().isFirstComment()) {
+						result.get(comment.getParentComment().getIdx()).getChildren().add(info);
+					} else {
+						infos.add(info);
+					}
+				});
+
+		return PostInfo.Detail.toInfo(post, postLikes, hashTags, infos);
 	}
 
 	@Override

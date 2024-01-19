@@ -49,7 +49,7 @@ public class Comment extends BaseEntity {
     private Member tagMember; // 언급당한 회원
 
     // 대댓글
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentComment", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentComment", orphanRemoval = true)
     private List<Comment> comments; // 대댓글들
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "comment", cascade = CascadeType.ALL)

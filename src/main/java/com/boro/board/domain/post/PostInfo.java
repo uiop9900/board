@@ -45,18 +45,20 @@ public class PostInfo {
 	@Getter
 	public static class Detail {
 
+		// post
 		private Long postIdx;
 		private String title; // 제목
 		private String content; // 내용
-		private List<HashTagInfo.Main> hashTags; // 해시태그들
 		private Long postLikes; // 해당 게시글의 좋아요 수
+
+		private List<HashTagInfo.Main> hashTags; // 해시태그들
 		private List<CommentInfo.Detail> comments; // 댓글들
 		private Long writerIdx;
 		private String writer; // 작성자
 		private LocalDateTime createdAt; // 게시글 생성일
 
 
-		public static Detail toInfo(Post post, List<CommentInfo.Detail> commentInfos, Long postLikes) {
+		public static Detail toInfo(Post post, Long postLikes, List<HashTagInfo.Main> hashTags, List<CommentInfo.Detail> commentInfos) {
 			Member member = post.getMember();
 
 			return Detail.builder()
@@ -64,6 +66,7 @@ public class PostInfo {
 					.title(post.getTitle())
 					.content(post.getContent())
 					.postLikes(postLikes)
+					.hashTags(hashTags)
 					.comments(commentInfos)
 					.writerIdx(member.getIdx())
 					.writer(member.getNickName())

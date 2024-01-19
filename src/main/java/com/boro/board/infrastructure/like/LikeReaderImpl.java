@@ -35,7 +35,7 @@ public class LikeReaderImpl implements LikeReader {
 		return commentLikeRepository.countByCommentIdx(commentIdx);
 	}
 
-	@Override public List<LikeInfo> getCommentsLikesNumber(final List<Long> commentIdxs) {
+	@Override public Map<Long, Long> getCommentsLikesNumber(final List<Long> commentIdxs) {
 		return commentLikeRepository.getCommentsLikeCount(commentIdxs);
 	}
 

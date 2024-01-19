@@ -56,4 +56,16 @@ public class CommentRepositoryCustomImpl implements CommentRepositoryCustom {
         );
     }
 
+    @Override public List<Comment> findCommentsSortedByPostIdx(final Long postIdx) {
+        return jpaQueryFactory.selectFrom(comment)
+            .leftJoin(comment)
+            .on(comment.idx.eq(comment.parentComment.idx))
+            .where(comment.post.idx.eq(postIdx))
+            .orderBy(
+                comment.parentComment.isNull().desc(),
+                comment.parentComment.idx.asc(),
+                comment.createdAt.asc())
+            .fetch();
+    }
+
 }

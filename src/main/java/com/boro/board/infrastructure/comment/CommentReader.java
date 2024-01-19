@@ -17,6 +17,8 @@ public interface CommentReader {
 
 	Optional<Comment> findCommentRecentlyByPostIdx(Long postIdx);
 
+	List<Comment> findCommentsSortedByPostIdx(Long postIdx);
+
 
 
 }

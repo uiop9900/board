@@ -17,7 +17,7 @@ public interface LikeReader {
 
 	Long getCommentLikesNumber(Long commentIdx);
 
-	List<LikeInfo> getCommentsLikesNumber(List<Long> commentIdx);
+	Map<Long, Long> getCommentsLikesNumber(List<Long> commentIdx);
 
 	Optional<CommentLike> getCommentLikeById(final Comment comment, final Member member);
 

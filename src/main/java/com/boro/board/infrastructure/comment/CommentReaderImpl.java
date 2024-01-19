@@ -37,4 +37,8 @@ public class CommentReaderImpl implements CommentReader {
 	public Optional<Comment> findCommentRecentlyByPostIdx(Long postIdx) {
 		return commentRepository.findCommentRecentlyByPostIdx(postIdx);
 	}
+
+	@Override public List<Comment> findCommentsSortedByPostIdx(final Long postIdx) {
+		return commentRepository.findCommentsSortedByPostIdx(postIdx);
+	}
 }

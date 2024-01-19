@@ -15,4 +15,6 @@ public interface CommentRepositoryCustom {
 
     Optional<Comment> findCommentRecentlyByPostIdx(Long postIdx);
 
+    List<Comment> findCommentsSortedByPostIdx(Long postIdx);
+
 }

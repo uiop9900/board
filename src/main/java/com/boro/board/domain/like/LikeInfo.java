@@ -1,5 +1,6 @@
 package com.boro.board.domain.like;
 
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LikeInfo {
 
-	private Long commentIdx;
-	private Long likeCount;
+		Map<Long, Long> likeInfos; // commentIdx, likeCount
 
 }

@@ -1,6 +1,7 @@
 package com.boro.board.domain.comment;
 
 import com.boro.board.domain.member.Member;
+import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -34,16 +35,20 @@ public class CommentInfo {
 	@Getter
 	public static class Detail {
 
+		private Long commentIdx;
 		private Long tagMemberIdx; // 태그당한 member의 idx
 		private String tagMemberNickName; // 댓글에 태그당한 멤버닉네임
 		private String content; // 댓글 내용
-		private Long commentLikes; // 댓글 좋아요 수
 		private String writerNickName; // 작성자
+		private Long writerIdx; // 작성자 idx
+		private Long commentLikes; // 댓글 좋아요 수
 		private LocalDateTime createdAt;
+		private List<Detail> children; // 대댓글
 
 		public static Detail toInfo(Comment comment, Long commentLikes) {
 			Member mentionedMember = comment.getTagMember();
 			return Detail.builder()
+					.commentIdx(comment.getIdx())
 					.tagMemberIdx(mentionedMember == null ? null : mentionedMember.getIdx())
 					.tagMemberNickName(mentionedMember == null ? null : mentionedMember.getNickName())
 					.content(comment.getContent())
