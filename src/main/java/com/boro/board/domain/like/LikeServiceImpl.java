@@ -1,7 +1,11 @@
 package com.boro.board.domain.like;
 
+import static com.boro.board.common.ErrorMessage.CAN_NOT_CALCULATE_LIKE;
+import static com.boro.board.common.ErrorMessage.NO_LIKE_TYPE;
+
 import com.boro.board.common.exception.LikeException;
 import com.boro.board.domain.comment.Comment;
+import com.boro.board.domain.entity.UserPrincipal;
 import com.boro.board.domain.enums.LikeType;
 import com.boro.board.domain.member.Member;
 import com.boro.board.domain.post.Post;
@@ -11,20 +15,15 @@ import com.boro.board.infrastructure.like.LikeStore;
 import com.boro.board.infrastructure.like.PostLikeRepository;
 import com.boro.board.infrastructure.member.MemberReader;
 import com.boro.board.infrastructure.post.PostReader;
-import com.boro.board.domain.entity.UserPrincipal;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.boro.board.common.ErrorMessage.CAN_NOT_CALCULATE_LIKE;
-import static com.boro.board.common.ErrorMessage.NO_LIKE_TYPE;
-import static com.boro.board.common.property.RedisKeyProperties.COMMENT_LIKE_REDIS_KEY;
-import static com.boro.board.common.property.RedisKeyProperties.POST_LIKE_REDIS_KEY;
-
 
 @Component
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class LikeServiceImpl implements LikeService {
 
 	private final LikeReader likeReader;
@@ -36,30 +35,21 @@ public class LikeServiceImpl implements LikeService {
 	private final PostReader postReader;
 
 	private final CommentReader commentReader;
-	private final PostLikeRepository postLikeRepository;
 
 	@Override
 	@Transactional
-	public Long likePost(final Long postIdx) {
+	public void likePost(final Long postIdx) {
 		final Member member = memberReader.getMemberByIdx(UserPrincipal.get().getMemberIdx());
 		final Post post = postReader.getPostByIdx(postIdx);
-
 		calculatePostLikeNumber(member, post);
-
-		return resultLike;
 	}
 
 	@Override
 	@Transactional
-	public Long likeComment(final Long commentIdx) {
+	public void likeComment(final Long commentIdx) {
 		final Member member = memberReader.getMemberByIdx(UserPrincipal.get().getMemberIdx());
 		final Comment comment = commentReader.getCommentByIdx(commentIdx);
-
-		Long previousLikeNumber = likeReader.getLikeNumber(comment.getIdx(), COMMENT_LIKE_REDIS_KEY);
-		Long resultLike = calculateCommentLikeNumber(member, comment, previousLikeNumber);
-
-		likeStore.setLikesNumber(comment.getIdx(), COMMENT_LIKE_REDIS_KEY, resultLike);
-		return resultLike;
+		calculateCommentLikeNumber(member, comment);
 	}
 
 	@Override public Long getLikesNumber(final Long idx, LikeType likeType) {
