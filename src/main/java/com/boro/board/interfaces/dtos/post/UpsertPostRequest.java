@@ -9,7 +9,7 @@ import lombok.Getter;
 public class UpsertPostRequest {
 
 	@Nullable
-	private String postIdx; // idx가 있으면 update, 없으면 insert
+	private Long postIdx; // idx가 있으면 update, 없으면 insert
 	@NotEmpty
 	private String title;
 	@NotEmpty

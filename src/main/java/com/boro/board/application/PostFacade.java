@@ -15,7 +15,7 @@ public class PostFacade {
 
 	private final PostService postService;
 	public void upsertPost(PostCommand.Create create) {
-		if (StringUtils.hasText(create.getPostIdx())) {
+		if (create.getPostIdx() != null) {
 			postService.updatePost(create);
 		} else {
 			postService.createPost(create);

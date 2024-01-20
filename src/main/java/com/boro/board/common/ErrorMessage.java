@@ -7,6 +7,8 @@ public class ErrorMessage {
 
 	public final static String NOT_CORRECT_PASSWORD = "비밀번호가 일치하지 않습니다.";
 
+	public final static String ONLY_VALID_MEMBER = "본인의 글만 수정가능합니다";
+
 	// post
 	public final static String NOT_FOUND_POST = "해당 게시글이 존재하지 않습니다.";
 

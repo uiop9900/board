@@ -4,7 +4,7 @@ import com.boro.board.common.exception.MemberException;
 import com.boro.board.domain.comment.Comment;
 import com.boro.board.domain.comment.CommentInfo;
 import com.boro.board.domain.comment.CommentInfo.Detail;
-import com.boro.board.domain.like.LikeInfo;
+import com.boro.board.domain.entity.UserPrincipal;
 import com.boro.board.domain.member.Member;
 import com.boro.board.domain.post.HashTagInfo.Main;
 import com.boro.board.domain.post.PostCommand.Create;
@@ -14,9 +14,6 @@ import com.boro.board.infrastructure.like.LikeReader;
 import com.boro.board.infrastructure.member.MemberReader;
 import com.boro.board.infrastructure.post.PostReader;
 import com.boro.board.infrastructure.post.PostStore;
-import com.boro.board.domain.entity.UserPrincipal;
-import java.util.ArrayList;
-import java.util.HashMap;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -24,13 +21,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.boro.board.common.ErrorMessage.CAN_NOT_DELETE;
-import static com.boro.board.common.property.RedisKeyProperties.COMMENT_LIKE_REDIS_KEY;
+import static com.boro.board.common.ErrorMessage.ONLY_VALID_MEMBER;
 import static com.boro.board.common.property.RedisKeyProperties.POST_LIKE_REDIS_KEY;
 
 @Service
@@ -65,13 +60,18 @@ public class PostServiceImpl implements PostService {
 	@Override
 	@Transactional public void updatePost(Create create) {
 		// 게시글 update
-		final Post post = postReader.getPostByIdx(Long.parseLong(create.getPostIdx()));
-		final List<String> hashTags = create.toHashTagStrings();
+		final Post post = postReader.getPostByIdx(create.getPostIdx());
+
+		// 작성자 확인
+		if (UserPrincipal.get().getMemberIdx() != post.getMember().getIdx()) {
+			throw new MemberException(ONLY_VALID_MEMBER);
+		}
 
 		// post update
 		post.update(create);
 
 		// 해시태그 update
+		final List<String> hashTags = create.toHashTagStrings();
 		postStore.updateHashTags(post, hashTags);
 	}
 
