@@ -43,10 +43,9 @@ public class Post extends BaseEntity {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PostHashTag> postHashTags;
 
-    public void update(Create create, Member member) {
+    public void update(Create create) {
         this.title = create.getTitle();
         this.content = create.getContent();
-        this.member = member;
     }
 
     public void delete() {

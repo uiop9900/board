@@ -68,9 +68,8 @@ public class PostServiceImpl implements PostService {
 		final Post post = postReader.getPostByIdx(Long.parseLong(create.getPostIdx()));
 		final List<String> hashTags = create.toHashTagStrings();
 
-		Member member = memberReader.getMemberByIdx(UserPrincipal.get().getMemberIdx());
 		// post update
-		post.update(create, member);
+		post.update(create);
 
 		// 해시태그 update
 		postStore.updateHashTags(post, hashTags);
