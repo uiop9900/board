@@ -72,17 +72,20 @@ public class LikeServiceImpl implements LikeService {
 		if (previousPostLike.isEmpty()) {
 			PostLike postLike = PostLike.toEntity(member, post);
 			likeStore.save(postLike);
+			return;
 		}
 
 		// 좋아요
 		final PostLike postLike = previousPostLike.get();
 		if (postLike.isUnLiked()) {
 			postLike.like();
+			return;
 		}
 
 		// 좋아요 취소
 		if (!postLike.isUnLiked()) {
 			postLike.unLike();
+			return;
 		}
 
 		throw new LikeException(CAN_NOT_CALCULATE_LIKE);
@@ -95,17 +98,20 @@ public class LikeServiceImpl implements LikeService {
 		if (previousCommentLike.isEmpty()) {
 			CommentLike commentLike = CommentLike.toEntity(member, comment);
 			likeStore.save(commentLike);
+			return;
 		}
 
 		// 좋아요
 		CommentLike commentLike = previousCommentLike.get();
 		if (commentLike.isUnLiked()) {
 			commentLike.like();
+			return;
 		}
 
 		// 좋아요 취소
 		if (!commentLike.isUnLiked()) {
 			commentLike.unLike();
+			return;
 		}
 
 		throw new LikeException(CAN_NOT_CALCULATE_LIKE);
