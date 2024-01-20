@@ -33,7 +33,7 @@ public class Comment extends BaseEntity {
 
     // 부모 정의
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parennt_comment_idx", referencedColumnName = "comment_idx")
+    @JoinColumn(name = "parent_comment_idx", referencedColumnName = "comment_idx")
     private Comment parentComment; // 대댓글을 위한 부모 댓글
 
     @ManyToOne(fetch = FetchType.LAZY)
