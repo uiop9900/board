@@ -5,6 +5,7 @@ import com.boro.board.domain.comment.Comment;
 import com.boro.board.domain.comment.CommentInfo;
 import com.boro.board.domain.comment.CommentInfo.Detail;
 import com.boro.board.domain.entity.UserPrincipal;
+import com.boro.board.domain.enums.RowStatus;
 import com.boro.board.domain.member.Member;
 import com.boro.board.domain.post.HashTagInfo.Main;
 import com.boro.board.domain.post.PostCommand.Create;
@@ -101,6 +102,7 @@ public class PostServiceImpl implements PostService {
 
 		// hashTag
 		final List<Main> hashTags = post.getPostHashTags().stream()
+				.filter(postHashTag -> postHashTag.getRowStatus() == RowStatus.U)
 				.map(hashTag -> Main.toInfo(hashTag.getHashTag())).toList();
 
 		// comment
