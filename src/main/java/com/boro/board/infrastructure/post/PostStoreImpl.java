@@ -9,6 +9,8 @@ import com.boro.board.infrastructure.member.PostRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import com.querydsl.core.util.CollectionUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -29,22 +31,10 @@ public class PostStoreImpl implements PostStore {
 	}
 
 	@Override public void updateHashTags(final Post post, List<String> toSave) {
-		// 기존 해시태그 조회
-		final List<String> saved = hashTagRepository.getHashTagsByPostIdx(post.getIdx()).stream()
-				.map(s -> s.getTagTitle()).toList();
-
-		List<Long> idxs = new ArrayList<>();
-
-		for (String newHashTag : toSave) { // 기존에 있는거에서 해시태그가 있는지 확인
-			if (saved.contains(newHashTag)) {
-				// 기존 해시태그와 동일하다.
-				toSave.remove(newHashTag);
-				idxs.add(has
-			}
-		}
-
+		// 기존 해시태그 삭제
+		postHashTagRepository.deletePostHashTagByPostIdx(post.getIdx());
+		// 해시태그 저장
 		this.saveHashTags(post, toSave);
-		postHAsh
 	}
 
 	@Override
