@@ -1,11 +1,14 @@
 package com.boro.board.domain.comment;
 
 import com.boro.board.domain.member.Member;
-import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CommentInfo {
 
@@ -33,6 +36,8 @@ public class CommentInfo {
 
 	@Builder
 	@Getter
+	@AllArgsConstructor
+	@NoArgsConstructor
 	public static class Detail {
 
 		private Long commentIdx;
@@ -53,6 +58,7 @@ public class CommentInfo {
 					.tagMemberNickName(mentionedMember == null ? null : mentionedMember.getNickName())
 					.content(comment.getContent())
 					.commentLikes(commentLikes)
+					.children(new ArrayList<>())
 					.createdAt(comment.getCreatedAt())
 					.build();
 		}

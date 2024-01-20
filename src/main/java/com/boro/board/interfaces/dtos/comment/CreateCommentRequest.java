@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 public class CreateCommentRequest {
 
-	@NotEmpty
+	@Nullable
 	private Long parentCommentIdx; // 부모 댓글
 	@NotEmpty
 	private String comment; // 댓글내용

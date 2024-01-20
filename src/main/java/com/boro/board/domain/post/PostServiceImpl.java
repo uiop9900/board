@@ -116,7 +116,8 @@ public class PostServiceImpl implements PostService {
 		comments.stream().forEach(comment -> {
 					final Detail info = Detail.toInfo(comment, commentLikes.get(comment.getIdx()));
 					result.put(info.getCommentIdx(), info);
-					if (!comment.getParentComment().isFirstComment()) {
+
+					if (comment.getParentComment() != null) {
 						result.get(comment.getParentComment().getIdx()).getChildren().add(info);
 					} else {
 						infos.add(info);

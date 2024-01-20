@@ -62,8 +62,7 @@ public class CommentRepositoryCustomImpl implements CommentRepositoryCustom {
             .on(comment.idx.eq(comment.parentComment.idx))
             .where(comment.post.idx.eq(postIdx))
             .orderBy(
-                comment.parentComment.isNull().desc(),
-                comment.parentComment.idx.asc(),
+                comment.parentComment.idx.asc().nullsFirst(),
                 comment.createdAt.asc())
             .fetch();
     }
