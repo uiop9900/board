@@ -39,7 +39,7 @@ public class PostStoreImpl implements PostStore {
 
 	@Override
 	public void deleteHashTags(final Long postIdx) {
-		hashTagRepository.deleteAllHashTagsByPostIdx(postIdx);
+		postHashTagRepository.deletePostHashTagByPostIdx(postIdx);
 	}
 
 	@Override public void saveHashTags(final Post post, final List<String> hashTags) {

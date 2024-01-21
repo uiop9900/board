@@ -20,7 +20,5 @@ public class PostHashTagRepositoryCustomImpl implements PostHashTagRepositoryCus
             .set(postHashTag.rowStatus, RowStatus.D)
             .where(postHashTag.post.idx.eq(postIdx))
             .execute();
-
-
     }
 }

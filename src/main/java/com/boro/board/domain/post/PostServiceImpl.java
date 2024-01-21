@@ -86,11 +86,15 @@ public class PostServiceImpl implements PostService {
 			throw new MemberException(CAN_NOT_DELETE);
 		}
 
+		// post 삭제
 		post.delete();
+
+		// hashtag 삭제
 		postStore.deleteHashTags(postIdx);
+
+		// comment 삭제
 		final List<Long> commentIdxs = post.getComments().stream().map(comment -> comment.getIdx())
 				.sorted(Comparator.reverseOrder()).collect(Collectors.toList());
-
 		commentStore.deleteComments(commentIdxs);
 	}
 
