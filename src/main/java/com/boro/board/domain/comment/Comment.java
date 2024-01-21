@@ -6,6 +6,8 @@ import com.boro.board.domain.like.CommentLike;
 import com.boro.board.domain.post.Post;
 import com.boro.board.domain.member.Member;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,12 +31,8 @@ public class Comment extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx; // idx
 
-    private String content; // 댓글 내용원
+    private String content; // 댓글 내용
 
-    // 부모 정의
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_comment_idx", referencedColumnName = "comment_idx")
-    private Comment parentComment; // 대댓글을 위한 부모 댓글
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_idx", referencedColumnName = "post_idx")
@@ -47,10 +45,14 @@ public class Comment extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tag_member_idx", referencedColumnName = "member_idx")
     private Member tagMember; // 언급당한 회원
+    // 부모 정의
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_comment_idx", referencedColumnName = "comment_idx")
+    private Comment parentComment; // 대댓글을 위한 부모 댓글
 
     // 대댓글
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentComment", orphanRemoval = true)
-    private List<Comment> comments; // 대댓글들
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "parentComment", orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>(); // 대댓글들(같은 depth를 children으로 인식한다.)
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "comment", cascade = CascadeType.ALL)
     private List<CommentLike> likes;

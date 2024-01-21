@@ -9,6 +9,8 @@ public interface CommentReader {
 
 	Comment getCommentByIdx(Long commentIdx);
 
+	Optional<Comment> getCommentByParentCommentIdx(Long commentIdx);
+
 	List<Comment> findCommentsExceptMeByPostIdx(Long postIdx, Long commentIdx);
 
 	Comment findParentCommentByPostIdx(Long postIdx);
@@ -18,7 +20,5 @@ public interface CommentReader {
 	Optional<Comment> findCommentRecentlyByPostIdx(Long postIdx);
 
 	List<Comment> findCommentsSortedByPostIdx(Long postIdx);
-
-
 
 }
