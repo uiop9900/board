@@ -1,9 +1,9 @@
 package com.boro.board.infrastructure.like;
 
 import com.boro.board.domain.comment.Comment;
+import com.boro.board.domain.enums.RowStatus;
 import com.boro.board.domain.like.CommentLike;
 import com.boro.board.domain.like.CommentLikeId;
-import com.boro.board.domain.like.LikeInfo;
 import com.boro.board.domain.like.PostLike;
 import com.boro.board.domain.like.PostLikeId;
 import com.boro.board.domain.member.Member;
@@ -28,11 +28,11 @@ public class LikeReaderImpl implements LikeReader {
 	private final RedisTemplate<String, Object> redisTemplate;
 
 	@Override public Long getPostLikesNumber(final Long postIdx) {
-		return postLikeRepository.countPostLikeByPostIdx(postIdx);
+		return postLikeRepository.countPostLikeByPostIdxAndRowStatus(postIdx, RowStatus.U);
 	}
 
 	@Override public Long getCommentLikesNumber(final Long commentIdx) {
-		return commentLikeRepository.countByCommentIdx(commentIdx);
+		return commentLikeRepository.countByCommentIdxAndRowStatus(commentIdx, RowStatus.U);
 	}
 
 	@Override public Map<Long, Long> getCommentsLikesNumber(final List<Long> commentIdxs) {
