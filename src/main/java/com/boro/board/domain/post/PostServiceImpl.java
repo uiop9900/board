@@ -131,9 +131,10 @@ public class PostServiceImpl implements PostService {
 		// 페이징
 		PageRequest pageRequest = PageRequest.of(page, PAGE_SIZE);
 
-		// post 조회
+		// 해시태그로 post 조회
 		Page<Post> posts = postReader.findPostsByHashTag(hashTag, pageRequest);
 
+		// post별 해시태그 조회
 		Map<Long, List<Main>> hashTags = new HashMap<>();
 		for (Post post : posts) {
 			List<Main> tags = post.getPostHashTags().stream()
@@ -142,7 +143,7 @@ public class PostServiceImpl implements PostService {
 			hashTags.put(post.getIdx(), tags);
 		}
 
-		// post Like 조회
+		// post별 좋아요 조회
 		List<Long> postIdxs = posts.stream().map(Post::getIdx).toList();
 		Map<Long, Long> likeNumbers = likeReader.getPostsLikesNumber(postIdxs);
 
