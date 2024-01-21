@@ -29,10 +29,10 @@ import static com.boro.board.common.ErrorMessage.CAN_NOT_DELETE;
 import static com.boro.board.common.ErrorMessage.ONLY_VALID_MEMBER;
 import static com.boro.board.common.property.RedisKeyProperties.POST_LIKE_REDIS_KEY;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-@Slf4j
 public class PostServiceImpl implements PostService {
 
 	private final PostReader postReader;

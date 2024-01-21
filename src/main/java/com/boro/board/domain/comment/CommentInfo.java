@@ -52,14 +52,18 @@ public class CommentInfo {
 
 		public static Detail toInfo(Comment comment, Long commentLikes) {
 			Member mentionedMember = comment.getTagMember();
+			Member writer = comment.getWriter();
+
 			return Detail.builder()
 					.commentIdx(comment.getIdx())
+					.commentLikes(commentLikes)
 					.tagMemberIdx(mentionedMember == null ? null : mentionedMember.getIdx())
 					.tagMemberNickName(mentionedMember == null ? null : mentionedMember.getNickName())
 					.content(comment.getContent())
-					.commentLikes(commentLikes)
-					.children(new ArrayList<>())
+					.writerIdx(writer.getIdx())
+					.writerNickName(writer.getNickName())
 					.createdAt(comment.getCreatedAt())
+					.children(new ArrayList<>())
 					.build();
 		}
 	}
