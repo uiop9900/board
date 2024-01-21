@@ -5,7 +5,7 @@ import com.boro.board.domain.like.PostLike;
 import com.boro.board.domain.like.PostLikeId;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PostLikeRepository extends JpaRepository<PostLike, PostLikeId> {
+public interface PostLikeRepository extends JpaRepository<PostLike, PostLikeId>, PostLikeRepositoryCustom {
 
 	Long countPostLikeByPostIdxAndRowStatus(Long postIdx, RowStatus rowStatus);
 

@@ -31,6 +31,11 @@ public class LikeReaderImpl implements LikeReader {
 		return postLikeRepository.countPostLikeByPostIdxAndRowStatus(postIdx, RowStatus.U);
 	}
 
+	@Override
+	public Map<Long, Long> getPostsLikesNumber(List<Long> postIdxs) {
+		return postLikeRepository.getPostsLikesCount(postIdxs);
+	}
+
 	@Override public Long getCommentLikesNumber(final Long commentIdx) {
 		return commentLikeRepository.countByCommentIdxAndRowStatus(commentIdx, RowStatus.U);
 	}
@@ -46,21 +51,5 @@ public class LikeReaderImpl implements LikeReader {
 	@Override public Optional<PostLike> getPostLikeById(final Post post, final Member member) {
 		return postLikeRepository.findById(new PostLikeId(post.getIdx(), member.getIdx()));
 	}
-
-	@Override
-	public Map<Long, Long> getLikeNumbers(List<Long> idxs, String redisKey) {
-		List<String> keys = idxs.stream().map(idx -> redisKey + idx).toList();
-		List<Object> values = redisTemplate.opsForValue().multiGet(keys);
-
-		HashMap<Long, Long> likes = new HashMap<>();
-		for (int i = 0; i < keys.size(); i++) {
-			likes.put(
-					idxs.get(i),
-					values.get(i) == null ? 0L : (Long) values.get(i)
-			);
-		}
-		return likes;
-	}
-
 
 }

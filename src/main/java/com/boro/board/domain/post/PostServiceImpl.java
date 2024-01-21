@@ -109,7 +109,6 @@ public class PostServiceImpl implements PostService {
 		final List<Comment> comments = commentReader.findCommentsSortedByPostIdx(postIdx);
 		final Map<Long, Long> commentLikes = likeReader.getCommentsLikesNumber(comments.stream().map(comment -> comment.getIdx()).toList());
 
-
 		List<CommentInfo.Detail> infos = new ArrayList<>();
 		Map<Long, CommentInfo.Detail> result = new HashMap<>();
 
@@ -129,16 +128,29 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public List<PostInfo.Main> findPosts(Integer page, String hashTag) {
+		// 페이징
 		PageRequest pageRequest = PageRequest.of(page, PAGE_SIZE);
 
+		// post 조회
 		Page<Post> posts = postReader.findPostsByHashTag(hashTag, pageRequest);
 
+		Map<Long, List<Main>> hashTags = new HashMap<>();
+		for (Post post : posts) {
+			List<Main> tags = post.getPostHashTags().stream()
+					.filter(postHashTag -> postHashTag.getRowStatus() == RowStatus.U)
+					.map(tag -> Main.toInfo(tag.getHashTag())).toList();
+			hashTags.put(post.getIdx(), tags);
+		}
+
+		// post Like 조회
 		List<Long> postIdxs = posts.stream().map(Post::getIdx).toList();
-		Map<Long, Long> likeNumbers = likeReader.getLikeNumbers(postIdxs, POST_LIKE_REDIS_KEY);
+		Map<Long, Long> likeNumbers = likeReader.getPostsLikesNumber(postIdxs);
 
 		return posts.stream()
 				.map(post -> PostInfo.Main.toInfo(post,
-						likeNumbers.get(post.getIdx())))
+						likeNumbers.get(post.getIdx()),
+						hashTags.get(post.getIdx()))
+				)
 				.toList();
 	}
 
